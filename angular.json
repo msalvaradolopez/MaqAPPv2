@@ -24,7 +24,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/bizlatino.css",
+              "src/assets/css/bizLatinoResp.css"
             ],
             "scripts": []
           },

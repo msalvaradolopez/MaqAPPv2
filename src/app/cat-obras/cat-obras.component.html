@@ -1,0 +1,27 @@
+<div class="seccion-titulo">
+  <div class="menu-catalogos">
+    <h1>Obras</h1>
+    <a class="boton-acciones" (click)="btnAgregar()">
+      <i class="fa-solid fa-circle-plus icono-lg"></i>
+      <span> &thinsp;Nuevo</span>
+    </a>
+  </div>
+  <hr />
+</div>
+<div class="seccion-principal">
+  <br />
+
+  <ul class="list-cards">
+    <li *ngFor="let item of _obrasList" class="card-item table-row">
+      <div class="letra1">
+        {{ item.Nombre }}
+      </div>
+
+      <div class="letra2">
+        {{ item.idObra }}
+      </div>
+    </li>
+  </ul>
+
+  <!--  <div class="item">Hola</div> -->
+</div>

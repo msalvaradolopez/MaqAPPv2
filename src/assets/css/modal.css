@@ -1,0 +1,91 @@
+.modal {
+    width: 100%;    
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+}
+
+.modal-container {
+    min-width: 30%;
+    max-width: 90%;
+    min-height: 30%;
+    max-height: calc(100vh - 130px); /* 100px is the height of the navbar */
+    padding: 10px;
+    margin: auto;
+
+    color: white;
+    background: linear-gradient(rgba(53, 53, 53, 0.671), rgba(114, 110, 110, 0.637));
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.774), 0 2px 10px rgba(0, 0, 0, 0.404);
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    line-height: 30px;
+
+    border-radius: 10px;
+    background-color: cornflowerblue;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.modal-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+}
+
+.modal-contenido {
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+    padding: 10px;
+    margin: auto;
+}
+
+.boton-regresar {
+    color: lightgrey;
+    
+    cursor: pointer;
+    text-decoration: none;  
+    transition: transform 0.2s;;
+    margin-right: 10px;
+  }
+
+.boton-regresar-x {
+    color: lightgrey;
+    
+    cursor: pointer;
+    text-decoration: none;  
+    transition: transform 0.2s;;
+}
+
+.boton-aceptar {  
+    color: lightgrey;
+
+    cursor: pointer;
+    text-decoration: none;  
+    transition: transform 0.2s;;
+}
+
+.boton-regresar:hover,
+.boton-aceptar:hover, 
+.boton-regresar-x:hover {
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px black;
+}
+
+.modal-footer {
+    margin-top: 10px;
+}
