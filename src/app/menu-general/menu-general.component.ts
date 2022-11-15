@@ -11,7 +11,7 @@ export class MenuGeneralComponent implements OnInit {
 
   _menuList: any = [
                     {idMenu: "Salir", Nombre: "Salir", Descripcion: "Opción para salir del sistema."},
-                    {idMenu: "catObras", Nombre: "Catálogo de Obras", Descripcion: "Permite ingresar y modificar los regisotrs de obras."},
+                    {idMenu: "catObras", Nombre: "Catálogo de Obras", Descripcion: "Permite ingresar y modificar los registros de obras."},
                     {idMenu: "catOperadores", Nombre: "Catálogo de Operadores", Descripcion: "Permite ingresar y modificar los registros para operadores."},
                     {idMenu: "catEquipos", Nombre: "Catálogo de Equipo/Maquinaria", Descripcion: "Permite ingresar y modificar los registros de Equipos y Maquinaria."}
                   ]

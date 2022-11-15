@@ -14,6 +14,9 @@ import { CatObrasDetComponent } from './cat-obras-det/cat-obras-det.component';
 import { MenuGeneralComponent } from './menu-general/menu-general.component';
 import { CatOperadoresComponent } from './cat-operadores/cat-operadores.component';
 import { CatEquiposComponent } from './cat-equipos/cat-equipos.component';
+import { CatOperadoresDetComponent } from './cat-operadores-det/cat-operadores-det.component';
+import { CatEquiposDetComponent } from './cat-equipos-det/cat-equipos-det.component';
+import { DocUbicacionesComponent } from './doc-ubicaciones/doc-ubicaciones.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { CatEquiposComponent } from './cat-equipos/cat-equipos.component';
     CatObrasDetComponent,
     MenuGeneralComponent,
     CatOperadoresComponent,
-    CatEquiposComponent
+    CatEquiposComponent,
+    CatOperadoresDetComponent,
+    CatEquiposDetComponent,
+    DocUbicacionesComponent
   ],
   imports: [
     BrowserModule,

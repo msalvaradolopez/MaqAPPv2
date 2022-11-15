@@ -23,7 +23,23 @@ export class CatOperadoresComponent implements OnInit, OnDestroy {
       this._servicios.wsGeneral("operadores/getOperadores", {claUN: "ALT"})
       .subscribe(resp => this._listado = resp
         , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar operadores.")
-        ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
+        ,() => this._listado = this._listado.map(x => {
+          if(x.estatus == "A")
+           x.estatusTexto = "Activo";
+          else
+           x.estatusTexto = "Baja"; 
+
+           if(x.categoria == "A")
+           x.categoriaTxt = "Administrador";
+
+           if(x.categoria == "S")
+           x.categoriaTxt = "Supervisor";
+
+           if(x.categoria == "O")
+           x.categoriaTxt = "Operador";
+           
+           return x;
+        }));
     }
 
     this._subBuscar = this._servicios.buscar$
@@ -40,17 +56,33 @@ export class CatOperadoresComponent implements OnInit, OnDestroy {
     this._router.navigate(["/catOperadoresDet"]);
   }
 
-  btnEditar(obraItem: any) {
+  btnEditar(Item: any) {
     sessionStorage.setItem("_listado", JSON.stringify(this._listado));
-    sessionStorage.setItem("Item", JSON.stringify(obraItem));
+    sessionStorage.setItem("Item", JSON.stringify(Item));
     this._router.navigate(["/catOperadoresDet"]);
   }
 
   listadoFiltrado(buscar: string) {
-    this._servicios.wsGeneral("operadores/getOperadores", {filtro: buscar})
+    this._servicios.wsGeneral("operadores/getOperadoresFiltro", {filtro: buscar})
     .subscribe(resp => this._listado = resp
       , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar operadores.")
-      ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
+      ,() => this._listado = this._listado.map(x => {
+        if(x.estatus == "A")
+         x.estatusTexto = "Activo";
+        else
+         x.estatusTexto = "Baja"; 
+
+         if(x.categoria == "A")
+         x.categoriaTxt = "Administrador";
+
+         if(x.categoria == "S")
+         x.categoriaTxt = "Supervisor";
+
+         if(x.categoria == "O")
+         x.categoriaTxt = "Operador";
+         
+         return x;
+      }));
   }
 
   ngOnDestroy(): void {
