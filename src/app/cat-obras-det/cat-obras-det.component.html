@@ -1,7 +1,7 @@
 <br />
 <div class="seccion-titulo">
   <div class="menu-catalogos">
-    <h1 class="colorBlanco">Obras</h1>
+    <h2 class="colorBlanco">Obras</h2>
     <div style="max-width: 350px; min-width: 100px">
       <a class="boton-regresar color-verde" (click)="btnRegresar()">
         <i class="fa-solid fa-house icono-xlg centrar-icono"></i>
@@ -25,8 +25,9 @@
         type="text"
         id="idObra"
         name="idObra"
-        class="inputClass"
+        [class]="_accion == 'N' ? 'inputClass' : 'inputReadOnlyClass'"
         [(ngModel)]="_obraItem.idObra"
+        [readonly]="_accion == 'N' ? false : true"
       />
       <label for="Nombre" class="labelInput">Nombre de la obra:</label>
       <input

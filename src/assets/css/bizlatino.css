@@ -333,12 +333,46 @@ tr:nth-child(2n){
   color: white; 
 }
 
+.boton-regresar {
+  
+  *background: red;
+  *border: 50% solid;
+  font: inherit;
+  line-height: 1;
+  margin: 5px;
+  *padding: 5px;
+  
+  *color: red;
+  
+  cursor: pointer;
+  text-decoration: none;  
+  transition: transform 0.2s;;
+}
+
+
 .boton-regresar:hover, :focus {
   cursor: pointer;
   transform: scale(1.03);
   *background: crimson;
   color: white; 
 }
+
+.boton-guardar {
+  
+  *background: red;
+  *border: 50% solid;
+  font: inherit;
+  line-height: 1;
+  margin: 5px;
+  *padding: 5px;
+  
+  *color: red;
+  
+  cursor: pointer;
+  text-decoration: none;  
+  transition: transform 0.2s;;
+}
+
 
 .boton-guardar:hover, :focus {
   cursor: pointer;
@@ -423,6 +457,19 @@ tr:nth-child(2n){
   margin: auto;
   color: black;
   padding: 5px;
+  background-color: white;
+}
+
+.inputReadOnlyClass {
+  width: 90%; 
+  border: 1px solid #ccc;
+  outline: 0;
+  border-radius: 15px;
+  height: 30px;
+  margin: auto;
+  color: rgb(212, 209, 209);
+  padding: 5px;
+  background-color:rgba(151, 1, 1, 0.644)
 }
 
 .labelInput{

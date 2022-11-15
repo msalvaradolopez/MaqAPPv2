@@ -23,6 +23,18 @@ export class CatObrasDetComponent implements OnInit {
   }
 
   btnGuardar() {
+
+    if(this._obraItem.idObra == "") {
+      this._toastr.error("Guardar obra.", "Falta Clave de la obra")
+      return
+    }
+
+    if(this._obraItem.Nombre == "") {
+      this._toastr.error("Guardar obra.", "Falta Nombre de la obra")
+      return
+    }
+      
+
     let lAccionRecurso: string = "obras/insObra"
 
     if(this._accion == "E")

@@ -11,13 +11,19 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { CatObrasComponent } from './cat-obras/cat-obras.component';
 import { CatObrasDetComponent } from './cat-obras-det/cat-obras-det.component';
+import { MenuGeneralComponent } from './menu-general/menu-general.component';
+import { CatOperadoresComponent } from './cat-operadores/cat-operadores.component';
+import { CatEquiposComponent } from './cat-equipos/cat-equipos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     CatObrasComponent,
-    CatObrasDetComponent
+    CatObrasDetComponent,
+    MenuGeneralComponent,
+    CatOperadoresComponent,
+    CatEquiposComponent
   ],
   imports: [
     BrowserModule,

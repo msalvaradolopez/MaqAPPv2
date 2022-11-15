@@ -1,7 +1,7 @@
 <br />
 <div class="seccion-titulo">
   <div class="menu-catalogos">
-    <h2 class="colorBlanco">Obras</h2>
+    <h2 class="colorBlanco">Operadores</h2>
     <a class="boton-acciones color-verde" (click)="btnAgregar()">
       <i class="fa-solid fa-plus icono-xlg centrar-icono"></i>
       <span class="textoBtn"> &thinsp;Nuevo</span>
@@ -14,7 +14,7 @@
 <div class="seccion-principal">
   <ul class="list-cards">
     <li
-      *ngFor="let item of _obrasList"
+      *ngFor="let item of _listado"
       class="card-item table-row"
       (click)="btnEditar(item)"
     >
@@ -22,7 +22,7 @@
         {{ item.Nombre }}
       </div>
 
-      <div class="letra2">{{ item.idObra }} * {{ item.estatusTexto }}</div>
+      <div class="letra2">{{ item.idOperador }} * {{ item.estatusTexto }}</div>
     </li>
   </ul>
 </div>

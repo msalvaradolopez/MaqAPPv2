@@ -41,7 +41,16 @@
   }
 
   .boton-acciones {
-    display: none;
+    display: block;
+    position: fixed;
+    right: 5%;
+    bottom: 10%;
+    width: 3.5rem;
+    height: 3.5rem;
+    margin: 1rem;
+    border-radius: 50%;
+    background-color: yellowgreen;
+    color: white;
   }
 
   .boton-guardar {
@@ -109,7 +118,7 @@
 @media only screen and (max-height: 500px){
   /* Add Your CSS Styling Here */
 
-  .button-plus {
+  .boton-acciones {
     display: none;
   }
 
