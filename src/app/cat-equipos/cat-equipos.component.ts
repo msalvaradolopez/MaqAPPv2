@@ -35,17 +35,17 @@ export class CatEquiposComponent implements OnInit, OnDestroy {
   btnAgregar() {
     sessionStorage.setItem("_listado", JSON.stringify(this._listado));
     sessionStorage.removeItem("Item");
-    this._router.navigate(["/catOperadoresDet"]);
+    this._router.navigate(["/catEquiposDet"]);
   }
 
   btnEditar(obraItem: any) {
     sessionStorage.setItem("_listado", JSON.stringify(this._listado));
     sessionStorage.setItem("Item", JSON.stringify(obraItem));
-    this._router.navigate(["/catOperadoresDet"]);
+    this._router.navigate(["/catEquiposDet"]);
   }
 
   listadoFiltrado(buscar: string) {
-    this._servicios.wsGeneral("maquinaria/getMaquinaria", {filtro: buscar})
+    this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {filtro: buscar})
     .subscribe(resp => this._listado = resp
       , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.")
       ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
