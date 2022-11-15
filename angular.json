@@ -26,7 +26,8 @@
             "styles": [
               "src/styles.css",
               "src/assets/css/bizlatino.css",
-              "src/assets/css/bizLatinoResp.css"
+              "src/assets/css/bizLatinoResp.css",
+              "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": []
           },

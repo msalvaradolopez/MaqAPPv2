@@ -1,16 +1,51 @@
+<br />
 <div class="seccion-titulo">
   <div class="menu-catalogos">
-    <h1>Obras</h1>
-    <a class="boton-acciones" (click)="btnGuardar()">
-      <i class="fa-solid fa-circle-plus icono-lg"></i>
-      <span> &thinsp;Guardar</span>
-    </a>
+    <h1 class="colorBlanco">Obras</h1>
+    <div style="max-width: 350px; min-width: 100px">
+      <a class="boton-regresar color-verde" (click)="btnRegresar()">
+        <i class="fa-solid fa-house icono-xlg centrar-icono"></i>
+        <span class="textoBtn"> &thinsp;Regresar</span>
+      </a>
+      <a class="boton-guardar color-verde" (click)="btnGuardar()">
+        <i class="fa-solid fa-floppy-disk icono-xlg centrar-icono"></i>
+        <span class="textoBtn"> &thinsp;Guardar</span>
+      </a>
+    </div>
   </div>
   <hr />
 </div>
-
+<br />
+<br />
 <div class="seccion-principal">
   <div class="capturaBackGround">
-    <input type="text" placeholder="Id Obra" />
+    <form class="formsClass" autocomplete="off">
+      <label for="idObra" class="labelInput">Clave de la obra:</label>
+      <input
+        type="text"
+        id="idObra"
+        name="idObra"
+        class="inputClass"
+        [(ngModel)]="_obraItem.idObra"
+      />
+      <label for="Nombre" class="labelInput">Nombre de la obra:</label>
+      <input
+        type="text"
+        id="Nombre"
+        name="Nombre"
+        class="inputClass"
+        [(ngModel)]="_obraItem.Nombre"
+      />
+      <label for="estatus" class="labelInput">Estatus:</label>
+      <select
+        name="dropdown"
+        id="estatus"
+        class="inputClass"
+        [(ngModel)]="_obraItem.estatus"
+      >
+        <option value="A" class="inputClass" selected>Activo</option>
+        <option value="B" class="inputClass">Baja</option>
+      </select>
+    </form>
   </div>
 </div>

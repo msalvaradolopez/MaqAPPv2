@@ -1,27 +1,34 @@
+<br />
 <div class="seccion-titulo">
   <div class="menu-catalogos">
-    <h1>Obras</h1>
-    <a class="boton-acciones" (click)="btnAgregar()">
-      <i class="fa-solid fa-circle-plus icono-lg"></i>
-      <span> &thinsp;Nuevo</span>
+    <h2 class="colorBlanco">Obras</h2>
+    <a class="boton-acciones color-verde" (click)="btnAgregar()">
+      <i class="fa-solid fa-circle-plus icono-xlg"></i>
+      <span class="textoBtn"> &thinsp;Nuevo</span>
     </a>
   </div>
   <hr />
 </div>
+<br />
+<br />
 <div class="seccion-principal">
-  <br />
-
   <ul class="list-cards">
-    <li *ngFor="let item of _obrasList" class="card-item table-row">
+    <li
+      *ngFor="let item of _obrasList"
+      class="card-item table-row"
+      (click)="btnEditar(item)"
+    >
       <div class="letra1">
         {{ item.Nombre }}
       </div>
 
-      <div class="letra2">
-        {{ item.idObra }}
-      </div>
+      <div class="letra2">{{ item.idObra }} * {{ item.estatusTexto }}</div>
     </li>
   </ul>
 
   <!--  <div class="item">Hola</div> -->
 </div>
+
+<a class="button-plus color-verde" (click)="btnAgregar()">
+  <i class="fa-solid fa-plus icono-xlg centrar-icono"></i>
+</a>

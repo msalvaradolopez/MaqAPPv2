@@ -9,6 +9,9 @@ import { environment } from '../environments/environment';
 export class ServiciosService {
   apiURL: string = environment.apiURL;
 
+  private _buscar = new Subject<string>();
+  buscar$ = this._buscar.asObservable();
+
   constructor(private _http: HttpClient) { }
 
   wsGeneral(ws: string, param: any): Observable<any> {
@@ -17,5 +20,9 @@ export class ServiciosService {
     headers=headers.append('content-type','application/json')
     headers=headers.append('Access-Control-Allow-Origin', '*')
     return this._http.post(this.apiURL + "/" + ws, param, { 'headers': headers });
+  }
+
+  buscar(buscar: string) {
+    this._buscar.next(buscar);
   }
 }
