@@ -21,7 +21,7 @@ export class CatEquiposComponent implements OnInit, OnDestroy {
       this._listado = JSON.parse(sessionStorage.getItem("_listado"));
     else {
       this._servicios.wsGeneral("maquinaria/getMaquinaria", {claUN: "ALT"})
-      .subscribe(resp => this._listado = resp
+      .subscribe(resp => {this._listado = resp; console.log(this._listado);}
         , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.")
         ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
     }

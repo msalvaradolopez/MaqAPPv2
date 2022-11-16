@@ -1,1 +1,28 @@
-<p>doc-ubicaciones works!</p>
+<br />
+<div class="seccion-titulo">
+  <div class="menu-catalogos">
+    <h2 class="colorBlanco">Ubicaciones</h2>
+    <a class="boton-acciones color-verde" (click)="btnAgregar()">
+      <i class="fa-solid fa-plus icono-xlg centrar-icono"></i>
+      <span class="textoBtn"> &thinsp;Nuevo</span>
+    </a>
+  </div>
+  <hr />
+</div>
+<br />
+<br />
+<div class="seccion-principal">
+  <ul class="list-cards">
+    <li
+      *ngFor="let item of _listado"
+      class="card-item table-row"
+      (click)="btnEditar(item)"
+    >
+      <div class="letra1">[ {{ item.idEconomico }} ] {{ item.equipoNom }}</div>
+
+      <div class="letra2">
+        {{ item.obraNom }} * {{ item.operadorNom }} * {{ item.fecha_alta | date:'mediumDate'}}
+      </div>
+    </li>
+  </ul>
+</div>
