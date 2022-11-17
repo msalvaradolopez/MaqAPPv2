@@ -2,28 +2,43 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ServiciosService } from '../servicios.service';
+import { srvUtileriasService } from '../srvUtilerias.service';
 import { ToastrService } from 'ngx-toastr';
-
+import { IFiltros } from '../Ifiltros';
+declare var $: any;
 
 @Component({
   selector: 'app-doc-ubicaciones',
   templateUrl: './doc-ubicaciones.component.html',
   styleUrls: ['./doc-ubicaciones.component.css']
 })
-export class DocUbicacionesComponent implements OnInit {
+export class DocUbicacionesComponent implements OnInit, OnDestroy {
 
   _listado: any [] = [];
+  _fecha: string = "";
+  _filtros: IFiltros = {idUbicacion: null, idEconomico: null, idObra: null, idOperador: null, fecha_alta : null, fecha: null, filtro: null};
   _subBuscar: Subscription;
 
-  constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService) { }
+  constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService, private _svrUtilierias: srvUtileriasService) { }
 
   ngOnInit(): void {
+
+    if(sessionStorage.getItem("Filtros")){
+      this._filtros = JSON.parse(sessionStorage.getItem("Filtros"));
+      this._fecha = this._filtros.fecha;
+    } 
+    else {
+      this._fecha = this._svrUtilierias.convertDateToString(new Date());
+      this._filtros.fecha = this._fecha;
+    }
+
+    console.log("Ubicaciones" , this._filtros);
+
     if(sessionStorage.getItem("_listado"))
       this._listado = JSON.parse(sessionStorage.getItem("_listado"));
     else {
-      let _fecha_alta: Date = new Date(2022, 10, 15);
-      console.log(_fecha_alta);
-      this._servicios.wsGeneral("ubicaciones/getUbicacionesFiltro", {fecha_alta: _fecha_alta})
+      this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+      this._servicios.wsGeneral("ubicaciones/getUbicacionesFiltro", this._filtros)
       .subscribe(resp => this._listado = resp
         , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar ubicaciones.")
         ,() => this._listado = this._listado.map(x => {
@@ -57,8 +72,13 @@ export class DocUbicacionesComponent implements OnInit {
     this._router.navigate(["/catOperadoresDet"]);
   }
 
+  btnFiltros() {
+    this._router.navigate(["/filtros"]);
+  }
+
   listadoFiltrado(buscar: string) {
-    this._servicios.wsGeneral("ubicaciones/getUbicacionesFiltro", {filtro: buscar})
+    this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+    this._servicios.wsGeneral("ubicaciones/getUbicacionesFiltro", this._filtros)
     .subscribe(resp => this._listado = resp
       , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar ubicaciones.")
       ,() => this._listado = this._listado.map(x => {

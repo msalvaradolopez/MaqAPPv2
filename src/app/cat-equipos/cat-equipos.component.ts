@@ -17,11 +17,12 @@ export class CatEquiposComponent implements OnInit, OnDestroy {
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
+
     if(sessionStorage.getItem("_listado"))
       this._listado = JSON.parse(sessionStorage.getItem("_listado"));
     else {
       this._servicios.wsGeneral("maquinaria/getMaquinaria", {claUN: "ALT"})
-      .subscribe(resp => {this._listado = resp; console.log(this._listado);}
+      .subscribe(resp => {this._listado = resp}
         , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.")
         ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
     }

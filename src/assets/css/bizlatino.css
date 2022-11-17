@@ -17,7 +17,10 @@ body {
   height: -webkit-fill-available;
   scroll-behavior: smooth !important;
   font-family: Roboto;
-  background: linear-gradient(rgb(158, 0, 0), rgba(56, 1, 1, 0.986));
+  *background: linear-gradient( rgb(158, 0, 0), rgba(56, 1, 1, 0.986));
+  
+  background-image: linear-gradient(to bottom right, #f13232, #5f0202);
+
  /* background-image: url("../../assets/img/wereHouse.jpg"); */
   background-size: cover;
   
@@ -311,19 +314,14 @@ tr:nth-child(2n){
 }
 
 .boton-acciones {
-  
-  *background: red;
-  *border: 50% solid;
   font: inherit;
   line-height: 1;
   margin: 5px;
-  *padding: 5px;
-  
-  *color: red;
   
   cursor: pointer;
   text-decoration: none;  
   transition: transform 0.2s;;
+  color: greenyellow;
 }
 
 .boton-acciones:hover, :focus {
@@ -334,19 +332,14 @@ tr:nth-child(2n){
 }
 
 .boton-regresar {
-  
-  *background: red;
-  *border: 50% solid;
   font: inherit;
   line-height: 1;
   margin: 5px;
-  *padding: 5px;
-  
-  *color: red;
   
   cursor: pointer;
   text-decoration: none;  
   transition: transform 0.2s;;
+  color: greenyellow;
 }
 
 
@@ -358,23 +351,36 @@ tr:nth-child(2n){
 }
 
 .boton-guardar {
-  
-  *background: red;
-  *border: 50% solid;
   font: inherit;
   line-height: 1;
   margin: 5px;
-  *padding: 5px;
-  
-  *color: red;
   
   cursor: pointer;
   text-decoration: none;  
   transition: transform 0.2s;;
+  color: greenyellow;
 }
 
 
 .boton-guardar:hover, :focus {
+  cursor: pointer;
+  transform: scale(1.03);
+  *background: crimson;
+  color: white; 
+}
+
+.boton-filtros {
+  font: inherit;
+  line-height: 1;
+  margin: 5px;
+  
+  cursor: pointer;
+  text-decoration: none;  
+  transition: transform 0.2s;;
+  color: greenyellow;
+}
+
+.boton-filtros:hover, :focus {
   cursor: pointer;
   transform: scale(1.03);
   *background: crimson;
@@ -397,7 +403,7 @@ tr:nth-child(2n){
   *height: 60px;
   padding-top: 5px;
   padding-left: 5px;
-  background-color: rgba(255, 5, 5, 0.774);
+  *background-color: #5f0202;
   border-radius: 10px;
   font-size: x-large;
   color: white;
@@ -406,6 +412,7 @@ tr:nth-child(2n){
   flex-direction: column;
   align-items: flex-start;
   margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
 
 
@@ -427,7 +434,7 @@ tr:nth-child(2n){
   *height: 60px;
   padding-top: 5px;
   padding-left: 5px;
-  background-color: rgba(255, 5, 5, 0.774);
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   border-radius: 10px;
   font-size: x-large;
   color: white;
@@ -518,5 +525,21 @@ tr:nth-child(2n){
 }
 
 .button-plus {
+  display: none;
+}
+
+.claendario {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 10px;
+  height: 30px;
+}
+
+.icono-plus{
   display: none;
 }

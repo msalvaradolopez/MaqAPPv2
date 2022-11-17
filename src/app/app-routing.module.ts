@@ -7,6 +7,7 @@ import { CatObrasComponent } from './cat-obras/cat-obras.component';
 import { CatOperadoresDetComponent } from './cat-operadores-det/cat-operadores-det.component';
 import { CatOperadoresComponent } from './cat-operadores/cat-operadores.component';
 import { DocUbicacionesComponent } from './doc-ubicaciones/doc-ubicaciones.component';
+import { FiltrosComponent } from './filtros/filtros.component';
 import { MenuGeneralComponent } from './menu-general/menu-general.component';
 
 
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path: "catOperadoresDet", component: CatOperadoresDetComponent},
   {path: "catEquipos", component: CatEquiposComponent},
   {path: "catEquiposDet", component: CatEquiposDetComponent},
-  {path: "docUbicaciones", component: DocUbicacionesComponent}
+  {path: "docUbicaciones", component: DocUbicacionesComponent},
+  {path: "filtros", component: FiltrosComponent}
 ];
 
 @NgModule({

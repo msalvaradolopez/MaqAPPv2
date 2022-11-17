@@ -19,8 +19,6 @@ export class CatEquiposDetComponent implements OnInit {
       this._item = JSON.parse(sessionStorage.getItem("Item"));
     else
       this._accion = "N";
-
-      console.log(this._item);
   }
 
   btnGuardar() {
