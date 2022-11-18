@@ -27,10 +27,10 @@
       class="card-item table-row"
       (click)="btnEditar(item)"
     >
-      <div class="letra1">[ {{ item.idEconomico }} ] {{ item.equipoNom }}</div>
+      <div class="letra1"> {{ item.idEconomico }} | {{ item.equipoNom }}</div>
 
       <div class="letra2">
-        {{ item.obraNom }} * {{ item.operadorNom }} *
+        {{ item.obraNom }} | {{ item.operadorNom }} |
         {{ item.fecha_alta | date: "mediumDate" }}
       </div>
     </li>

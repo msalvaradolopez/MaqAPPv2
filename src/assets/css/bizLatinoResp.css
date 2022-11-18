@@ -49,8 +49,10 @@
     height: 3.5rem;
     margin: 1rem;
     *border-radius: 50%;
-    background-image: linear-gradient(to bottom right, #25ffa1, #076e41);
-    color: white;
+    *background-image: linear-gradient(to bottom right, #25ffa1, #076e41);
+    background: greenyellow;
+    *color: white;
+    color: #50597b;
 
     border: solid 1px #555;
     box-shadow: 0 0 98px 6px rgba(0, 0, 0, 0.2);
@@ -69,8 +71,9 @@
     height: 3.5rem;
     margin: 1rem;
     *border-radius: 50%;
-    background-image: linear-gradient(to bottom right, #25ffa1, #076e41);
-    color: white;
+    *background-image: linear-gradient(to bottom right, #25ffa1, #076e41);
+    background: greenyellow;
+    color: #50597b;
 
     border: solid 1px #555;
     box-shadow: 0 0 98px 6px rgba(0, 0, 0, 0.2);
@@ -89,8 +92,9 @@
     height: 3.5rem;
     margin: 1rem;
     *border-radius: 50%;
-    background-image: linear-gradient(to bottom right, #25ffa1, #076e41);
-    color: white;
+    *background-image: linear-gradient(to bottom right, #25ffa1, #076e41);
+    background: greenyellow;
+    color: #50597b;
 
     border: solid 1px #555;
     box-shadow: 0 0 98px 6px rgba(0, 0, 0, 0.2);
@@ -109,8 +113,9 @@
     height: 3.5rem;
     margin: 1rem;
     *border-radius: 50%;
-    background-image: linear-gradient(to bottom right, #25ffa1, #076e41);
-    color: white;
+    *background-image: linear-gradient(to bottom right, #25ffa1, #076e41);
+    background: greenyellow;
+    color: #50597b;
 
     border: solid 1px #555;
     box-shadow: 0 0 98px 6px rgba(0, 0, 0, 0.2);
