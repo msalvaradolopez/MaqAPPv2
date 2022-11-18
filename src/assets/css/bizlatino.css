@@ -474,9 +474,9 @@ tr:nth-child(2n){
   border-radius: 15px;
   height: 30px;
   margin: auto;
-  color: rgb(212, 209, 209);
+  color: rgb(61, 59, 59);
   padding: 5px;
-  background-color:rgba(151, 1, 1, 0.644)
+  background-color: lightgray
 }
 
 .labelInput{

@@ -16,7 +16,7 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
 
   _listado: any [] = [];
   _fecha: string = "";
-  _filtros: IFiltros = {idUbicacion: null, idEconomico: null, idObra: null, idOperador: null, fecha_alta : null, fecha: null, filtro: null};
+  _filtros: IFiltros = {idUbicacion: null, idEconomico: null, idObra: null, idOperador: null, fecha_alta : null, fecha: null, filtro: ""};
   _subBuscar: Subscription;
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService, private _svrUtilierias: srvUtileriasService) { }
@@ -78,6 +78,8 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
 
   listadoFiltrado(buscar: string) {
     this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+    this._filtros.filtro = buscar;
+
     this._servicios.wsGeneral("ubicaciones/getUbicacionesFiltro", this._filtros)
     .subscribe(resp => this._listado = resp
       , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar ubicaciones.")

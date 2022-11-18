@@ -23,7 +23,7 @@
       <label for="clave" class="labelInput">Fecha de consulta</label>
       <input
         type="text"
-        class="inputClass"
+        class="inputReadOnlyClass"
         [(ngModel)]="_fecha"
         [value]="_fecha"
         name="_fecha"
@@ -31,8 +31,20 @@
         readonly="true"
       />
 
-      <label for="Nombre" class="labelInput">Filtrar por equipo</label>
-      <input type="text" id="Nombre" name="Nombre" class="inputClass" />
+      <label for="equipo" class="labelInput">Filtrar por equipo</label>
+      <input
+        type="text"
+        id="Nombre"
+        name="Nombre"
+        class="inputClass"
+        [(ngModel)]="_idEquipo"
+        list="equipos"
+      />
+      <datalist id="equipos">
+        <option *ngFor="let item of _equiposList">
+          {{ item.idEconomico }} | {{ item.Tipo }}
+        </option>
+      </datalist>
 
       <label for="Nombre" class="labelInput">Filtrar por obra</label>
       <input type="text" id="Nombre" name="Nombre" class="inputClass" />
