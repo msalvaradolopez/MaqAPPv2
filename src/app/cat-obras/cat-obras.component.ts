@@ -47,7 +47,7 @@ export class CatObrasComponent implements OnInit, OnDestroy {
   }
 
   listadoObrasFiltrados(buscar: string) {
-    this._servicios.wsGeneral("obras/getObrasFiltro", {filtro: buscar})
+    this._servicios.wsGeneral("obras/getObrasFiltro", {buscar: buscar, estatus: "0"})
     .subscribe(resp => this._obrasList = resp
       , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar obras.")
       ,() => this._obrasList = this._obrasList.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));

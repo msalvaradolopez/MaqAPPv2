@@ -16,7 +16,11 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
 
   _fecha: string = "          ";
   _idEquipo: string = "";
+  _idObra: string = "";
+  _idOperador: string = "";
   _equiposList: any[] = [];
+  _obrasList: any[] = [];
+  _operadoresList: any[] = [];
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService, private _svrUtilierias: srvUtileriasService) { }
 
@@ -26,22 +30,42 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
     this._fecha = this._svrUtilierias.convertDateToString(new Date());
     console.log("init", this._fecha);
 
-    this._servicios.wsGeneral("maquinaria/getMaquinaria", {claUN: "ALT"})
+    this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {buscar:"", estatus: "A"})
       .subscribe(resp => {this._equiposList = resp}
         , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.")
         ,() => this._equiposList = this._equiposList.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
+
+    this._servicios.wsGeneral("obras/getObrasFiltro", {buscar: "", estatus: "A"})
+    .subscribe(resp => {this._obrasList = resp}
+      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar obras.")
+      ,() => this._obrasList = this._obrasList.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
+
+    this._servicios.wsGeneral("operadores/getOperadoresFiltro", {buscar: "", estatus: "A"})
+    .subscribe(resp => {this._operadoresList = resp}
+      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar obras.")
+      ,() => this._operadoresList = this._operadoresList.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
   }
 
 
   btnGuardar() {
 
-    let filtros: IFiltros = {idUbicacion: null, idEconomico: null, idObra: null, idOperador: null, fecha_alta : null, filtro: "", fecha: null};
+    let filtros: IFiltros = {idUbicacion: null, idEconomico: null, idObra: null, idOperador: null, fecha_alta : null, buscar: "", fecha: null, estatus: "A"};
 
 
     // OBTENER ID DEL TEXTO INPUT
     if(this._idEquipo) {
       var item = this._idEquipo.split("|");
       filtros.idEconomico = item[0].trim();
+    }
+
+    if(this._idOperador) {
+      var item = this._idOperador.split("|");
+      filtros.idOperador = item[0].trim();
+    }
+
+    if(this._idObra) {
+      var item = this._idObra.split("|");
+      filtros.idObra = item[0].trim();
     }
     
     

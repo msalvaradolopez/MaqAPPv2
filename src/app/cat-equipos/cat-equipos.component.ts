@@ -46,7 +46,7 @@ export class CatEquiposComponent implements OnInit, OnDestroy {
   }
 
   listadoFiltrado(buscar: string) {
-    this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {filtro: buscar})
+    this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {buscar: buscar, estatus: "0"})
     .subscribe(resp => this._listado = resp
       , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.")
       ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));

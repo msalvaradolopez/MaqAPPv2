@@ -34,8 +34,8 @@
       <label for="equipo" class="labelInput">Filtrar por equipo</label>
       <input
         type="text"
-        id="Nombre"
-        name="Nombre"
+        id="equipo"
+        name="equipo"
         class="inputClass"
         [(ngModel)]="_idEquipo"
         list="equipos"
@@ -46,11 +46,35 @@
         </option>
       </datalist>
 
-      <label for="Nombre" class="labelInput">Filtrar por obra</label>
-      <input type="text" id="Nombre" name="Nombre" class="inputClass" />
+      <label for="obra" class="labelInput">Filtrar por obra</label>
+      <input
+        type="text"
+        id="obra"
+        name="obra"
+        class="inputClass"
+        [(ngModel)]="_idObra"
+        list="obras"
+      />
+      <datalist id="obras">
+        <option *ngFor="let item of _obrasList">
+          {{ item.idObra }} | {{ item.Nombre }}
+        </option>
+      </datalist>
 
-      <label for="Nombre" class="labelInput">Filtrar por operador</label>
-      <input type="text" id="Nombre" name="Nombre" class="inputClass" />
+      <label for="operador" class="labelInput">Filtrar por operador</label>
+      <input
+        type="text"
+        id="operador"
+        name="operador"
+        class="inputClass"
+        [(ngModel)]="_idOperador"
+        list="operadores"
+      />
+      <datalist id="operadores">
+        <option *ngFor="let item of _operadoresList">
+          {{ item.idOperador }} | {{ item.Nombre }}
+        </option>
+      </datalist>
     </form>
   </div>
 </div>

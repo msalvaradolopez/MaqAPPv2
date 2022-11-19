@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   constructor(private _router: Router, private _query: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this._router.navigate(["/menuGeneral"]);
+    this._router.navigate(["/login"]);
   }
   
 }

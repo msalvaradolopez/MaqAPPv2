@@ -22,8 +22,8 @@
   }
 
   .card-item {
-    max-width: 85%;
-    min-width: 85%;
+    max-width: 95%;
+    min-width: 95%;
   }
 
   .capturaBackGround {
@@ -154,19 +154,11 @@
   .icono-plus {
     display: block;
   }
-}
 
+  .login-input, .login-button {
+    width: 95%; 
+  }
 
-/* Tablets (portrait) -------------------- */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
-  /* Add Your CSS Styling Here */
-  
-}
-
-/* Tablets (landscape) ------------------- */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: landscape) {
-  /* Add Your CSS Styling Here */
-  
 }
 
 @media only screen and (max-height: 500px){

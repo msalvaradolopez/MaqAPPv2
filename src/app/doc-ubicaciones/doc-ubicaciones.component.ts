@@ -16,7 +16,7 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
 
   _listado: any [] = [];
   _fecha: string = "";
-  _filtros: IFiltros = {idUbicacion: null, idEconomico: null, idObra: null, idOperador: null, fecha_alta : null, fecha: null, filtro: ""};
+  _filtros: IFiltros = {idUbicacion: null, idEconomico: null, idObra: null, idOperador: null, fecha_alta : null, fecha: null, estatus: "A", buscar: ""};
   _subBuscar: Subscription;
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService, private _svrUtilierias: srvUtileriasService) { }
@@ -63,13 +63,13 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
   btnAgregar() {
     sessionStorage.setItem("_listado", JSON.stringify(this._listado));
     sessionStorage.removeItem("Item");
-    this._router.navigate(["/catOperadoresDet"]);
+    this._router.navigate(["/docUbicacionesDet"]);
   }
 
   btnEditar(Item: any) {
     sessionStorage.setItem("_listado", JSON.stringify(this._listado));
     sessionStorage.setItem("Item", JSON.stringify(Item));
-    this._router.navigate(["/catOperadoresDet"]);
+    this._router.navigate(["/docUbicacionesDet"]);
   }
 
   btnFiltros() {
@@ -78,7 +78,7 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
 
   listadoFiltrado(buscar: string) {
     this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
-    this._filtros.filtro = buscar;
+    this._filtros.buscar = buscar;
 
     this._servicios.wsGeneral("ubicaciones/getUbicacionesFiltro", this._filtros)
     .subscribe(resp => this._listado = resp

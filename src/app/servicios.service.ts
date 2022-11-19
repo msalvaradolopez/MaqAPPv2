@@ -12,6 +12,9 @@ export class ServiciosService {
   private _buscar = new Subject<string>();
   buscar$ = this._buscar.asObservable();
 
+  private _header = new Subject<boolean>();
+  header$ = this._header.asObservable();
+
   constructor(private _http: HttpClient) { }
 
   wsGeneral(ws: string, param: any): Observable<any> {
@@ -25,4 +28,10 @@ export class ServiciosService {
   buscar(buscar: string) {
     this._buscar.next(buscar);
   }
+
+  headerSiNo(headerSiNo: boolean){
+    this._header.next(headerSiNo);
+  }
+
+  
 }

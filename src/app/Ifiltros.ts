@@ -4,6 +4,7 @@ export interface IFiltros {
     idOperador: string;
     idObra: string;
     fecha_alta: Date;
+    estatus: string;
     fecha: string;
-    filtro: string;
+    buscar: string;
 }

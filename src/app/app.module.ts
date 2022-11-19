@@ -18,6 +18,8 @@ import { CatOperadoresDetComponent } from './cat-operadores-det/cat-operadores-d
 import { CatEquiposDetComponent } from './cat-equipos-det/cat-equipos-det.component';
 import { DocUbicacionesComponent } from './doc-ubicaciones/doc-ubicaciones.component';
 import { FiltrosComponent } from './filtros/filtros.component';
+import { LoginComponent } from './login/login.component';
+import { DocUbicacionesDetComponent } from './doc-ubicaciones-det/doc-ubicaciones-det.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { FiltrosComponent } from './filtros/filtros.component';
     CatOperadoresDetComponent,
     CatEquiposDetComponent,
     DocUbicacionesComponent,
-    FiltrosComponent
+    FiltrosComponent,
+    LoginComponent,
+    DocUbicacionesDetComponent
   ],
   imports: [
     BrowserModule,

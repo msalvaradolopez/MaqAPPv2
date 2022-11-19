@@ -63,7 +63,7 @@ export class CatOperadoresComponent implements OnInit, OnDestroy {
   }
 
   listadoFiltrado(buscar: string) {
-    this._servicios.wsGeneral("operadores/getOperadoresFiltro", {filtro: buscar})
+    this._servicios.wsGeneral("operadores/getOperadoresFiltro", {buscar: buscar, estatus: "0"})
     .subscribe(resp => this._listado = resp
       , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar operadores.")
       ,() => this._listado = this._listado.map(x => {

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ServiciosService } from '../servicios.service';
 import { Router } from '@angular/router';
 
@@ -7,11 +8,16 @@ import { Router } from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+
+  _headerSiNo: boolean = false;
+  _subServicio: Subscription;
 
   constructor(private _servicios: ServiciosService, private _router: Router) { }
 
   ngOnInit(): void {
+    this._subServicio = this._servicios.header$
+    .subscribe(resp => this._headerSiNo = resp);
   }
 
   onKeypressEvent(event: any){
@@ -23,6 +29,10 @@ export class HeaderComponent implements OnInit {
 
   btnAccion() {
     this._router.navigate(["/menuGeneral"]);
+  }
+
+  ngOnDestroy(): void {
+    this._subServicio.unsubscribe();
   }
 
 }
