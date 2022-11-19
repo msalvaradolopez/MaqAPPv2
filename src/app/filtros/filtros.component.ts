@@ -26,9 +26,9 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     sessionStorage.removeItem("Filtros");
+    sessionStorage.removeItem("_listado");
 
     this._fecha = this._svrUtilierias.convertDateToString(new Date());
-    console.log("init", this._fecha);
 
     this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {buscar:"", estatus: "A"})
       .subscribe(resp => {this._equiposList = resp}

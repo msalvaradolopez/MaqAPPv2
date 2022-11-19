@@ -1,7 +1,7 @@
 <br />
 <div class="seccion-titulo">
   <div class="menu-catalogos">
-    <h2 class="colorBlanco">Ubicacion : {{ _accionTxt }}</h2>
+    <h2 class="colorBlanco">Ubicación : {{ _accionTxt }}</h2>
     <div style="max-width: 350px; min-width: 100px">
       <a class="boton-regresar color-verde" (click)="btnRegresar()">
         <i class="fa-solid fa-house icono-xlg centrar-icono"></i>
@@ -20,34 +20,112 @@
 <div class="seccion-principal">
   <div class="capturaBackGround">
     <form class="formsClass" autocomplete="off">
-      <label for="idObra" class="labelInput">Equipo</label>
-      <input type="text" id="idObra" name="idObra" class="inputClass" />
+      <label for="equipo" class="labelInput">Equipo</label>
+      <input
+        type="text"
+        id="equipo"
+        name="equipo"
+        class="inputClass"
+        [(ngModel)]="_idEquipo"
+        list="equipos"
+      />
+      <datalist id="equipos">
+        <option *ngFor="let item of _equiposList">
+          {{ item.idEconomico }} | {{ item.Tipo }}
+        </option>
+      </datalist>
 
-      <label for="Nombre" class="labelInput">Obra</label>
-      <input type="text" id="Nombre" name="Nombre" class="inputClass" />
+      <label for="obra" class="labelInput">Obra</label>
+      <input
+        type="text"
+        id="obra"
+        name="obra"
+        class="inputClass"
+        [(ngModel)]="_idObra"
+        list="obras"
+      />
+      <datalist id="obras">
+        <option *ngFor="let item of _obrasList">
+          {{ item.idObra }} | {{ item.Nombre }}
+        </option>
+      </datalist>
 
-      <label for="Nombre" class="labelInput">Operador</label>
-      <input type="text" id="Nombre" name="Nombre" class="inputClass" />
+      <label for="operador" class="labelInput">Operador</label>
+      <input
+        type="text"
+        id="operador"
+        name="operador"
+        class="inputClass"
+        [(ngModel)]="_idOperador"
+        list="operadores"
+      />
+      <datalist id="operadores">
+        <option *ngFor="let item of _operadoresList">
+          {{ item.idOperador }} | {{ item.Nombre }}
+        </option>
+      </datalist>
 
       <label for="Nombre" class="labelInput">Fecha</label>
-      <input type="text" id="Nombre" name="Nombre" class="inputClass" />
+      <input
+        type="text"
+        class="inputReadOnlyClass"
+        [(ngModel)]="_fecha"
+        [value]="_fecha"
+        name="_fecha"
+        id="datepicker"
+        readonly="true"
+      />
 
-      <label for="Nombre" class="labelInput">Comentarios</label>
-      <input type="text" id="Nombre" name="Nombre" class="inputClass" />
-
-      <label for="Nombre" class="labelInput">Odometro</label>
-      <input type="text" id="Nombre" name="Nombre" class="inputClass" />
-
-      <label for="Nombre" class="labelInput">Sello</label>
-      <input type="text" id="Nombre" name="Nombre" class="inputClass" />
-
-      <label for="Nombre" class="labelInput">Listros</label>
-      <input type="text" id="Nombre" name="Nombre" class="inputClass" />
-
-      <label for="Nombre" class="labelInput">Horometro</label>
-      <input type="text" id="Nombre" name="Nombre" class="inputClass" />
+      <label for="odometro" class="labelInput">Odómetro</label>
+      <input
+        type="text"
+        id="comentarios"
+        name="odometro"
+        class="inputClass"
+        [(ngModel)]="_Item.odometro"
+      />
+      
+      <label for="comentarios" class="labelInput">Comentarios</label>
+      <input
+        type="text"
+        id="comentarios"
+        name="comentarios"
+        class="inputClass"
+        [(ngModel)]="_Item.comentarios"
+      />
 
       
+    </form>
+  </div>
+  <br />
+  <div class="capturaBackGround">
+    <form class="formsClass" autocomplete="off">
+      <label for="sello" class="labelInput">Sello</label>
+      <input
+        type="text"
+        id="sello"
+        name="sello"
+        class="inputClass"
+        [(ngModel)]="_Item.sello"
+      />
+
+      <label for="litros" class="labelInput">Litros</label>
+      <input
+        type="text"
+        id="litros"
+        name="listros"
+        class="inputClass"
+        [(ngModel)]="_Item.litros"
+      />
+
+      <label for="horometro" class="labelInput">Horómetro</label>
+      <input
+        type="text"
+        id="horometro"
+        name="horometro"
+        class="inputClass"
+        [(ngModel)]="_Item.horometro"
+      />
     </form>
   </div>
 </div>

@@ -23,6 +23,9 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+    if(sessionStorage.getItem("Item"))
+      sessionStorage.removeItem("_listado")
+
     if(sessionStorage.getItem("Filtros")){
       this._filtros = JSON.parse(sessionStorage.getItem("Filtros"));
       this._fecha = this._filtros.fecha;
@@ -31,8 +34,6 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
       this._fecha = this._svrUtilierias.convertDateToString(new Date());
       this._filtros.fecha = this._fecha;
     }
-
-    console.log("Ubicaciones" , this._filtros);
 
     if(sessionStorage.getItem("_listado"))
       this._listado = JSON.parse(sessionStorage.getItem("_listado"));

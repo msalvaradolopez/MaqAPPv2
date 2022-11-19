@@ -11,11 +11,13 @@ import { ServiciosService } from '../servicios.service';
 export class MenuGeneralComponent implements OnInit {
 
   _menuList: any = [
-                    {idMenu: "login", Nombre: "Salir", Descripcion: "Opción para salir del sistema."},
-                    {idMenu: "docUbicaciones", Nombre: "Registro de ubicaciones", Descripcion: "Permite ingresar la ubicación, comentarios, litros, horometro, odometro de Equipos y Maquinaria."},
-                    {idMenu: "catObras", Nombre: "Catálogo de Obras", Descripcion: "Permite ingresar y modificar los registros de obras."},
-                    {idMenu: "catOperadores", Nombre: "Catálogo de Operadores", Descripcion: "Permite ingresar y modificar los registros para operadores."},
-                    {idMenu: "catEquipos", Nombre: "Catálogo de Equipo/Maquinaria", Descripcion: "Permite ingresar y modificar los registros de Equipos y Maquinaria."}
+                    {categoria: "S", idMenu: "login", Nombre: "Salir", Descripcion: "Opción para salir del sistema."},
+                    {categoria: "A", idMenu: "login", Nombre: "Salir", Descripcion: "Opción para salir del sistema."},
+                    {categoria: "S", idMenu: "docUbicaciones", Nombre: "Registro de ubicaciones", Descripcion: "Permite ingresar la ubicación, comentarios, litros, horometro, odometro de Equipos y Maquinaria."},
+                    {categoria: "A", idMenu: "docUbicaciones", Nombre: "Registro de ubicaciones", Descripcion: "Permite ingresar la ubicación, comentarios, litros, horometro, odometro de Equipos y Maquinaria."},
+                    {categoria: "A", idMenu: "catObras", Nombre: "Catálogo de Obras", Descripcion: "Permite ingresar y modificar los registros de obras."},
+                    {categoria: "A", idMenu: "catOperadores", Nombre: "Catálogo de Operadores", Descripcion: "Permite ingresar y modificar los registros para operadores."},
+                    {categoria: "A", idMenu: "catEquipos", Nombre: "Catálogo de Equipo/Maquinaria", Descripcion: "Permite ingresar y modificar los registros de Equipos y Maquinaria."}
 
                     
                   ]
@@ -23,6 +25,8 @@ export class MenuGeneralComponent implements OnInit {
   constructor(private _router: Router, private _query: ActivatedRoute, private _servicios: ServiciosService) {}
 
   ngOnInit(): void {
+    var _categoria = sessionStorage.getItem("categoria");
+    this._menuList = this._menuList.filter((x: { categoria: string; }) => x.categoria == _categoria);
     this.limpiaSesiones();
     this._servicios.headerSiNo(true);
   }
