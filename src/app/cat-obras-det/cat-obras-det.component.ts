@@ -11,13 +11,16 @@ import { ToastrService } from 'ngx-toastr';
 export class CatObrasDetComponent implements OnInit {
 
   _obraItem: any = {idObra: "", Nombre: "", estatus: "A", fecha_alta: ""};
+  _estatus: boolean = true;
   _accion: string = "E";
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
-    if(sessionStorage.getItem("obraItem"))
+    if(sessionStorage.getItem("obraItem")) {
       this._obraItem = JSON.parse(sessionStorage.getItem("obraItem"));
+      this._estatus = (this._obraItem.estatus == "A");
+    }
     else
       this._accion = "N";
   }
@@ -33,6 +36,11 @@ export class CatObrasDetComponent implements OnInit {
       this._toastr.error("Guardar obra.", "Falta Nombre de la obra")
       return
     }
+
+    this._obraItem.estatus = this._estatus ? "A" : "B";
+
+    console.log("variable",this._estatus );
+    console.log("tabla",this._obraItem.estatus);
       
 
     let lAccionRecurso: string = "obras/insObra"
@@ -45,6 +53,7 @@ export class CatObrasDetComponent implements OnInit {
     , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Guardar obra.")
     ,() => { 
       this._toastr.success("Registro guardado.") 
+      sessionStorage.removeItem("_obrasList");
       if(this._accion == "E")
         this.btnRegresar();  
       else

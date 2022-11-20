@@ -107,6 +107,31 @@ ul {
     align-items: center;
   }
 
+  .menu-item {
+    list-style: none;
+    background: #50597b;
+    
+    padding: 10px 15px 10px 25px;
+
+    margin: auto;
+    box-sizing: border-box;
+    cursor: pointer;
+    border-radius: 3px;
+
+    max-width: 65%;
+    min-width: 65%;
+    min-height: 60px;
+    height: auto;
+
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size:medium;
+  }
+
   .botones-menu {
     width: 100px;
     *margin: 0px 20px;
@@ -641,4 +666,9 @@ tr:nth-child(2n){
   color: black;
   padding: 5px;
   background-color: greenyellow;
+}
+
+.texto-linea {
+  display: flex;
+  flex-direction: row;
 }

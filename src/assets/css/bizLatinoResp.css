@@ -26,6 +26,11 @@
     min-width: 95%;
   }
 
+  .menu-item {
+    max-width: 95%;
+    min-width: 95%;
+  }
+
   .capturaBackGround {
     max-width: 95%;
     min-width: 95%;

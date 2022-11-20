@@ -37,16 +37,32 @@
         class="inputClass"
         [(ngModel)]="_obraItem.Nombre"
       />
-      <label for="estatus" class="labelInput">Estatus:</label>
-      <select
-        name="dropdown"
-        id="estatus"
-        class="inputClass"
-        [(ngModel)]="_obraItem.estatus"
-      >
-        <option value="A" class="inputClass" selected>Activo</option>
-        <option value="B" class="inputClass">Baja</option>
-      </select>
+
+      <label for="estatus" class="labelInput">Estatus</label>
+      <div class="texto-linea">
+        <input
+          type="checkbox"
+          id="estatus"
+          #estatus
+          [(ngModel)]="_estatus"
+          name="estatus"
+          class="toggle"
+        />
+        <div
+          class="labelInput"
+          style="margin-left: 20px"
+          *ngIf="estatus.checked"
+        >
+          Activo
+        </div>
+        <div
+          class="labelInput"
+          style="margin-left: 20px"
+          *ngIf="!estatus.checked"
+        >
+          Baja
+        </div>
+      </div>
     </form>
   </div>
 </div>
