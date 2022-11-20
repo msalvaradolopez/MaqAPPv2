@@ -20,6 +20,7 @@ import { DocUbicacionesComponent } from './doc-ubicaciones/doc-ubicaciones.compo
 import { FiltrosComponent } from './filtros/filtros.component';
 import { LoginComponent } from './login/login.component';
 import { DocUbicacionesDetComponent } from './doc-ubicaciones-det/doc-ubicaciones-det.component';
+import { BusEquiposComponent } from './bus-equipos/bus-equipos.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { DocUbicacionesDetComponent } from './doc-ubicaciones-det/doc-ubicacione
     DocUbicacionesComponent,
     FiltrosComponent,
     LoginComponent,
-    DocUbicacionesDetComponent
+    DocUbicacionesDetComponent,
+    BusEquiposComponent
   ],
   imports: [
     BrowserModule,

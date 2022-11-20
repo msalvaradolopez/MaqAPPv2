@@ -27,20 +27,16 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit {
     sello: null,
     litros: null,
     horometro: null,
-    ventana: "U"
+    ventana: "U",
+    idEconomicoTXT: null,
+    idObraTXT: null,
+    idOperadorTXT: null
   };
+
   _accion: string = "E";
   _accionTxt: string = "";
   _fecha: string = "";
 
-  _idEquipo: string = "";
-  _idObra: string = "";
-  _idOperador: string = "";
-  _equiposList: any[] = [];
-  _obrasList: any[] = [];
-  _operadoresList: any[] = [];
-
-  
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService, private _svrUtilierias: srvUtileriasService) { }
 
   ngOnInit(): void {
@@ -57,54 +53,45 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit {
       this._fecha = this._svrUtilierias.convertDateToString(new Date());
     }
 
+    if(sessionStorage.getItem("itemResp")) {
+      var itemResp = JSON.parse(sessionStorage.getItem("itemResp"));
+      
+      if(itemResp.busqueda == "Equipos") 
+        this._Item.idEconomicoTXT =  itemResp.claveTxt;
+    
+      if(itemResp.busqueda == "Obras") 
+        this._Item.idObraTXT =  itemResp.claveTxt;
+
+      if(itemResp.busqueda == "Operadores") 
+        this._Item.idOperadorTXT =  itemResp.claveTxt;
+
+    }
+
     this._accionTxt = this._accion == "E" ? "Editando" : "Nuevo";
 
-    this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {buscar:"", estatus: "A"})
-      .subscribe(resp => {this._equiposList = resp}
-        , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.")
-        ,() => {
-          if(this._Item.idEconomico)
-            this._idEquipo = this._Item.idEconomico + " | " + (this._equiposList.filter(x => x.idEconomico == this._Item.idEconomico))[0].Tipo;
-        });
-
-    this._servicios.wsGeneral("obras/getObrasFiltro", {buscar: "", estatus: "A"})
-    .subscribe(resp => {this._obrasList = resp}
-      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar obras.")
-      ,() => {
-        if(this._Item.idObra)
-            this._idObra = this._Item.idObra + " | " + (this._obrasList.filter(x => x.idObra == this._Item.idObra))[0].Nombre;
-      });
-
-    this._servicios.wsGeneral("operadores/getOperadoresFiltro", {buscar: "", estatus: "A"})
-    .subscribe(resp => {this._operadoresList = resp}
-      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar obras.")
-      ,() => {
-        if(this._Item.idOperador)
-            this._idOperador = this._Item.idOperador + " | " + (this._operadoresList.filter(x => x.idOperador == this._Item.idOperador))[0].Nombre;
-      });
   }
 
   btnGuardar() {
 
     // OBTENER ID DEL TEXTO INPUT
-    if(this._idEquipo) {
-      var item = this._idEquipo.split("|");
+    if(this._Item.idEconomicoTXT) {
+      var item = this._Item.idEconomicoTXT.split("|");
       this._Item.idEconomico = item[0].trim();
     } else {
       this._toastr.error("Guardar.", "Falta equipo.")
       return
     }
 
-    if(this._idOperador) {
-      var item = this._idOperador.split("|");
+    if(this._Item.idOperadorTXT) {
+      var item = this._Item.idOperadorTXT.split("|");
       this._Item.idOperador = item[0].trim();
     } else {
       this._toastr.error("Guardar.", "Falta operador")
       return
     }
 
-    if(this._idObra) {
-      var item = this._idObra.split("|");
+    if(this._Item.idObraTXT) {
+      var item = this._Item.idObraTXT.split("|");
       this._Item.idObra = item[0].trim();
     } else {
       this._toastr.error("Guardar.", "Falta obra")
@@ -136,6 +123,10 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit {
     });
   }
 
+  buscarEquipo() {
+    this._router.navigate(["/busEquipos"]);
+  }
+
   btnRegresar() {
     this._router.navigate(["/docUbicaciones"]);
   }
@@ -143,19 +134,22 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit {
   LimpiarFormulario(){
     this._Item = {
       idUbicacion: null,
-      idEconomico: null,
-      idOperador: null,
-      idObra: null,
-      fecha_alta: null,
-      comentarios: null,
-      idUsuario: null,
-      fecha_ingreso: null,
-      hodometro: 0,
-      odometro: null,
-      sello: null,
-      litros: null,
-      horometro: null,
-      ventana: null
+    idEconomico: null,
+    idOperador: null,
+    idObra: null,
+    fecha_alta: null,
+    comentarios: null,
+    idUsuario: null,
+    fecha_ingreso: null,
+    hodometro: 0,
+    odometro: null,
+    sello: null,
+    litros: null,
+    horometro: null,
+    ventana: "U",
+    idEconomicoTXT: null,
+    idObraTXT: null,
+    idOperadorTXT: null
     };
   }
 

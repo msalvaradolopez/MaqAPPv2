@@ -39,15 +39,30 @@
       />
 
       <label for="estatus" class="labelInput">Estatus</label>
-      <select
-        name="estatus"
-        id="estatus"
-        class="inputClass"
-        [(ngModel)]="_item.estatus"
-      >
-        <option value="A" class="inputClass" selected>Activo</option>
-        <option value="B" class="inputClass">Baja</option>
-      </select>
+      <div class="texto-linea">
+        <input
+          type="checkbox"
+          id="estatus"
+          #estatus
+          [(ngModel)]="_estatus"
+          name="estatus"
+          class="toggle"
+        />
+        <div
+          class="labelInput"
+          style="margin-left: 20px"
+          *ngIf="estatus.checked"
+        >
+          Activo
+        </div>
+        <div
+          class="labelInput"
+          style="margin-left: 20px"
+          *ngIf="!estatus.checked"
+        >
+          Baja
+        </div>
+      </div>
     </form>
   </div>
 </div>

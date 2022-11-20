@@ -42,6 +42,8 @@ export class MenuGeneralComponent implements OnInit {
     sessionStorage.removeItem("Item");
 
     sessionStorage.removeItem("Filtros");
+    sessionStorage.removeItem("itemResp");
+    
   }
 
 }

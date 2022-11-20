@@ -11,17 +11,18 @@ import { ToastrService } from 'ngx-toastr';
 export class CatOperadoresDetComponent implements OnInit {
 
   _item: any = {idOperador: "", Nombre: "", estatus: "A", fecha_alta: "", categoria: "O", passw: ""};
+  _estatus: boolean = true;
   _accion: string = "E";
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
-    if(sessionStorage.getItem("Item"))
+    if(sessionStorage.getItem("Item")) {
       this._item = JSON.parse(sessionStorage.getItem("Item"));
+      this._estatus = (this._item.estatus == "A");
+    }
     else
       this._accion = "N";
-
-      console.log(this._item);
   }
 
   btnGuardar() {
@@ -41,6 +42,7 @@ export class CatOperadoresDetComponent implements OnInit {
       return;
     }
       
+    this._item.estatus = this._estatus ? "A" : "B";
 
     let lAccionRecurso: string = "operadores/insOperador"
 

@@ -10,13 +10,16 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CatEquiposDetComponent implements OnInit {
   _item: any = {idEconomico: "", Tipo: "", estatus: "A", fecha_alta: ""};
+  _estatus: boolean = true;
   _accion: string = "E";
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
-    if(sessionStorage.getItem("Item"))
+    if(sessionStorage.getItem("Item")) {
       this._item = JSON.parse(sessionStorage.getItem("Item"));
+      this._estatus = (this._item.estatus == "A");
+    }
     else
       this._accion = "N";
   }
@@ -37,6 +40,8 @@ export class CatEquiposDetComponent implements OnInit {
 
     if(this._accion == "E")
       lAccionRecurso = "maquinaria/updMaquinaria"
+
+    this._item.estatus = this._estatus ? "A" : "B";
 
     this._servicios.wsGeneral(lAccionRecurso, this._item)
     .subscribe(resp => { }

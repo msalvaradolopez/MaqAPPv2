@@ -39,10 +39,6 @@ export class CatObrasDetComponent implements OnInit {
 
     this._obraItem.estatus = this._estatus ? "A" : "B";
 
-    console.log("variable",this._estatus );
-    console.log("tabla",this._obraItem.estatus);
-      
-
     let lAccionRecurso: string = "obras/insObra"
 
     if(this._accion == "E")

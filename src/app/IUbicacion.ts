@@ -13,4 +13,7 @@ export interface IUbicacion {
     litros: number;
     horometro: number;
     ventana: string;
+    idEconomicoTXT: string;
+    idObraTXT: string;
+    idOperadorTXT: string;
 }

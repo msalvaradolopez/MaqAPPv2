@@ -25,45 +25,39 @@
         type="text"
         id="equipo"
         name="equipo"
-        class="inputClass"
-        [(ngModel)]="_idEquipo"
+        class="inputReadOnlyClass"
+        [(ngModel)]="_Item.idEconomicoTXT"
         list="equipos"
+        readonly="true"
+        placeholder="click para buscar..."
+        (click)="buscarEquipo()"
       />
-      <datalist id="equipos">
-        <option *ngFor="let item of _equiposList">
-          {{ item.idEconomico }} | {{ item.Tipo }}
-        </option>
-      </datalist>
 
       <label for="obra" class="labelInput">Obra</label>
       <input
         type="text"
         id="obra"
         name="obra"
-        class="inputClass"
-        [(ngModel)]="_idObra"
+        class="inputReadOnlyClass"
+        [(ngModel)]="_Item.idObraTXT"
         list="obras"
+        readonly="true"
+        placeholder="click para buscar..."
+        (click)="buscarEquipo()"
       />
-      <datalist id="obras">
-        <option *ngFor="let item of _obrasList">
-          {{ item.idObra }} | {{ item.Nombre }}
-        </option>
-      </datalist>
 
       <label for="operador" class="labelInput">Operador</label>
       <input
         type="text"
         id="operador"
         name="operador"
-        class="inputClass"
-        [(ngModel)]="_idOperador"
+        class="inputReadOnlyClass"
+        [(ngModel)]="_Item.idOperadorTXT"
         list="operadores"
+        readonly="true"
+        placeholder="click para buscar..."
+        (click)="buscarEquipo()"
       />
-      <datalist id="operadores">
-        <option *ngFor="let item of _operadoresList">
-          {{ item.idOperador }} | {{ item.Nombre }}
-        </option>
-      </datalist>
 
       <label for="Nombre" class="labelInput">Fecha</label>
       <input
@@ -84,7 +78,7 @@
         class="inputClass"
         [(ngModel)]="_Item.odometro"
       />
-      
+
       <label for="comentarios" class="labelInput">Comentarios</label>
       <input
         type="text"
@@ -93,8 +87,6 @@
         class="inputClass"
         [(ngModel)]="_Item.comentarios"
       />
-
-      
     </form>
   </div>
   <br />

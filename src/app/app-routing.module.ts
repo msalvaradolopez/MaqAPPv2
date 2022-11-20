@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BusEquiposComponent } from './bus-equipos/bus-equipos.component';
 import { CatEquiposDetComponent } from './cat-equipos-det/cat-equipos-det.component';
 import { CatEquiposComponent } from './cat-equipos/cat-equipos.component';
 import { CatObrasDetComponent } from './cat-obras-det/cat-obras-det.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: "catEquiposDet", component: CatEquiposDetComponent},
   {path: "docUbicaciones", component: DocUbicacionesComponent},
   {path: "docUbicacionesDet", component: DocUbicacionesDetComponent},
+  {path: "busEquipos", component: BusEquiposComponent},
   {path: "filtros", component: FiltrosComponent},
   {path: "login", component: LoginComponent}
 ];
