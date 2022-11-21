@@ -6,12 +6,11 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-bus-equipos',
-  templateUrl: './bus-equipos.component.html',
-  styleUrls: ['./bus-equipos.component.css']
+  selector: 'app-bus-operadores',
+  templateUrl: './bus-operadores.component.html',
+  styleUrls: ['./bus-operadores.component.css']
 })
-export class BusEquiposComponent implements OnInit, OnDestroy {
-
+export class BusOperadoresComponent implements OnInit, OnDestroy {
   _listado: any[] = [];
   _subBuscar: Subscription;
 
@@ -21,10 +20,10 @@ export class BusEquiposComponent implements OnInit, OnDestroy {
 
     sessionStorage.removeItem("itemResp");
 
-    this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {buscar:"", estatus: "A"})
-      .subscribe(resp => {this._listado = resp}
-        , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.")
-        ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
+    this._servicios.wsGeneral("operadores/getOperadoresFiltro", {buscar: "", estatus: "A"})
+    .subscribe(resp => this._listado = resp
+      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar operadores.")
+      ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
 
     this._subBuscar = this._servicios.buscar$
     .subscribe(resp => {
@@ -33,18 +32,18 @@ export class BusEquiposComponent implements OnInit, OnDestroy {
   }
 
   listadoFiltrado(buscar: string) {
-    this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {buscar: buscar, estatus: "A"})
+    this._servicios.wsGeneral("operadores/getOperadoresFiltro", {buscar: buscar, estatus: "A"})
     .subscribe(resp => this._listado = resp
-      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.")
+      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar operadores.")
       ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
   }
 
   btnAceptar(item: any) {
     var itemResp = {busqueda: "", clave: "", claveTxt: ""};
 
-    itemResp.busqueda = "Equipos";
-    itemResp.clave = item.idEconomico;
-    itemResp.claveTxt = item.idEconomico +" | "+ item.Tipo;
+    itemResp.busqueda = "Operadores";
+    itemResp.clave = item.idOperador;
+    itemResp.claveTxt = item.idOperador +" | "+ item.Nombre;
     sessionStorage.setItem("itemResp", JSON.stringify(itemResp));
     this.btnRegresar();
   }
@@ -56,4 +55,6 @@ export class BusEquiposComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._subBuscar.unsubscribe();
   }
+
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServiciosService } from '../servicios.service';
 import { srvUtileriasService } from '../srvUtilerias.service';
@@ -12,7 +12,7 @@ declare var $: any;
   templateUrl: './doc-ubicaciones-det.component.html',
   styleUrls: ['./doc-ubicaciones-det.component.css']
 })
-export class DocUbicacionesDetComponent implements OnInit, AfterViewInit {
+export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDestroy {
   _Item: IUbicacion = {
     idUbicacion: null,
     idEconomico: null,
@@ -42,15 +42,18 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     this._fecha = this._svrUtilierias.convertDateToString(new Date());
+    console.log("nueva fecha", this._fecha);
 
     if(sessionStorage.getItem("Item")) {
       this._Item = JSON.parse(sessionStorage.getItem("Item"));
       var fechaAux = new Date(this._Item.fecha_alta);
       this._fecha = this._svrUtilierias.convertDateToString(fechaAux);
+      this._accion = this._Item.idUbicacion == null ? "N" : "E";
     }
     else {
       this._accion = "N";
-      this._fecha = this._svrUtilierias.convertDateToString(new Date());
+      this._Item.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+      console.log(this._Item);
     }
 
     if(sessionStorage.getItem("itemResp")) {
@@ -124,7 +127,24 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit {
   }
 
   buscarEquipo() {
+    this._fecha = $("#datepicker").val();
+    this._Item.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+    sessionStorage.setItem("Item", JSON.stringify(this._Item));
     this._router.navigate(["/busEquipos"]);
+  }
+
+  buscarObra() {
+    this._fecha = $("#datepicker").val();
+    this._Item.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+    sessionStorage.setItem("Item", JSON.stringify(this._Item));
+    this._router.navigate(["/busObras"]);
+  }
+
+  buscarOperador() {
+    this._fecha = $("#datepicker").val();
+    this._Item.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+    sessionStorage.setItem("Item", JSON.stringify(this._Item));
+    this._router.navigate(["/busOperadores"]);
   }
 
   btnRegresar() {
@@ -177,5 +197,8 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit {
     $( "#datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });    
   }
 
+  ngOnDestroy(): void {
+    sessionStorage.removeItem("itemResp");
+  }
 
 }

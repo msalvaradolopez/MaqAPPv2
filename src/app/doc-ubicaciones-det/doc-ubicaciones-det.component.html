@@ -27,7 +27,6 @@
         name="equipo"
         class="inputReadOnlyClass"
         [(ngModel)]="_Item.idEconomicoTXT"
-        list="equipos"
         readonly="true"
         placeholder="click para buscar..."
         (click)="buscarEquipo()"
@@ -40,10 +39,9 @@
         name="obra"
         class="inputReadOnlyClass"
         [(ngModel)]="_Item.idObraTXT"
-        list="obras"
         readonly="true"
         placeholder="click para buscar..."
-        (click)="buscarEquipo()"
+        (click)="buscarObra()"
       />
 
       <label for="operador" class="labelInput">Operador</label>
@@ -53,10 +51,9 @@
         name="operador"
         class="inputReadOnlyClass"
         [(ngModel)]="_Item.idOperadorTXT"
-        list="operadores"
         readonly="true"
         placeholder="click para buscar..."
-        (click)="buscarEquipo()"
+        (click)="buscarOperador()"
       />
 
       <label for="Nombre" class="labelInput">Fecha</label>

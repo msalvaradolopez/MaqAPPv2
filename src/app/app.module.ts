@@ -21,6 +21,8 @@ import { FiltrosComponent } from './filtros/filtros.component';
 import { LoginComponent } from './login/login.component';
 import { DocUbicacionesDetComponent } from './doc-ubicaciones-det/doc-ubicaciones-det.component';
 import { BusEquiposComponent } from './bus-equipos/bus-equipos.component';
+import { BusObrasComponent } from './bus-obras/bus-obras.component';
+import { BusOperadoresComponent } from './bus-operadores/bus-operadores.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { BusEquiposComponent } from './bus-equipos/bus-equipos.component';
     FiltrosComponent,
     LoginComponent,
     DocUbicacionesDetComponent,
-    BusEquiposComponent
+    BusEquiposComponent,
+    BusObrasComponent,
+    BusOperadoresComponent
   ],
   imports: [
     BrowserModule,
