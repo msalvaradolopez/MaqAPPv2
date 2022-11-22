@@ -31,7 +31,10 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDest
     ventana: "U",
     idEconomicoTXT: null,
     idObraTXT: null,
-    idOperadorTXT: null
+    idOperadorTXT: null,
+    equipoNom: null,
+    operadorNom: null,
+    obraNom: null
   };
 
   _BusResp: IbusResp = {
@@ -136,6 +139,7 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDest
     this._fecha = $("#datepicker").val();
     this._Item.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
     sessionStorage.setItem("Item", JSON.stringify(this._Item));
+    sessionStorage.setItem("busResp", JSON.stringify(this._BusResp));
     this._router.navigate(["/busEquipos"]);
   }
 
@@ -143,6 +147,7 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDest
     this._fecha = $("#datepicker").val();
     this._Item.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
     sessionStorage.setItem("Item", JSON.stringify(this._Item));
+    sessionStorage.setItem("busResp", JSON.stringify(this._BusResp));
     this._router.navigate(["/busObras"]);
   }
 
@@ -150,32 +155,37 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDest
     this._fecha = $("#datepicker").val();
     this._Item.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
     sessionStorage.setItem("Item", JSON.stringify(this._Item));
+    sessionStorage.setItem("busResp", JSON.stringify(this._BusResp));
     this._router.navigate(["/busOperadores"]);
   }
 
   btnRegresar() {
+    sessionStorage.removeItem("busResp");
     this._router.navigate(["/docUbicaciones"]);
   }
 
   LimpiarFormulario(){
     this._Item = {
       idUbicacion: null,
-    idEconomico: null,
-    idOperador: null,
-    idObra: null,
-    fecha_alta: null,
-    comentarios: null,
-    idUsuario: null,
-    fecha_ingreso: null,
-    hodometro: 0,
-    odometro: null,
-    sello: null,
-    litros: null,
-    horometro: null,
-    ventana: "U",
-    idEconomicoTXT: null,
-    idObraTXT: null,
-    idOperadorTXT: null
+      idEconomico: null,
+      idOperador: null,
+      idObra: null,
+      fecha_alta: null,
+      comentarios: null,
+      idUsuario: null,
+      fecha_ingreso: null,
+      hodometro: 0,
+      odometro: null,
+      sello: null,
+      litros: null,
+      horometro: null,
+      ventana: "U",
+      idEconomicoTXT: null,
+      idObraTXT: null,
+      idOperadorTXT: null,
+      equipoNom: null,
+      operadorNom: null,
+      obraNom: null
     };
   }
 
@@ -204,7 +214,7 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDest
   }
 
   ngOnDestroy(): void {
-    sessionStorage.removeItem("busResp");
+    // sessionStorage.removeItem("busResp");
   }
 
 }

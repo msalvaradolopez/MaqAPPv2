@@ -50,8 +50,10 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
       var fechaAux = new Date(this._filtros.fecha_alta);
       this._fecha = this._svrUtilierias.convertDateToString(fechaAux);
     }
-    else 
+    else {
+      this._filtros.fecha = this._fecha;
       this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+    }
     
 
     if(sessionStorage.getItem("busResp")) {

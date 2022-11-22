@@ -26,9 +26,12 @@ export class BusOperadoresComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this._BusResp = JSON.parse(sessionStorage.getItem("busResp"));
-    this._BusResp.clave = "";
-    this._BusResp.claveTxt = "";
+    if(sessionStorage.getItem("busResp")) {
+      this._BusResp = JSON.parse(sessionStorage.getItem("busResp"));
+      this._BusResp.clave = "";
+      this._BusResp.claveTxt = "";
+    }
+    
 
     this._servicios.wsGeneral("operadores/getOperadoresFiltro", {buscar: "", estatus: "A"})
     .subscribe(resp => this._listado = resp

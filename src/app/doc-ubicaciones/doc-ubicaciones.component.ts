@@ -5,6 +5,7 @@ import { ServiciosService } from '../servicios.service';
 import { srvUtileriasService } from '../srvUtilerias.service';
 import { ToastrService } from 'ngx-toastr';
 import { IFiltros } from '../Ifiltros';
+import { IUbicacion } from '../iubicacion';
 declare var $: any;
 
 @Component({
@@ -14,7 +15,7 @@ declare var $: any;
 })
 export class DocUbicacionesComponent implements OnInit, OnDestroy {
 
-  _listado: any [] = [];
+  _listado: IUbicacion[] = [];
   _fecha: string = "";
   _filtros: IFiltros = {
     idUbicacion: null, 
@@ -35,16 +36,16 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    if(sessionStorage.getItem("Item"))
-      sessionStorage.removeItem("_listado")
+    this._fecha = this._svrUtilierias.convertDateToString(new Date());
 
     if(sessionStorage.getItem("Filtros")){
       this._filtros = JSON.parse(sessionStorage.getItem("Filtros"));
       this._fecha = this._filtros.fecha;
+      this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
     } 
     else {
-      this._fecha = this._svrUtilierias.convertDateToString(new Date());
       this._filtros.fecha = this._fecha;
+      this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
     }
 
     if(sessionStorage.getItem("_listado"))
@@ -55,14 +56,10 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
       .subscribe(resp => this._listado = resp
         , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar ubicaciones.")
         ,() => this._listado = this._listado.map(x => {
-          if(x.estatus == "A")
-           x.estatusTexto = "Activo";
-          else
-           x.estatusTexto = "Baja"; 
-
-           
-           return x;
-        }));
+          x.idEconomicoTXT = x.idEconomico + " | " + x.equipoNom; 
+          x.idOperadorTXT = x.idOperador + " | " + x.operadorNom; 
+          x.idObraTXT = x.idObra + " | " + x.obraNom; 
+          return x;}));
     }
 
     this._subBuscar = this._servicios.buscar$
@@ -76,6 +73,7 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
   btnAgregar() {
     sessionStorage.setItem("_listado", JSON.stringify(this._listado));
     sessionStorage.removeItem("Item");
+    sessionStorage.removeItem("busResp");
     this._router.navigate(["/docUbicacionesDet"]);
   }
 
@@ -86,6 +84,8 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
   }
 
   btnFiltros() {
+    sessionStorage.removeItem("Filtros");
+    sessionStorage.removeItem("busResp");
     this._router.navigate(["/filtros"]);
   }
 
@@ -96,14 +96,7 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
     this._servicios.wsGeneral("ubicaciones/getUbicacionesFiltro", this._filtros)
     .subscribe(resp => this._listado = resp
       , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar ubicaciones.")
-      ,() => this._listado = this._listado.map(x => {
-        if(x.estatus == "A")
-         x.estatusTexto = "Activo";
-        else
-         x.estatusTexto = "Baja"; 
-         
-         return x;
-      }));
+      ,() => {});
   }
 
   ngOnDestroy(): void {

@@ -16,4 +16,7 @@ export interface IUbicacion {
     idEconomicoTXT: string;
     idObraTXT: string;
     idOperadorTXT: string;
+    equipoNom: string;
+    operadorNom: string;
+    obraNom: string;
 }
