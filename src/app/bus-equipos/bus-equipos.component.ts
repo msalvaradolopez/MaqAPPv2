@@ -4,6 +4,7 @@ import { ServiciosService } from '../servicios.service';
 import { srvUtileriasService } from '../srvUtilerias.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { IbusResp } from '../IBusResp';
 
 @Component({
   selector: 'app-bus-equipos',
@@ -13,13 +14,21 @@ import { Subscription } from 'rxjs';
 export class BusEquiposComponent implements OnInit, OnDestroy {
 
   _listado: any[] = [];
+  _BusResp: IbusResp = {
+    ventana: "",
+    buscarPor: "",
+    clave: "",
+    claveTxt: ""
+  }
   _subBuscar: Subscription;
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService, private _svrUtilierias: srvUtileriasService) { }
 
   ngOnInit(): void {
 
-    sessionStorage.removeItem("itemResp");
+    this._BusResp = JSON.parse(sessionStorage.getItem("busResp"));
+    this._BusResp.clave = "";
+    this._BusResp.claveTxt = "";
 
     this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {buscar:"", estatus: "A"})
       .subscribe(resp => {this._listado = resp}
@@ -40,17 +49,15 @@ export class BusEquiposComponent implements OnInit, OnDestroy {
   }
 
   btnAceptar(item: any) {
-    var itemResp = {busqueda: "", clave: "", claveTxt: ""};
-
-    itemResp.busqueda = "Equipos";
-    itemResp.clave = item.idEconomico;
-    itemResp.claveTxt = item.idEconomico +" | "+ item.Tipo;
-    sessionStorage.setItem("itemResp", JSON.stringify(itemResp));
+    this._BusResp.buscarPor = "Equipos";
+    this._BusResp.clave = item.idEconomico;
+    this._BusResp.claveTxt = item.idEconomico +" | "+ item.Tipo;
+    sessionStorage.setItem("busResp", JSON.stringify(this._BusResp));
     this.btnRegresar();
   }
 
   btnRegresar() {
-    this._router.navigate(["/docUbicacionesDet"]);
+    this._router.navigate(["/" + this._BusResp.ventana ]);
   }
 
   ngOnDestroy(): void {

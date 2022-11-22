@@ -31,50 +31,41 @@
         readonly="true"
       />
 
-      <label for="equipo" class="labelInput">Filtrar por equipo</label>
+      <label for="equipo" class="labelInput">Equipo</label>
       <input
         type="text"
         id="equipo"
         name="equipo"
-        class="inputClass"
-        [(ngModel)]="_idEquipo"
-        list="equipos"
+        class="inputReadOnlyClass"
+        [(ngModel)]="_filtros.idEconomicoTXT"
+        readonly="true"
+        placeholder="click para buscar..."
+        (click)="buscarEquipo()"
       />
-      <datalist id="equipos">
-        <option *ngFor="let item of _equiposList">
-          {{ item.idEconomico }} | {{ item.Tipo }}
-        </option>
-      </datalist>
 
-      <label for="obra" class="labelInput">Filtrar por obra</label>
+      <label for="obra" class="labelInput">Obra</label>
       <input
         type="text"
         id="obra"
         name="obra"
-        class="inputClass"
-        [(ngModel)]="_idObra"
-        list="obras"
+        class="inputReadOnlyClass"
+        [(ngModel)]="_filtros.idObraTXT"
+        readonly="true"
+        placeholder="click para buscar..."
+        (click)="buscarObra()"
       />
-      <datalist id="obras">
-        <option *ngFor="let item of _obrasList">
-          {{ item.idObra }} | {{ item.Nombre }}
-        </option>
-      </datalist>
 
-      <label for="operador" class="labelInput">Filtrar por operador</label>
+      <label for="operador" class="labelInput">Operador</label>
       <input
         type="text"
         id="operador"
         name="operador"
-        class="inputClass"
-        [(ngModel)]="_idOperador"
-        list="operadores"
+        class="inputReadOnlyClass"
+        [(ngModel)]="_filtros.idOperadorTXT"
+        readonly="true"
+        placeholder="click para buscar..."
+        (click)="buscarOperador()"
       />
-      <datalist id="operadores">
-        <option *ngFor="let item of _operadoresList">
-          {{ item.idOperador }} | {{ item.Nombre }}
-        </option>
-      </datalist>
     </form>
   </div>
 </div>

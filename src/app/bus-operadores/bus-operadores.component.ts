@@ -4,6 +4,7 @@ import { ServiciosService } from '../servicios.service';
 import { srvUtileriasService } from '../srvUtilerias.service';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
+import { IbusResp } from '../IBusResp';
 
 @Component({
   selector: 'app-bus-operadores',
@@ -12,13 +13,22 @@ import { Subscription } from 'rxjs';
 })
 export class BusOperadoresComponent implements OnInit, OnDestroy {
   _listado: any[] = [];
+  _BusResp: IbusResp = {
+    ventana: "",
+    buscarPor: "",
+    clave: "",
+    claveTxt: ""
+  }
+
   _subBuscar: Subscription;
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService, private _svrUtilierias: srvUtileriasService) { }
 
   ngOnInit(): void {
 
-    sessionStorage.removeItem("itemResp");
+    this._BusResp = JSON.parse(sessionStorage.getItem("busResp"));
+    this._BusResp.clave = "";
+    this._BusResp.claveTxt = "";
 
     this._servicios.wsGeneral("operadores/getOperadoresFiltro", {buscar: "", estatus: "A"})
     .subscribe(resp => this._listado = resp
@@ -39,17 +49,16 @@ export class BusOperadoresComponent implements OnInit, OnDestroy {
   }
 
   btnAceptar(item: any) {
-    var itemResp = {busqueda: "", clave: "", claveTxt: ""};
-
-    itemResp.busqueda = "Operadores";
-    itemResp.clave = item.idOperador;
-    itemResp.claveTxt = item.idOperador +" | "+ item.Nombre;
-    sessionStorage.setItem("itemResp", JSON.stringify(itemResp));
+    
+    this._BusResp.buscarPor = "Operadores";
+    this._BusResp.clave = item.idOperador;
+    this._BusResp.claveTxt = item.idOperador +" | "+ item.Nombre;
+    sessionStorage.setItem("busResp", JSON.stringify(this._BusResp));
     this.btnRegresar();
   }
 
   btnRegresar() {
-    this._router.navigate(["/docUbicacionesDet"]);
+    this._router.navigate(["/"+ this._BusResp.ventana]);
   }
 
   ngOnDestroy(): void {

@@ -5,6 +5,7 @@ import { srvUtileriasService } from '../srvUtilerias.service';
 
 import { ToastrService } from 'ngx-toastr';
 import { IUbicacion } from '../iubicacion';
+import { IbusResp } from '../IBusResp';
 declare var $: any;
 
 @Component({
@@ -33,6 +34,13 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDest
     idOperadorTXT: null
   };
 
+  _BusResp: IbusResp = {
+    ventana: "docUbicacionesDet",
+    buscarPor: "",
+    clave: "",
+    claveTxt: ""
+  }
+
   _accion: string = "E";
   _accionTxt: string = "";
   _fecha: string = "";
@@ -42,7 +50,6 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDest
   ngOnInit(): void {
 
     this._fecha = this._svrUtilierias.convertDateToString(new Date());
-    console.log("nueva fecha", this._fecha);
 
     if(sessionStorage.getItem("Item")) {
       this._Item = JSON.parse(sessionStorage.getItem("Item"));
@@ -53,20 +60,19 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDest
     else {
       this._accion = "N";
       this._Item.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
-      console.log(this._Item);
     }
 
-    if(sessionStorage.getItem("itemResp")) {
-      var itemResp = JSON.parse(sessionStorage.getItem("itemResp"));
+    if(sessionStorage.getItem("busResp")) {
+      this._BusResp = JSON.parse(sessionStorage.getItem("busResp"));
       
-      if(itemResp.busqueda == "Equipos") 
-        this._Item.idEconomicoTXT =  itemResp.claveTxt;
+      if(this._BusResp.buscarPor == "Equipos") 
+        this._Item.idEconomicoTXT =  this._BusResp.claveTxt;
     
-      if(itemResp.busqueda == "Obras") 
-        this._Item.idObraTXT =  itemResp.claveTxt;
+      if(this._BusResp.buscarPor == "Obras") 
+        this._Item.idObraTXT =  this._BusResp.claveTxt;
 
-      if(itemResp.busqueda == "Operadores") 
-        this._Item.idOperadorTXT =  itemResp.claveTxt;
+      if(this._BusResp.buscarPor == "Operadores") 
+        this._Item.idOperadorTXT =  this._BusResp.claveTxt;
 
     }
 
@@ -198,7 +204,7 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDest
   }
 
   ngOnDestroy(): void {
-    sessionStorage.removeItem("itemResp");
+    sessionStorage.removeItem("busResp");
   }
 
 }

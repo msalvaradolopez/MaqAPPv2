@@ -5,6 +5,7 @@ import { ServiciosService } from '../servicios.service';
 import { srvUtileriasService } from '../srvUtilerias.service';
 import { ToastrService } from 'ngx-toastr';
 import { IFiltros } from '../Ifiltros';
+import { IbusResp } from '../IBusResp';
 declare var $: any;
 
 @Component({
@@ -14,66 +15,113 @@ declare var $: any;
 })
 export class FiltrosComponent implements OnInit, AfterViewInit {
 
-  _fecha: string = "          ";
-  _idEquipo: string = "";
-  _idObra: string = "";
-  _idOperador: string = "";
-  _equiposList: any[] = [];
-  _obrasList: any[] = [];
-  _operadoresList: any[] = [];
+  _filtros: IFiltros = {
+    idUbicacion: null, 
+    idEconomico: null, 
+    idObra: null, 
+    idOperador: null, 
+    fecha_alta : null, 
+    buscar: "", 
+    fecha: null, 
+    estatus: "A", 
+    idEconomicoTXT: null,
+    idObraTXT: null,
+    idOperadorTXT: null
+  };
+
+  _BusResp: IbusResp = {
+    ventana: "filtros",
+    buscarPor: "",
+    clave: "",
+    claveTxt: ""
+  }
+  
+  _fecha: string = "";
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService, private _svrUtilierias: srvUtileriasService) { }
 
   ngOnInit(): void {
-    sessionStorage.removeItem("Filtros");
     sessionStorage.removeItem("_listado");
 
     this._fecha = this._svrUtilierias.convertDateToString(new Date());
 
-    this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {buscar:"", estatus: "A"})
-      .subscribe(resp => {this._equiposList = resp}
-        , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.")
-        ,() => this._equiposList = this._equiposList.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
+    if(sessionStorage.getItem("Filtros")) {
+      this._filtros = JSON.parse(sessionStorage.getItem("Filtros"));
+      var fechaAux = new Date(this._filtros.fecha_alta);
+      this._fecha = this._svrUtilierias.convertDateToString(fechaAux);
+    }
+    else 
+      this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+    
 
-    this._servicios.wsGeneral("obras/getObrasFiltro", {buscar: "", estatus: "A"})
-    .subscribe(resp => {this._obrasList = resp}
-      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar obras.")
-      ,() => this._obrasList = this._obrasList.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
+    if(sessionStorage.getItem("busResp")) {
+      this._BusResp = JSON.parse(sessionStorage.getItem("busResp"));
+      
+      if(this._BusResp.buscarPor == "Equipos") 
+        this._filtros.idEconomicoTXT =  this._BusResp.claveTxt;
+    
+      if(this._BusResp.buscarPor == "Obras") 
+        this._filtros.idObraTXT =  this._BusResp.claveTxt;
 
-    this._servicios.wsGeneral("operadores/getOperadoresFiltro", {buscar: "", estatus: "A"})
-    .subscribe(resp => {this._operadoresList = resp}
-      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar obras.")
-      ,() => this._operadoresList = this._operadoresList.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
+      if(this._BusResp.buscarPor == "Operadores") 
+        this._filtros.idOperadorTXT =  this._BusResp.claveTxt;
+
+    }
+
   }
 
 
   btnGuardar() {
 
-    let filtros: IFiltros = {idUbicacion: null, idEconomico: null, idObra: null, idOperador: null, fecha_alta : null, buscar: "", fecha: null, estatus: "A"};
-
-
     // OBTENER ID DEL TEXTO INPUT
-    if(this._idEquipo) {
-      var item = this._idEquipo.split("|");
-      filtros.idEconomico = item[0].trim();
+    if(this._filtros.idEconomicoTXT) {
+      let valorTxt: string = this._filtros.idEconomicoTXT;
+      let valorArreglo = valorTxt.split("|");
+      this._filtros.idEconomico = valorArreglo[0].trim();
     }
 
-    if(this._idOperador) {
-      var item = this._idOperador.split("|");
-      filtros.idOperador = item[0].trim();
+    if(this._filtros.idOperadorTXT) {
+      let valorTxt: string = this._filtros.idOperadorTXT;
+      let valorArreglo = valorTxt.split("|");
+      this._filtros.idOperador = valorArreglo[0].trim();
     }
 
-    if(this._idObra) {
-      var item = this._idObra.split("|");
-      filtros.idObra = item[0].trim();
+    if(this._filtros.idObraTXT) {
+      let valorTxt: string = this._filtros.idObraTXT;
+      let valorArreglo = valorTxt.split("|");
+      this._filtros.idObra = valorArreglo[0].trim();
     }
     
     
     this._fecha = $("#datepicker").val();
-    filtros.fecha = this._fecha;
-    
-    sessionStorage.setItem("Filtros", JSON.stringify(filtros));
+    this._filtros.fecha = this._fecha;
+    this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+    sessionStorage.setItem("Filtros", JSON.stringify(this._filtros));
     this.btnRegresar();
+  }
+
+  buscarEquipo() {
+    this._fecha = $("#datepicker").val();
+    this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+    sessionStorage.setItem("Filtros", JSON.stringify(this._filtros));
+    sessionStorage.setItem("busResp", JSON.stringify(this._BusResp));
+    this._router.navigate(["/busEquipos"]);
+  }
+
+  buscarObra() {
+    this._fecha = $("#datepicker").val();
+    this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+    sessionStorage.setItem("Filtros", JSON.stringify(this._filtros));
+    sessionStorage.setItem("busResp", JSON.stringify(this._BusResp));
+    this._router.navigate(["/busObras"]);
+  }
+
+  buscarOperador() {
+    this._fecha = $("#datepicker").val();
+    this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+    sessionStorage.setItem("Filtros", JSON.stringify(this._filtros));
+    sessionStorage.setItem("busResp", JSON.stringify(this._BusResp));
+    this._router.navigate(["/busOperadores"]);
   }
 
   btnRegresar() {

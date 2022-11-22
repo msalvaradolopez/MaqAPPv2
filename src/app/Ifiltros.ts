@@ -7,4 +7,7 @@ export interface IFiltros {
     estatus: string;
     fecha: string;
     buscar: string;
+    idEconomicoTXT: string,
+    idObraTXT: string,
+    idOperadorTXT: string
 }

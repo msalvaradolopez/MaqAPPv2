@@ -16,7 +16,19 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
 
   _listado: any [] = [];
   _fecha: string = "";
-  _filtros: IFiltros = {idUbicacion: null, idEconomico: null, idObra: null, idOperador: null, fecha_alta : null, fecha: null, estatus: "A", buscar: ""};
+  _filtros: IFiltros = {
+    idUbicacion: null, 
+    idEconomico: null, 
+    idObra: null, 
+    idOperador: null, 
+    fecha_alta : null, 
+    buscar: "", 
+    fecha: null, 
+    estatus: "A", 
+    idEconomicoTXT: null,
+    idObraTXT: null,
+    idOperadorTXT: null
+  };
   _subBuscar: Subscription;
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService, private _svrUtilierias: srvUtileriasService) { }
