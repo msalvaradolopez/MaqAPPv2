@@ -114,10 +114,11 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDest
       this._toastr.error("Guardar.", "Falta Odómetro")
       return
     }
-
     
     this._fecha = $("#datepicker").val();
     this._Item.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+
+    this._Item.idUsuario = sessionStorage.getItem("idUsuario");
   
 
     let lAccionRecurso: string = "ubicaciones/insUbicacion"

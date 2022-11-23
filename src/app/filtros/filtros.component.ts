@@ -26,7 +26,8 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
     estatus: "A", 
     idEconomicoTXT: null,
     idObraTXT: null,
-    idOperadorTXT: null
+    idOperadorTXT: null,
+    idUsuario: null
   };
 
   _BusResp: IbusResp = {
@@ -44,6 +45,7 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
     sessionStorage.removeItem("_listado");
 
     this._fecha = this._svrUtilierias.convertDateToString(new Date());
+    this._filtros.idUsuario = sessionStorage.getItem("idUsuario");
 
     if(sessionStorage.getItem("Filtros")) {
       this._filtros = JSON.parse(sessionStorage.getItem("Filtros"));

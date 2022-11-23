@@ -35,7 +35,10 @@ export class LoginComponent implements OnInit {
 
 
     this._servicios.wsGeneral("accesos/Login", {idOperador: this._usuario, passw: this._passw})
-    .subscribe(resp => sessionStorage.setItem("categoria", resp)
+    .subscribe(resp => {
+      sessionStorage.setItem("categoria", resp);
+      sessionStorage.setItem("idUsuario", this._usuario);
+    }
       , error => this._toastr.error(error.error.ExceptionMessage, "Acceso.")
       ,() => {
         this._router.navigate(["/menuGeneral"]);

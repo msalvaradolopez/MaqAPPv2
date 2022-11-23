@@ -28,7 +28,8 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
     estatus: "A", 
     idEconomicoTXT: null,
     idObraTXT: null,
-    idOperadorTXT: null
+    idOperadorTXT: null,
+    idUsuario: null
   };
   _subBuscar: Subscription;
 
@@ -37,6 +38,7 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
 
     this._fecha = this._svrUtilierias.convertDateToString(new Date());
+    this._filtros.idUsuario = sessionStorage.getItem("idUsuario");
 
     if(sessionStorage.getItem("Filtros")){
       this._filtros = JSON.parse(sessionStorage.getItem("Filtros"));
