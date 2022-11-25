@@ -23,6 +23,8 @@ import { DocUbicacionesDetComponent } from './doc-ubicaciones-det/doc-ubicacione
 import { BusEquiposComponent } from './bus-equipos/bus-equipos.component';
 import { BusObrasComponent } from './bus-obras/bus-obras.component';
 import { BusOperadoresComponent } from './bus-operadores/bus-operadores.component';
+import { LoadingCircleComponent } from './loading-circle/loading-circle.component';
+import { SinInformacionComponent } from './sin-informacion/sin-informacion.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { BusOperadoresComponent } from './bus-operadores/bus-operadores.componen
     DocUbicacionesDetComponent,
     BusEquiposComponent,
     BusObrasComponent,
-    BusOperadoresComponent
+    BusOperadoresComponent,
+    LoadingCircleComponent,
+    SinInformacionComponent
   ],
   imports: [
     BrowserModule,

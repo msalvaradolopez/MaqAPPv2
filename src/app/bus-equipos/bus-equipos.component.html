@@ -13,7 +13,11 @@
 <br />
 <div class="seccion-principal">
   <ul class="list-cards">
-    <li *ngFor="let item of _listado" class="card-item table-row" (click)="btnAceptar(item)">
+    <li
+      *ngFor="let item of _listado"
+      class="card-item table-row"
+      (click)="btnAceptar(item)"
+    >
       <div class="letra1">
         {{ item.Tipo }}
       </div>
@@ -22,3 +26,4 @@
     </li>
   </ul>
 </div>
+<app-loading-circle *ngIf="_loading"></app-loading-circle>

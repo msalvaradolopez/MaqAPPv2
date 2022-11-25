@@ -13,7 +13,7 @@
 
   .header {
     display: grid;
-    grid-template-columns: 70% 30%;
+    grid-template-columns: 50% 30% 20%;
 
   }
 
@@ -164,6 +164,11 @@
     width: 95%; 
   }
 
+  .content{
+    max-width: 95%;
+  }
+
+  
 }
 
 @media only screen and (max-height: 500px){

@@ -3,19 +3,22 @@
     <div class="letra-uno color-verde">Quantus</div>
     <div class="letra-dos">MaqV2</div>
   </div>
-  <div style="width: 100%; margin: 5px">
-    <input
-      type="text"
-      class="search-box"
-      placeholder="Buscar..."
-      autocomplete="off"
-      (keyup)="onKeypressEvent($event)"
-    />
-  </div>
+
+  <input
+    type="text"
+    class="search-box"
+    placeholder="Buscar..."
+    autocomplete="off"
+    (keyup)="onKeypressEvent($event)"
+  />
+
+  <h5 class="colorBlanco fecha-class">
+    {{ _fechaActual | date: "mediumDate" }}
+  </h5>
   <div class="menu-header">
+    <h5 class="colorBlanco nom-login">{{_siglasUsuario}}</h5>
     <a class="botones-menu" (click)="btnAccion()"
       ><i class="fa-solid fa-bars"></i>
-      <span class="textoBtn"> &thinsp;Menu</span>
     </a>
   </div>
 </header>

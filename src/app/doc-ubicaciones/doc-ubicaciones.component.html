@@ -27,7 +27,7 @@
       class="card-item table-row"
       (click)="btnEditar(item)"
     >
-      <div class="letra1"> {{ item.idEconomico }} | {{ item.equipoNom }}</div>
+      <div class="letra1">{{ item.idEconomico }} | {{ item.equipoNom }}</div>
 
       <div class="letra2">
         {{ item.obraNom }} | {{ item.operadorNom }} |
@@ -38,4 +38,6 @@
       </div>
     </li>
   </ul>
+  <app-sin-informacion *ngIf="_sinInfo"></app-sin-informacion>
 </div>
+<app-loading-circle *ngIf="_loading"></app-loading-circle>

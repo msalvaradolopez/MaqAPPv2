@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CatEquiposComponent implements OnInit, OnDestroy {
 
+  _loading: boolean = false;
   _listado: any [] = [];
   _subBuscar: Subscription;
 
@@ -21,10 +22,17 @@ export class CatEquiposComponent implements OnInit, OnDestroy {
     if(sessionStorage.getItem("_listado"))
       this._listado = JSON.parse(sessionStorage.getItem("_listado"));
     else {
+      this._loading = true;
       this._servicios.wsGeneral("maquinaria/getMaquinaria", {claUN: "ALT"})
-      .subscribe(resp => {this._listado = resp}
-        , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.")
-        ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
+      .subscribe(resp => this._listado = resp
+        , error => {
+          this._loading = false;
+          this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.");
+        }
+        ,() => {
+          this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;})
+          this._loading = false;
+        });
     }
 
     this._subBuscar = this._servicios.buscar$
@@ -46,10 +54,17 @@ export class CatEquiposComponent implements OnInit, OnDestroy {
   }
 
   listadoFiltrado(buscar: string) {
+    this._loading = true;
     this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {buscar: buscar, estatus: "0"})
     .subscribe(resp => this._listado = resp
-      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.")
-      ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
+      , error => {
+        this._loading = false;
+        this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.");
+      }
+      ,() => {
+        this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;});
+        this._loading = false;
+      });
   }
 
   ngOnDestroy(): void {

@@ -12,12 +12,15 @@ export class LoginComponent implements OnInit {
 
   _usuario: string = "";
   _passw: string = "";
+  _loading: boolean = false;
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService) { }
 
   ngOnInit(): void {
     this._servicios.headerSiNo(false);
-
+    sessionStorage.removeItem("categoria");
+    sessionStorage.removeItem("nomUsuario");
+    sessionStorage.removeItem("idUsuario");
     
   }
 
@@ -34,13 +37,20 @@ export class LoginComponent implements OnInit {
     }
 
 
+    this._loading = true;
     this._servicios.wsGeneral("accesos/Login", {idOperador: this._usuario, passw: this._passw})
     .subscribe(resp => {
-      sessionStorage.setItem("categoria", resp);
+      let acceso = resp;
+      sessionStorage.setItem("categoria", acceso.categoria);
+      sessionStorage.setItem("nomUsuario", acceso.Nombre);
       sessionStorage.setItem("idUsuario", this._usuario);
     }
-      , error => this._toastr.error(error.error.ExceptionMessage, "Acceso.")
+      , error => {
+        this._toastr.error(error.error.ExceptionMessage, "Acceso.");
+        this._loading = false;
+      } 
       ,() => {
+        this._loading = false;
         this._router.navigate(["/menuGeneral"]);
       });
     }

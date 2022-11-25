@@ -13,6 +13,7 @@ import { IbusResp } from '../IBusResp';
 })
 export class BusEquiposComponent implements OnInit, OnDestroy {
 
+  _loading: boolean = false;
   _listado: any[] = [];
   _BusResp: IbusResp = {
     ventana: "",
@@ -32,11 +33,18 @@ export class BusEquiposComponent implements OnInit, OnDestroy {
       this._BusResp.claveTxt = "";
     } else
     
-
+    this._loading = true;
     this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {buscar:"", estatus: "A"})
       .subscribe(resp => {this._listado = resp}
-        , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.")
-        ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
+        , error => {
+          this._loading = false;
+          this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.");
+        }
+        ,() => {
+          this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;})
+          this._loading = false;
+        }
+        );
 
     this._subBuscar = this._servicios.buscar$
     .subscribe(resp => {
@@ -45,10 +53,17 @@ export class BusEquiposComponent implements OnInit, OnDestroy {
   }
 
   listadoFiltrado(buscar: string) {
+    this._loading = true;
     this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {buscar: buscar, estatus: "A"})
     .subscribe(resp => this._listado = resp
-      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.")
-      ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
+      , error => {
+        this._loading = false;
+        this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar equipos.");  
+      }
+      ,() => {
+        this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;})
+        this._loading = false;
+      });
   }
 
   btnAceptar(item: any) {

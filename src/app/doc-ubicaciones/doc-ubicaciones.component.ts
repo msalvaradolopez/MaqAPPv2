@@ -15,6 +15,10 @@ declare var $: any;
 })
 export class DocUbicacionesComponent implements OnInit, OnDestroy {
 
+  _loading: boolean = false;
+  _sinInfo: boolean = false;
+  _fechaActual: Date = new Date();
+
   _listado: IUbicacion[] = [];
   _fecha: string = "";
   _filtros: IFiltros = {
@@ -44,6 +48,7 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
       this._filtros = JSON.parse(sessionStorage.getItem("Filtros"));
       this._fecha = this._filtros.fecha;
       this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+      sessionStorage.removeItem("_listado");
     } 
     else {
       this._filtros.fecha = this._fecha;
@@ -54,14 +59,25 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
       this._listado = JSON.parse(sessionStorage.getItem("_listado"));
     else {
       this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+      this._loading = true;
       this._servicios.wsGeneral("ubicaciones/getUbicacionesFiltro", this._filtros)
-      .subscribe(resp => this._listado = resp
-        , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar ubicaciones.")
-        ,() => this._listado = this._listado.map(x => {
-          x.idEconomicoTXT = x.idEconomico + " | " + x.equipoNom; 
-          x.idOperadorTXT = x.idOperador + " | " + x.operadorNom; 
-          x.idObraTXT = x.idObra + " | " + x.obraNom; 
-          return x;}));
+      .subscribe(resp =>  {
+        this._listado = resp;
+      }
+        , error => {
+          this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar ubicaciones.");
+          this._loading = false;
+        }
+        ,() => {
+          this._listado = this._listado.map(x => {
+            x.idEconomicoTXT = x.idEconomico + " | " + x.equipoNom; 
+            x.idOperadorTXT = x.idOperador + " | " + x.operadorNom; 
+            x.idObraTXT = x.idObra + " | " + x.obraNom; 
+            return x;});
+            this._loading = false;
+            if(this._listado == null || this._listado.length == 0)
+              this._sinInfo = true;
+        });
     }
 
     this._subBuscar = this._servicios.buscar$
@@ -95,10 +111,18 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
     this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
     this._filtros.buscar = buscar;
 
+    this._loading = true;
     this._servicios.wsGeneral("ubicaciones/getUbicacionesFiltro", this._filtros)
     .subscribe(resp => this._listado = resp
-      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar ubicaciones.")
-      ,() => {});
+      , error => {
+        this._loading = false;
+        this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar ubicaciones.");
+      }
+      ,() => {
+        this._loading = false;
+        if(this._listado == null || this._listado.length == 0)
+              this._sinInfo = true;
+      });
   }
 
   ngOnDestroy(): void {

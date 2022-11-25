@@ -11,13 +11,29 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit, OnDestroy {
 
   _headerSiNo: boolean = false;
+  _fechaActual: Date = new Date();
+  _siglasUsuario: string = "";
   _subServicio: Subscription;
 
   constructor(private _servicios: ServiciosService, private _router: Router) { }
 
   ngOnInit(): void {
+    
     this._subServicio = this._servicios.header$
-    .subscribe(resp => this._headerSiNo = resp);
+    .subscribe(resp => {
+      this._headerSiNo = resp;
+
+      if(sessionStorage.getItem("nomUsuario") && this._headerSiNo ) {
+        let nomUsuario: string = sessionStorage.getItem("nomUsuario");
+        var nomSplit = nomUsuario.split(/[\s,]+/);
+        if(nomSplit.length > 3)
+          this._siglasUsuario = nomSplit[0].substring(0,1) + nomSplit[2].substring(0,1);
+        else 
+          this._siglasUsuario = nomSplit[0].substring(0,1) + nomSplit[1].substring(0,1);
+        
+      }
+      
+    });
   }
 
   onKeypressEvent(event: any){

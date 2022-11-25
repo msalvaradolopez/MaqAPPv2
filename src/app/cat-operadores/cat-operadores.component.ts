@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CatOperadoresComponent implements OnInit, OnDestroy {
 
+  _loading: boolean = false;
   _listado: any [] = [];
   _subBuscar: Subscription;
 
@@ -20,26 +21,33 @@ export class CatOperadoresComponent implements OnInit, OnDestroy {
     if(sessionStorage.getItem("_listado"))
       this._listado = JSON.parse(sessionStorage.getItem("_listado"));
     else {
+      this._loading = true;
       this._servicios.wsGeneral("operadores/getOperadores", {claUN: "ALT"})
       .subscribe(resp => this._listado = resp
-        , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar operadores.")
-        ,() => this._listado = this._listado.map(x => {
-          if(x.estatus == "A")
-           x.estatusTexto = "Activo";
-          else
-           x.estatusTexto = "Baja"; 
-
-           if(x.categoria == "A")
-           x.categoriaTxt = "Administrador";
-
-           if(x.categoria == "S")
-           x.categoriaTxt = "Supervisor";
-
-           if(x.categoria == "O")
-           x.categoriaTxt = "Operador";
-           
-           return x;
-        }));
+        , error => {
+          this._loading = false;
+          this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar operadores.");
+        }
+        ,() => {
+          this._listado = this._listado.map(x => {
+            if(x.estatus == "A")
+             x.estatusTexto = "Activo";
+            else
+             x.estatusTexto = "Baja"; 
+  
+             if(x.categoria == "A")
+             x.categoriaTxt = "Administrador";
+  
+             if(x.categoria == "S")
+             x.categoriaTxt = "Supervisor";
+  
+             if(x.categoria == "O")
+             x.categoriaTxt = "Operador";
+             
+             return x;
+          });
+          this._loading = false;
+        } );
     }
 
     this._subBuscar = this._servicios.buscar$
@@ -63,26 +71,34 @@ export class CatOperadoresComponent implements OnInit, OnDestroy {
   }
 
   listadoFiltrado(buscar: string) {
+    this._loading = true;
     this._servicios.wsGeneral("operadores/getOperadoresFiltro", {buscar: buscar, estatus: "0"})
     .subscribe(resp => this._listado = resp
-      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar operadores.")
-      ,() => this._listado = this._listado.map(x => {
-        if(x.estatus == "A")
-         x.estatusTexto = "Activo";
-        else
-         x.estatusTexto = "Baja"; 
-
-         if(x.categoria == "A")
-         x.categoriaTxt = "Administrador";
-
-         if(x.categoria == "S")
-         x.categoriaTxt = "Supervisor";
-
-         if(x.categoria == "O")
-         x.categoriaTxt = "Operador";
-         
-         return x;
-      }));
+      , error => {
+        this._loading = false;
+        this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar operadores.");
+      }
+      ,() => {
+        this._listado = this._listado.map(x => {
+          if(x.estatus == "A")
+           x.estatusTexto = "Activo";
+          else
+           x.estatusTexto = "Baja"; 
+  
+           if(x.categoria == "A")
+           x.categoriaTxt = "Administrador";
+  
+           if(x.categoria == "S")
+           x.categoriaTxt = "Supervisor";
+  
+           if(x.categoria == "O")
+           x.categoriaTxt = "Operador";
+           
+           return x;
+        });
+        this._loading = false;
+      }
+      );
   }
 
   ngOnDestroy(): void {

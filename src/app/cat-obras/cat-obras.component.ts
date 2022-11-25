@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class CatObrasComponent implements OnInit, OnDestroy {
 
+  _loading: boolean = false;
   _obrasList: any [] = [];
   _subBuscar: Subscription;
 
@@ -21,10 +22,18 @@ export class CatObrasComponent implements OnInit, OnDestroy {
     if(sessionStorage.getItem("_obrasList"))
       this._obrasList = JSON.parse(sessionStorage.getItem("_obrasList"));
     else {
+      this._loading = true;
       this._servicios.wsGeneral("obras/getObras", {claUN: "ALT"})
       .subscribe(resp => this._obrasList = resp
-        , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar obras.")
-        ,() => this._obrasList = this._obrasList.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
+        , error => {
+          this._loading = false;
+          this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar obras.");
+        }
+        ,() => {
+          this._obrasList = this._obrasList.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;})
+          this._loading = false;
+        }
+        );
     }
 
     this._subBuscar = this._servicios.buscar$
@@ -47,10 +56,18 @@ export class CatObrasComponent implements OnInit, OnDestroy {
   }
 
   listadoObrasFiltrados(buscar: string) {
+    this._loading = true;
     this._servicios.wsGeneral("obras/getObrasFiltro", {buscar: buscar, estatus: "0"})
     .subscribe(resp => this._obrasList = resp
-      , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar obras.")
-      ,() => this._obrasList = this._obrasList.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
+      , error => {
+        this._loading = false;
+        this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar obras.");
+      }
+      ,() => {
+        this._obrasList = this._obrasList.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;});
+        this._loading = false;
+      }
+      );
   }
 
   ngOnDestroy(): void {
