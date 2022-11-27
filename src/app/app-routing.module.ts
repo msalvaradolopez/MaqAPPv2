@@ -9,6 +9,7 @@ import { CatObrasDetComponent } from './cat-obras-det/cat-obras-det.component';
 import { CatObrasComponent } from './cat-obras/cat-obras.component';
 import { CatOperadoresDetComponent } from './cat-operadores-det/cat-operadores-det.component';
 import { CatOperadoresComponent } from './cat-operadores/cat-operadores.component';
+import { ConTableroComponent } from './con-tablero/con-tablero.component';
 import { DocUbicacionesDetComponent } from './doc-ubicaciones-det/doc-ubicaciones-det.component';
 import { DocUbicacionesComponent } from './doc-ubicaciones/doc-ubicaciones.component';
 import { FiltrosComponent } from './filtros/filtros.component';
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path: "docUbicacionesDet", component: DocUbicacionesDetComponent},
   {path: "busEquipos", component: BusEquiposComponent},
   {path: "busObras", component: BusObrasComponent},
+  {path: "conTablero", component: ConTableroComponent},
   {path: "busOperadores", component: BusOperadoresComponent},
   {path: "filtros", component: FiltrosComponent},
   {path: "login", component: LoginComponent}

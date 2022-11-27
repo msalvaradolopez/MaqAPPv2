@@ -25,6 +25,7 @@ import { BusObrasComponent } from './bus-obras/bus-obras.component';
 import { BusOperadoresComponent } from './bus-operadores/bus-operadores.component';
 import { LoadingCircleComponent } from './loading-circle/loading-circle.component';
 import { SinInformacionComponent } from './sin-informacion/sin-informacion.component';
+import { ConTableroComponent } from './con-tablero/con-tablero.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { SinInformacionComponent } from './sin-informacion/sin-informacion.compo
     BusObrasComponent,
     BusOperadoresComponent,
     LoadingCircleComponent,
-    SinInformacionComponent
+    SinInformacionComponent,
+    ConTableroComponent
   ],
   imports: [
     BrowserModule,

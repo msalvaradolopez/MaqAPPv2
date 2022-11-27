@@ -2,6 +2,11 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto&display=swa);
 @import url(https://fonts.googleapis.com/css2?family=Orbitron&display=swap);
 
+@font-face {
+  font-family: 'VT323';
+  src:  url("../fonts/VT323-Regular.ttf");
+}
+
 * {
   margin: 0px;
   padding: 0px;
@@ -125,10 +130,9 @@ ul {
 
     color: white;
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    
     font-size:medium;
   }
 
@@ -682,4 +686,59 @@ tr:nth-child(2n){
   background-color: #1f253d;
   border-radius: 50%;
   padding: 10px;
+}
+
+.tablero-item {
+  font-family: 'VT323', monospace;
+  font-size: 50px;
+  font-weight:400;
+
+  list-style: none;
+  *background: #50597b;
+  background-color: rgba(80,89,123,.3);
+  
+  
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 3px;
+
+  max-width: 95%;
+  min-width: 95%;
+  min-height: 10px;
+  *height: auto;
+
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+  opacity: 0.8;
+}
+
+/*#03e9f4*/
+.neon-class {
+  color: #fff;
+  text-shadow: 0 0 5px yellow,
+  0 0 25px yellow,
+  0 0 50px yellow,
+  0 0 100px yellow;
+}
+
+.rojo-class {
+  color: #fff;
+  text-shadow: 0 0 5px #f40303,
+  0 0 25px #f40303,
+  0 0 50px #f40303,
+  0 0 100px #f40303;
+}
+
+.seccion-tablero {
+  width: 95%;
+  max-height: calc(100vh - 130px); /* 100px is the height of the navbar */
+  min-height: calc(100vh - 130px); /* 100px is the height of the navbar */
+  overflow: auto;
 }
