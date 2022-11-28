@@ -1,27 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy} from '@angular/core';
+import { ServiciosService } from '../servicios.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-con-tablero',
   templateUrl: './con-tablero.component.html',
   styleUrls: ['./con-tablero.component.css']
 })
-export class ConTableroComponent implements OnInit {
+export class ConTableroComponent implements OnInit, OnDestroy{
 
-  _listado: any[] = [{idEconomico: "Equipo", lunes: "Lunes", martes: "Martes", miercoles: "Miercoles", jueves: "Jueves", viernes: "Viernes", sabado: "Sabado", domingo: "Domingo"},
-                      {idEconomico: "", lunes: "21", martes: "23", miercoles: "24", jueves: "25", viernes: "26", sabado: "27", domingo: "28"},
-                      {idEconomico: "CURB-01", lunes: null, martes: null, miercoles: "PESQ-03", jueves: null, viernes: null, sabado: null, domingo: null},
-                      {idEconomico: "CURB-02", lunes: null, martes: null, miercoles: "PESQ-03", jueves: null, viernes: null, sabado: null, domingo: null},
-                      {idEconomico: "CURB-03", lunes: null, martes: null, miercoles: null, jueves: null, viernes: "", sabado: null, domingo: null},
-                      {idEconomico: "CURB-04", lunes: null, martes: null, miercoles: null, jueves: null, viernes: null, sabado: null, domingo: null},
-                      {idEconomico: "CURB-05", lunes: "PESQ-03", martes: null, miercoles: "PESQ-01", jueve: null, viernes: null, sabado: null, domingo: null},
-                      {idEconomico: "CURB-06", lunes: null, martes: null, miercoles: "PESQ-03", jueves: null, viernes: null, sabado: null, domingo: null},
-                      {idEconomico: "CURB-07", lunes: null, martes: null, miercoles: "PESQ-04", jueves: null, viernes: null, sabado: null, domingo: null},
-                      {idEconomico: "CURB-08", lunes: null, martes: null, miercoles: "PESQ-03", jueves: null, viernes: null, sabado: null, domingo: null}
-  ];
+  _loading: boolean = false;
+  _listado: any[] = [];
+  _paginaTablero: number = 13;
+  _interval: any;
 
-  constructor() { }
+  constructor(private _servicios: ServiciosService,  private _toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.getTableroList();  
+    this._interval = setInterval(() => this.getTableroList(), 20000);
+  }
+
+  getTableroList () {
+    this._loading = true;
+    this._paginaTablero++;
+
+    this._servicios.wsGeneral("ubicaciones/getTableroList", {pagina: this._paginaTablero})
+      .subscribe(resp => {
+        this._listado = [];
+        this._listado = resp;
+      }          
+        , error => {
+          this._loading = false;
+          this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar tablero.");
+        }
+        ,() => {
+          if(this._listado == null || this._listado.length == 1)
+            this._paginaTablero = 0;
+
+          this._listado.unshift({idEconomico: "Equipo", lunes: "Lunes", martes: "Martes", miercoles: "Miércoles", jueves: "Jueves", viernes: "Viernes", sabado: "Sábado", domingo: "Domingo"});
+          this._loading = false;
+        });
+  }
+
+  async setRenglonesTablero (item: any) {
+    let promise = new Promise((resolve, reject) => {
+      setTimeout(() => resolve(this._listado.push(item)), 5000)
+    });
+  
+    let result = await promise; // wait until the promise resolves (*)
+  
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this._interval);
   }
 
 }
