@@ -471,25 +471,11 @@ tr:nth-child(2n){
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  /*
-  *height: 60px;
-  padding-top: 5px;
-  padding-left: 5px;
-  *background-color: #5f0202;
-  border-radius: 5px;
-  font-size: x-large;
-  color: white;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 12px;
-  *box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
-  */
 }
 
 
 .letra1 {
+  color: white;
   font-size:medium;
   text-align:left;
 }
@@ -741,4 +727,24 @@ tr:nth-child(2n){
   max-height: calc(100vh - 130px); /* 100px is the height of the navbar */
   min-height: calc(100vh - 130px); /* 100px is the height of the navbar */
   overflow: auto;
+}
+
+.card-item-table {
+  list-style: none;
+  background: #50597b;
+  padding: auto;
+  margin: auto;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 3px;
+
+  max-width: 100%;
+  min-width: 100%;
+  height: auto;
+
+  font-size: x-large;
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }

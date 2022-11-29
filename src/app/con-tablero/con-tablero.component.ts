@@ -11,7 +11,7 @@ export class ConTableroComponent implements OnInit, OnDestroy{
 
   _loading: boolean = false;
   _listado: any[] = [];
-  _paginaTablero: number = 13;
+  _paginaTablero: number = 0;
   _interval: any;
 
   constructor(private _servicios: ServiciosService,  private _toastr: ToastrService) { }

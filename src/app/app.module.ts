@@ -26,6 +26,7 @@ import { BusOperadoresComponent } from './bus-operadores/bus-operadores.componen
 import { LoadingCircleComponent } from './loading-circle/loading-circle.component';
 import { SinInformacionComponent } from './sin-informacion/sin-informacion.component';
 import { ConTableroComponent } from './con-tablero/con-tablero.component';
+import { ConUbicacionesComponent } from './con-ubicaciones/con-ubicaciones.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ConTableroComponent } from './con-tablero/con-tablero.component';
     BusOperadoresComponent,
     LoadingCircleComponent,
     SinInformacionComponent,
-    ConTableroComponent
+    ConTableroComponent,
+    ConUbicacionesComponent
   ],
   imports: [
     BrowserModule,
