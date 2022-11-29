@@ -57,7 +57,6 @@ export class ConUbicacionesComponent implements OnInit {
     else {
       this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
       this._loading = true;
-      console.log(this._filtros);
       this._servicios.wsGeneral("ubicaciones/getUbicacionesFiltro", this._filtros)
       .subscribe(resp =>  {
         this._listado = resp;

@@ -168,7 +168,19 @@
     max-width: 95%;
   }
 
-  
+  .consulta-ubicaciones {
+    display: none;
+  }
+
+  .consulta-ubicaciones-mobile {
+    display: block;
+  }
+
+.card-item-table-mobile {
+  display: flex;  
+  flex-direction: column;
+  width: 100%;
+}
 }
 
 @media only screen and (max-height: 500px){
