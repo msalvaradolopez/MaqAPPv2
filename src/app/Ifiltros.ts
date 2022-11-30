@@ -11,4 +11,5 @@ export interface IFiltros {
     idObraTXT: string;
     idOperadorTXT: string;
     idUsuario: string;
+    pantalla: string;
 }

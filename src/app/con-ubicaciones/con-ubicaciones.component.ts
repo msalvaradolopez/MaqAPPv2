@@ -32,14 +32,15 @@ export class ConUbicacionesComponent implements OnInit {
     idEconomicoTXT: null,
     idObraTXT: null,
     idOperadorTXT: null,
-    idUsuario: null
+    idUsuario: null, 
+    pantalla: "conUbicaciones"
   };
   _subBuscar: Subscription;
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService, private _svrUtilierias: srvUtileriasService) { }
 
   ngOnInit(): void {
-    this._fecha = this._svrUtilierias.convertDateToString(new Date(2022, 10, 15));
+    
 
     if(sessionStorage.getItem("Filtros")){
       this._filtros = JSON.parse(sessionStorage.getItem("Filtros"));
@@ -47,11 +48,9 @@ export class ConUbicacionesComponent implements OnInit {
       this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
       sessionStorage.removeItem("_listado");
     } 
-    else {
-      this._filtros.fecha = this._fecha;
-      this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
-    }
-
+    else 
+      this.reiniciaFiltros();
+    
     if(sessionStorage.getItem("_listado"))
       this._listado = JSON.parse(sessionStorage.getItem("_listado"));
     else {
@@ -84,7 +83,8 @@ export class ConUbicacionesComponent implements OnInit {
   }
 
   btnFiltros() {
-    sessionStorage.removeItem("Filtros");
+    this.reiniciaFiltros();
+    sessionStorage.setItem("Filtros", JSON.stringify( this._filtros));
     sessionStorage.removeItem("busResp");
     this._router.navigate(["/filtros"]);
   }
@@ -111,5 +111,26 @@ export class ConUbicacionesComponent implements OnInit {
     this._subBuscar.unsubscribe();
   }
 
+  reiniciaFiltros() {
+    this._filtros  = {
+      idUbicacion: null, 
+      idEconomico: null, 
+      idObra: null, 
+      idOperador: null, 
+      fecha_alta : null, 
+      buscar: "", 
+      fecha: null, 
+      estatus: "A", 
+      idEconomicoTXT: null,
+      idObraTXT: null,
+      idOperadorTXT: null,
+      idUsuario: null,
+      pantalla: "conUbicaciones"
+    };    
 
+    this._fecha = this._svrUtilierias.convertDateToString(new Date());
+    this._filtros.fecha = this._fecha;
+    this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+    // this._filtros.idUsuario = sessionStorage.getItem("idUsuario");
+  }
 }

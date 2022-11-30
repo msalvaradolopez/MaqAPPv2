@@ -33,7 +33,8 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
     idEconomicoTXT: null,
     idObraTXT: null,
     idOperadorTXT: null,
-    idUsuario: null
+    idUsuario: null,
+    pantalla: "docUbicaciones"
   };
   _subBuscar: Subscription;
 
@@ -51,8 +52,7 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
       sessionStorage.removeItem("_listado");
     } 
     else {
-      this._filtros.fecha = this._fecha;
-      this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+      this.reiniciaFiltros();
     }
 
     if(sessionStorage.getItem("_listado"))
@@ -102,7 +102,8 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
   }
 
   btnFiltros() {
-    sessionStorage.removeItem("Filtros");
+    this.reiniciaFiltros();
+    sessionStorage.setItem("Filtros", JSON.stringify(this._filtros));
     sessionStorage.removeItem("busResp");
     this._router.navigate(["/filtros"]);
   }
@@ -129,5 +130,26 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
     this._subBuscar.unsubscribe();
   }
 
+  reiniciaFiltros() {
+    this._filtros  = {
+      idUbicacion: null, 
+      idEconomico: null, 
+      idObra: null, 
+      idOperador: null, 
+      fecha_alta : null, 
+      buscar: "", 
+      fecha: null, 
+      estatus: "A", 
+      idEconomicoTXT: null,
+      idObraTXT: null,
+      idOperadorTXT: null,
+      idUsuario: null,
+      pantalla: "docUbicaciones"
+    };    
+
+    this._filtros.fecha = this._fecha;
+    this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+    this._filtros.idUsuario = sessionStorage.getItem("idUsuario");
+  }
 
 }

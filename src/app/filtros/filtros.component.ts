@@ -27,7 +27,8 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
     idEconomicoTXT: null,
     idObraTXT: null,
     idOperadorTXT: null,
-    idUsuario: null
+    idUsuario: null,
+    pantalla: null
   };
 
   _BusResp: IbusResp = {
@@ -129,7 +130,7 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
   }
 
   btnRegresar() {
-    this._router.navigate(["/docUbicaciones"]);
+    this._router.navigate(["/" + this._filtros.pantalla ]);
   }
 
   ngAfterViewInit(): void {
