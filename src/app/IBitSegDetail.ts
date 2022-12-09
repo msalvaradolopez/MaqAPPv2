@@ -1,13 +1,14 @@
-export interface IBitSeg {
+export interface IBitSegDetail {
     idBitacora: number;
     docBitacora: number;
     fecha: Date;
-    idOperador: string;
+    idSupervisor: string;
     idObra: string;
     area: string;
-    hora_inicio: string;
-    hora_termino: string;
+    hora_inicio: Date;
+    hora_termino: Date;
     idEconomico: string;
+    idOperador: string;
     actividad: string;
     pto_exacto: string;
     chequeo_medico: string;
@@ -35,6 +36,7 @@ export interface IBitSeg {
     idEconomicoTXT: string;
     idObraTXT: string;
     idOperadorTXT: string;
+    supervisorNom: string;
     equipoNom: string;
     operadorNom: string;
     obraNom: string;

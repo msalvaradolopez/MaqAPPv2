@@ -25,14 +25,45 @@
       class="card-item table-row"
       (click)="btnEditar(item)"
     >
-      <div class="letra1">{{ item.idEconomico }} | {{ item.equipoNom }}</div>
+      <div
+        class="letra1"
+        style="
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+        "
+      >
+        <div>[ {{ item.docBitacora }} ] | {{ item.obraNom }}</div>
+        <div>
+          {{ item.fecha | date : "mediumDate" }}
+        </div>
+      </div>
 
       <div class="letra2">
-        {{ item.obraNom }} | {{ item.operadorNom }} |
-        {{ item.fecha_alta | date : "mediumDate" }}
+        <p>{{ item.supervisorNom }}</p>
+        {{ item.area }}
       </div>
-      <div class="letra2">
-        {{ item.comentarios }}
+      <div
+        class="letra2"
+        style="width: 100%; border-top: 1px solid #ccc; width: 100%"
+      >
+        <ul>
+          <li
+            *ngFor="let itemEquipo of item.ListadoBitSeg"
+            style="margin-top: 5px"
+            class="borde-abajo"
+          >
+            <div class="letra2 borde-abajo">
+              <div>
+                {{ itemEquipo.idEconomico }} | {{ itemEquipo.equipoNom }}
+              </div>
+              <div>
+                {{ itemEquipo.idOperador }} | {{ itemEquipo.operadorNom }}
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </li>
   </ul>

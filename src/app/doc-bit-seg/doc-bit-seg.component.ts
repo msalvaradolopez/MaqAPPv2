@@ -5,7 +5,7 @@ import { ServiciosService } from '../servicios.service';
 import { srvUtileriasService } from '../srvUtilerias.service';
 import { ToastrService } from 'ngx-toastr';
 import { IFiltros } from '../Ifiltros';
-import { IUbicacion } from '../iubicacion';
+import { IBitSegMaster } from '../IBitSegMaster';
 declare var $: any;
 
 
@@ -20,7 +20,7 @@ export class DocBitSegComponent implements OnInit {
   _sinInfo: boolean = false;
   _fechaActual: Date = new Date();
 
-  _listado: IUbicacion[] = [];
+  _listado: IBitSegMaster[] = [];
   _fecha: string = "";
   _filtros: IFiltros = {
     idUbicacion: null, 
@@ -61,24 +61,28 @@ export class DocBitSegComponent implements OnInit {
     else {
       this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
       this._loading = true;
-      this._servicios.wsGeneral("bitSeg/getBitSegFiltro", this._filtros)
+      this._servicios.wsGeneral("bitSeg/getListFilter", this._filtros)
       .subscribe(resp =>  {
         this._listado = resp;
       }
-        , error => {
+      , error => {
           this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar bit Seguridad.");
           this._loading = false;
-        }
-        ,() => {
-          this._listado = this._listado.map(x => {
-            x.idEconomicoTXT = x.idEconomico + " | " + x.equipoNom; 
-            x.idOperadorTXT = x.idOperador + " | " + x.operadorNom; 
-            x.idObraTXT = x.idObra + " | " + x.obraNom; 
-            return x;});
-            this._loading = false;
-            if(this._listado == null || this._listado.length == 0)
-              this._sinInfo = true;
-        });
+      }
+      ,() => {
+          console.log(this._listado);
+          this._listado.forEach(item => {
+            item.ListadoBitSeg.forEach(x => {
+              x.idEconomicoTXT = x.idEconomico + " | " + x.equipoNom; 
+              x.idOperadorTXT = x.idOperador + " | " + x.operadorNom; 
+              x.idObraTXT = x.idObra + " | " + x.obraNom; 
+              });
+          });
+
+          this._loading = false;
+          if(this._listado == null || this._listado.length == 0)
+            this._sinInfo = true;
+      });
     }
 
     this._subBuscar = this._servicios.buscar$
@@ -114,7 +118,7 @@ export class DocBitSegComponent implements OnInit {
     this._filtros.buscar = buscar;
 
     this._loading = true;
-    this._servicios.wsGeneral("bitSeg/getBitSegFiltro", this._filtros)
+    this._servicios.wsGeneral("bitSeg/getListFilter", this._filtros)
     .subscribe(resp => this._listado = resp
       , error => {
         this._loading = false;
