@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ServiciosService } from '../servicios.service';
@@ -6,13 +6,15 @@ import { srvUtileriasService } from '../srvUtilerias.service';
 import { ToastrService } from 'ngx-toastr';
 import { IFiltros } from '../Ifiltros';
 import { IUbicacion } from '../iubicacion';
+declare var $: any;
+
 
 @Component({
-  selector: 'app-con-ubicaciones',
-  templateUrl: './con-ubicaciones.component.html',
-  styleUrls: ['./con-ubicaciones.component.css']
+  selector: 'app-doc-bit-seg',
+  templateUrl: './doc-bit-seg.component.html',
+  styleUrls: ['./doc-bit-seg.component.css']
 })
-export class ConUbicacionesComponent implements OnInit {
+export class DocBitSegComponent implements OnInit {
 
   _loading: boolean = false;
   _sinInfo: boolean = false;
@@ -32,15 +34,17 @@ export class ConUbicacionesComponent implements OnInit {
     idEconomicoTXT: null,
     idObraTXT: null,
     idOperadorTXT: null,
-    idUsuario: null, 
-    pantalla: "conUbicaciones"
+    idUsuario: null,
+    pantalla: "docBitSeg"
   };
   _subBuscar: Subscription;
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService, private _svrUtilierias: srvUtileriasService) { }
 
   ngOnInit(): void {
-    
+
+    this._fecha = this._svrUtilierias.convertDateToString(new Date());
+    this._filtros.idUsuario = sessionStorage.getItem("idUsuario");
 
     if(sessionStorage.getItem("Filtros")){
       this._filtros = JSON.parse(sessionStorage.getItem("Filtros"));
@@ -48,20 +52,21 @@ export class ConUbicacionesComponent implements OnInit {
       this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
       sessionStorage.removeItem("_listado");
     } 
-    else 
+    else {
       this.reiniciaFiltros();
-    
+    }
+
     if(sessionStorage.getItem("_listado"))
       this._listado = JSON.parse(sessionStorage.getItem("_listado"));
     else {
       this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
       this._loading = true;
-      this._servicios.wsGeneral("ubicaciones/getListFilter", this._filtros)
+      this._servicios.wsGeneral("bitSeg/getBitSegFiltro", this._filtros)
       .subscribe(resp =>  {
         this._listado = resp;
       }
         , error => {
-          this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar ubicaciones.");
+          this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar bit Seguridad.");
           this._loading = false;
         }
         ,() => {
@@ -80,11 +85,26 @@ export class ConUbicacionesComponent implements OnInit {
     .subscribe(resp => {
       this.listadoFiltrado(resp);
     });
+
+  }
+
+  
+  btnAgregar() {
+    sessionStorage.setItem("_listado", JSON.stringify(this._listado));
+    sessionStorage.removeItem("Item");
+    sessionStorage.removeItem("busResp");
+    this._router.navigate(["/docBitSegDet"]);
+  }
+
+  btnEditar(Item: any) {
+    sessionStorage.setItem("_listado", JSON.stringify(this._listado));
+    sessionStorage.setItem("Item", JSON.stringify(Item));
+    this._router.navigate(["/docBitSegDet"]);
   }
 
   btnFiltros() {
     this.reiniciaFiltros();
-    sessionStorage.setItem("Filtros", JSON.stringify( this._filtros));
+    sessionStorage.setItem("Filtros", JSON.stringify(this._filtros));
     sessionStorage.removeItem("busResp");
     this._router.navigate(["/filtros"]);
   }
@@ -94,11 +114,11 @@ export class ConUbicacionesComponent implements OnInit {
     this._filtros.buscar = buscar;
 
     this._loading = true;
-    this._servicios.wsGeneral("ubicaciones/getListFilter", this._filtros)
+    this._servicios.wsGeneral("bitSeg/getBitSegFiltro", this._filtros)
     .subscribe(resp => this._listado = resp
       , error => {
         this._loading = false;
-        this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar ubicaciones.");
+        this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar bit Seguridad.");
       }
       ,() => {
         this._loading = false;
@@ -125,12 +145,13 @@ export class ConUbicacionesComponent implements OnInit {
       idObraTXT: null,
       idOperadorTXT: null,
       idUsuario: null,
-      pantalla: "conUbicaciones"
+      pantalla: "docBitSeg"
     };    
 
-    this._fecha = this._svrUtilierias.convertDateToString(new Date());
     this._filtros.fecha = this._fecha;
     this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
-    // this._filtros.idUsuario = sessionStorage.getItem("idUsuario");
+    this._filtros.idUsuario = sessionStorage.getItem("idUsuario");
   }
+
+
 }

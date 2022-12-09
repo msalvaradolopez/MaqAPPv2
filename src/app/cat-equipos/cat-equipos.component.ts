@@ -23,7 +23,7 @@ export class CatEquiposComponent implements OnInit, OnDestroy {
       this._listado = JSON.parse(sessionStorage.getItem("_listado"));
     else {
       this._loading = true;
-      this._servicios.wsGeneral("maquinaria/getMaquinaria", {claUN: "ALT"})
+      this._servicios.wsGeneral("maquinaria/getListFilter", {buscar: "", estatus: "0"})
       .subscribe(resp => this._listado = resp
         , error => {
           this._loading = false;
@@ -55,7 +55,7 @@ export class CatEquiposComponent implements OnInit, OnDestroy {
 
   listadoFiltrado(buscar: string) {
     this._loading = true;
-    this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {buscar: buscar, estatus: "0"})
+    this._servicios.wsGeneral("maquinaria/getListFilter", {buscar: buscar, estatus: "0"})
     .subscribe(resp => this._listado = resp
       , error => {
         this._loading = false;

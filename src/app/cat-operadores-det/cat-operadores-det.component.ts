@@ -44,10 +44,10 @@ export class CatOperadoresDetComponent implements OnInit {
       
     this._item.estatus = this._estatus ? "A" : "B";
 
-    let lAccionRecurso: string = "operadores/insOperador"
+    let lAccionRecurso: string = "operadores/insItem"
 
     if(this._accion == "E")
-      lAccionRecurso = "operadores/updOperador"
+      lAccionRecurso = "operadores/updItem"
 
     this._servicios.wsGeneral(lAccionRecurso, this._item)
     .subscribe(resp => { }

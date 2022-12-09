@@ -8,12 +8,13 @@ import { IUbicacion } from '../iubicacion';
 import { IbusResp } from '../IBusResp';
 declare var $: any;
 
+
 @Component({
-  selector: 'app-doc-ubicaciones-det',
-  templateUrl: './doc-ubicaciones-det.component.html',
-  styleUrls: ['./doc-ubicaciones-det.component.css']
+  selector: 'app-doc-bit-seg-det',
+  templateUrl: './doc-bit-seg-det.component.html',
+  styleUrls: ['./doc-bit-seg-det.component.css']
 })
-export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDestroy {
+export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
   _Item: IUbicacion = {
     idUbicacion: null,
     idEconomico: null,
@@ -38,7 +39,7 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDest
   };
 
   _BusResp: IbusResp = {
-    ventana: "docUbicacionesDet",
+    ventana: "docBitSegDet",
     buscarPor: "",
     clave: "",
     claveTxt: ""
@@ -121,10 +122,10 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDest
     this._Item.idUsuario = sessionStorage.getItem("idUsuario");
   
 
-    let lAccionRecurso: string = "ubicaciones/insItem"
+    let lAccionRecurso: string = "ubicaciones/insUbicacion"
 
     if(this._accion == "E")
-      lAccionRecurso = "ubicaciones/updItem"
+      lAccionRecurso = "ubicaciones/updUbicacion"
 
     this._servicios.wsGeneral(lAccionRecurso, this._Item)
     .subscribe(resp => { }
@@ -162,7 +163,7 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDest
 
   btnRegresar() {
     sessionStorage.removeItem("busResp");
-    this._router.navigate(["/docUbicaciones"]);
+    this._router.navigate(["/docBitSeg"]);
   }
 
   LimpiarFormulario(){

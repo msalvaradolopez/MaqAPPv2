@@ -27,6 +27,8 @@ import { LoadingCircleComponent } from './loading-circle/loading-circle.componen
 import { SinInformacionComponent } from './sin-informacion/sin-informacion.component';
 import { ConTableroComponent } from './con-tablero/con-tablero.component';
 import { ConUbicacionesComponent } from './con-ubicaciones/con-ubicaciones.component';
+import { DocBitSegComponent } from './doc-bit-seg/doc-bit-seg.component';
+import { DocBitSegDetComponent } from './doc-bit-seg-det/doc-bit-seg-det.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { ConUbicacionesComponent } from './con-ubicaciones/con-ubicaciones.compo
     LoadingCircleComponent,
     SinInformacionComponent,
     ConTableroComponent,
-    ConUbicacionesComponent
+    ConUbicacionesComponent,
+    DocBitSegComponent,
+    DocBitSegDetComponent
   ],
   imports: [
     BrowserModule,

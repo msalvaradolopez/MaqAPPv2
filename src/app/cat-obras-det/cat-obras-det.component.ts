@@ -39,10 +39,10 @@ export class CatObrasDetComponent implements OnInit {
 
     this._obraItem.estatus = this._estatus ? "A" : "B";
 
-    let lAccionRecurso: string = "obras/insObra"
+    let lAccionRecurso: string = "obras/insItem"
 
     if(this._accion == "E")
-      lAccionRecurso = "obras/updObra"
+      lAccionRecurso = "obras/updItem"
 
     this._servicios.wsGeneral(lAccionRecurso, this._obraItem)
     .subscribe(resp => { }

@@ -23,7 +23,7 @@ export class CatObrasComponent implements OnInit, OnDestroy {
       this._obrasList = JSON.parse(sessionStorage.getItem("_obrasList"));
     else {
       this._loading = true;
-      this._servicios.wsGeneral("obras/getObras", {claUN: "ALT"})
+      this._servicios.wsGeneral("obras/getListFilter", {buscar: "", estatus: "0"})
       .subscribe(resp => this._obrasList = resp
         , error => {
           this._loading = false;
@@ -57,7 +57,7 @@ export class CatObrasComponent implements OnInit, OnDestroy {
 
   listadoObrasFiltrados(buscar: string) {
     this._loading = true;
-    this._servicios.wsGeneral("obras/getObrasFiltro", {buscar: buscar, estatus: "0"})
+    this._servicios.wsGeneral("obras/getListFilter", {buscar: buscar, estatus: "0"})
     .subscribe(resp => this._obrasList = resp
       , error => {
         this._loading = false;

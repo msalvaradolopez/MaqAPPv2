@@ -34,7 +34,7 @@ export class BusEquiposComponent implements OnInit, OnDestroy {
     } else
     
     this._loading = true;
-    this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {buscar:"", estatus: "A"})
+    this._servicios.wsGeneral("maquinaria/getListFilter", {buscar:"", estatus: "A"})
       .subscribe(resp => {this._listado = resp}
         , error => {
           this._loading = false;
@@ -54,7 +54,7 @@ export class BusEquiposComponent implements OnInit, OnDestroy {
 
   listadoFiltrado(buscar: string) {
     this._loading = true;
-    this._servicios.wsGeneral("maquinaria/getMaquinariaFiltro", {buscar: buscar, estatus: "A"})
+    this._servicios.wsGeneral("maquinaria/getListFilter", {buscar: buscar, estatus: "A"})
     .subscribe(resp => this._listado = resp
       , error => {
         this._loading = false;

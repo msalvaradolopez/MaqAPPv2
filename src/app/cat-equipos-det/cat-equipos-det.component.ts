@@ -36,10 +36,10 @@ export class CatEquiposDetComponent implements OnInit {
       return;
     }
 
-    let lAccionRecurso: string = "maquinaria/insMaquinaria"
+    let lAccionRecurso: string = "maquinaria/insItem"
 
     if(this._accion == "E")
-      lAccionRecurso = "maquinaria/updMaquinaria"
+      lAccionRecurso = "maquinaria/updItem"
 
     this._item.estatus = this._estatus ? "A" : "B";
 

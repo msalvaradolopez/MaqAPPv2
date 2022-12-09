@@ -60,7 +60,7 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
     else {
       this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
       this._loading = true;
-      this._servicios.wsGeneral("ubicaciones/getUbicacionesFiltro", this._filtros)
+      this._servicios.wsGeneral("ubicaciones/getListFilter", this._filtros)
       .subscribe(resp =>  {
         this._listado = resp;
       }
@@ -113,7 +113,7 @@ export class DocUbicacionesComponent implements OnInit, OnDestroy {
     this._filtros.buscar = buscar;
 
     this._loading = true;
-    this._servicios.wsGeneral("ubicaciones/getUbicacionesFiltro", this._filtros)
+    this._servicios.wsGeneral("ubicaciones/getListFilter", this._filtros)
     .subscribe(resp => this._listado = resp
       , error => {
         this._loading = false;

@@ -32,7 +32,7 @@ export class BusObrasComponent implements OnInit, OnDestroy {
     }
     
 
-    this._servicios.wsGeneral("obras/getObrasFiltro", {buscar: "", estatus: "A"})
+    this._servicios.wsGeneral("obras/getListFilter", {buscar: "", estatus: "A"})
     .subscribe(resp => this._listado = resp
       , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar obras.")
       ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
@@ -44,7 +44,7 @@ export class BusObrasComponent implements OnInit, OnDestroy {
   }
 
   listadoFiltrado(buscar: string) {
-    this._servicios.wsGeneral("obras/getObrasFiltro", {buscar: buscar, estatus: "A"})
+    this._servicios.wsGeneral("obras/getListFilter", {buscar: buscar, estatus: "A"})
     .subscribe(resp => this._listado = resp
       , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar obras.")
       ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
