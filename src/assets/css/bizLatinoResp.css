@@ -130,14 +130,11 @@
     border-radius:100px;
   }
 
-
   .centrar-icono {
     top: 20%;
     position: relative;
     margin: auto;
   }
-  
-  
   
   .button-plus {
     display: block;
@@ -150,6 +147,18 @@
     border-radius: 50%;
     background-color: yellowgreen;
     color: white;
+  }
+
+  .icono-posicion-tres {
+    bottom: 30%;
+  }
+
+  .icono-posicion-dos {
+    bottom: 20%;
+  }
+
+  .icono-posicion-uno {
+    bottom: 10%;
   }
 
   .icono-plus-circle {

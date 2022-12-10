@@ -70,8 +70,8 @@ export class DocBitSegComponent implements OnInit {
           this._loading = false;
       }
       ,() => {
-          console.log(this._listado);
           this._listado.forEach(item => {
+            item.idObraTXT = item.idObra + " | " + item.obraNom; 
             item.ListadoBitSeg.forEach(x => {
               x.idEconomicoTXT = x.idEconomico + " | " + x.equipoNom; 
               x.idOperadorTXT = x.idOperador + " | " + x.operadorNom; 

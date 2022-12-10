@@ -29,6 +29,8 @@ import { ConTableroComponent } from './con-tablero/con-tablero.component';
 import { ConUbicacionesComponent } from './con-ubicaciones/con-ubicaciones.component';
 import { DocBitSegComponent } from './doc-bit-seg/doc-bit-seg.component';
 import { DocBitSegDetComponent } from './doc-bit-seg-det/doc-bit-seg-det.component';
+import { DocBitSegDetEquipoComponent } from './doc-bit-seg-det-equipo/doc-bit-seg-det-equipo.component';
+import { BusSupervisoresComponent } from './bus-supervisores/bus-supervisores.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { DocBitSegDetComponent } from './doc-bit-seg-det/doc-bit-seg-det.compone
     ConTableroComponent,
     ConUbicacionesComponent,
     DocBitSegComponent,
-    DocBitSegDetComponent
+    DocBitSegDetComponent,
+    DocBitSegDetEquipoComponent,
+    BusSupervisoresComponent
   ],
   imports: [
     BrowserModule,

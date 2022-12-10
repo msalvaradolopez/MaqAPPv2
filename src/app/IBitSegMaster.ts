@@ -12,4 +12,6 @@ export interface IBitSegMaster {
     supervisorNom: string;
     obraNom: string;
     ListadoBitSeg: IBitSegDetail[];
+    idSupervisorTXT: string;
+    idObraTXT: string;
 }

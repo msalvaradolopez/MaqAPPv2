@@ -6,6 +6,7 @@ import { srvUtileriasService } from '../srvUtilerias.service';
 import { ToastrService } from 'ngx-toastr';
 import { IUbicacion } from '../iubicacion';
 import { IbusResp } from '../IBusResp';
+import { IBitSegMaster } from '../IBitSegMaster';
 declare var $: any;
 
 
@@ -15,27 +16,21 @@ declare var $: any;
   styleUrls: ['./doc-bit-seg-det.component.css']
 })
 export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
-  _Item: IUbicacion = {
-    idUbicacion: null,
-    idEconomico: null,
-    idOperador: null,
+  
+  _Item: IBitSegMaster = {
+    idBitacora: null,
+    docBitacora: null,
+    fecha: null,
+    idSupervisor: null,
     idObra: null,
-    fecha_alta: null,
-    comentarios: null,
-    idUsuario: null,
-    fecha_ingreso: null,
-    hodometro: 0,
-    odometro: null,
-    sello: null,
-    litros: null,
-    horometro: null,
-    ventana: "U",
-    idEconomicoTXT: null,
+    area: null,
+    hora_inicio: null,
+    hora_termino: null,
+    supervisorNom: null,
+    obraNom: null,
+    ListadoBitSeg: [],
+    idSupervisorTXT: null,
     idObraTXT: null,
-    idOperadorTXT: null,
-    equipoNom: null,
-    operadorNom: null,
-    obraNom: null
   };
 
   _BusResp: IbusResp = {
@@ -57,26 +52,20 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if(sessionStorage.getItem("Item")) {
       this._Item = JSON.parse(sessionStorage.getItem("Item"));
-      var fechaAux = new Date(this._Item.fecha_alta);
+      var fechaAux = new Date(this._Item.fecha);
       this._fecha = this._svrUtilierias.convertDateToString(fechaAux);
-      this._accion = this._Item.idUbicacion == null ? "N" : "E";
+      this._accion = this._Item.docBitacora == null ? "N" : "E";
     }
     else {
       this._accion = "N";
-      this._Item.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+      this._Item.fecha = this._svrUtilierias.convertStringToDate(this._fecha);
     }
 
     if(sessionStorage.getItem("busResp")) {
       this._BusResp = JSON.parse(sessionStorage.getItem("busResp"));
       
-      if(this._BusResp.buscarPor == "Equipos") 
-        this._Item.idEconomicoTXT =  this._BusResp.claveTxt;
-    
-      if(this._BusResp.buscarPor == "Obras") 
-        this._Item.idObraTXT =  this._BusResp.claveTxt;
-
-      if(this._BusResp.buscarPor == "Operadores") 
-        this._Item.idOperadorTXT =  this._BusResp.claveTxt;
+      if(this._BusResp.buscarPor == "Supervisores") 
+        this._Item.idSupervisor =  this._BusResp.claveTxt;
 
     }
 
@@ -87,49 +76,28 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
   btnGuardar() {
 
     // OBTENER ID DEL TEXTO INPUT
-    if(this._Item.idEconomicoTXT) {
-      var item = this._Item.idEconomicoTXT.split("|");
-      this._Item.idEconomico = item[0].trim();
+    if(this._Item.idSupervisorTXT) {
+      var item = this._Item.idSupervisorTXT.split("|");
+      this._Item.idSupervisor = item[0].trim();
     } else {
-      this._toastr.error("Guardar.", "Falta equipo.")
+      this._toastr.error("Guardar.", "Falta supervisor")
       return
     }
 
-    if(this._Item.idOperadorTXT) {
-      var item = this._Item.idOperadorTXT.split("|");
-      this._Item.idOperador = item[0].trim();
-    } else {
-      this._toastr.error("Guardar.", "Falta operador")
-      return
-    }
-
-    if(this._Item.idObraTXT) {
-      var item = this._Item.idObraTXT.split("|");
-      this._Item.idObra = item[0].trim();
-    } else {
-      this._toastr.error("Guardar.", "Falta obra")
-      return
-    }
-
-    if(this._Item.odometro == null) {
-      this._toastr.error("Guardar.", "Falta Odómetro")
-      return
-    }
-    
     this._fecha = $("#datepicker").val();
-    this._Item.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+    this._Item.fecha = this._svrUtilierias.convertStringToDate(this._fecha);
 
-    this._Item.idUsuario = sessionStorage.getItem("idUsuario");
+    //this._Item.idUsuario = sessionStorage.getItem("idUsuario");
   
 
-    let lAccionRecurso: string = "ubicaciones/insUbicacion"
+    let lAccionRecurso: string = "bitSeg/insList"
 
     if(this._accion == "E")
-      lAccionRecurso = "ubicaciones/updUbicacion"
+      lAccionRecurso = "bitSeg/updList"
 
     this._servicios.wsGeneral(lAccionRecurso, this._Item)
     .subscribe(resp => { }
-    , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Guardar ubicacion.")
+    , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Guardar bitacora.")
     ,() => { 
       sessionStorage.setItem("Item", JSON.stringify(this._Item));
       this._toastr.success("Registro guardado.") 
@@ -137,28 +105,27 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  buscarEquipo() {
-    this._fecha = $("#datepicker").val();
-    this._Item.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
-    sessionStorage.setItem("Item", JSON.stringify(this._Item));
-    sessionStorage.setItem("busResp", JSON.stringify(this._BusResp));
-    this._router.navigate(["/busEquipos"]);
-  }
 
-  buscarObra() {
+  buscarSupervisor() {
     this._fecha = $("#datepicker").val();
-    this._Item.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
-    sessionStorage.setItem("Item", JSON.stringify(this._Item));
-    sessionStorage.setItem("busResp", JSON.stringify(this._BusResp));
-    this._router.navigate(["/busObras"]);
-  }
-
-  buscarOperador() {
-    this._fecha = $("#datepicker").val();
-    this._Item.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
+    this._Item.fecha = this._svrUtilierias.convertStringToDate(this._fecha);
     sessionStorage.setItem("Item", JSON.stringify(this._Item));
     sessionStorage.setItem("busResp", JSON.stringify(this._BusResp));
     this._router.navigate(["/busOperadores"]);
+  }
+
+  btnAgregar() {
+    sessionStorage.setItem("Item", JSON.stringify(this._Item));
+    sessionStorage.removeItem("ItemDet");
+    sessionStorage.removeItem("busResp");
+    this._router.navigate(["/docBitSegDetEquipo"]);
+  }
+
+  btnEditar(ItemDet: any) {
+    sessionStorage.setItem("Item", JSON.stringify(this._Item));
+    sessionStorage.setItem("ItemDet", JSON.stringify(ItemDet));
+    sessionStorage.removeItem("busResp");
+    this._router.navigate(["/docBitSegDetEquipo"]);
   }
 
   btnRegresar() {
@@ -166,28 +133,23 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
     this._router.navigate(["/docBitSeg"]);
   }
 
+  
+
   LimpiarFormulario(){
     this._Item = {
-      idUbicacion: null,
-      idEconomico: null,
-      idOperador: null,
+      idBitacora: null,
+      docBitacora: null,
+      fecha: null,
+      idSupervisor: null,
       idObra: null,
-      fecha_alta: null,
-      comentarios: null,
-      idUsuario: null,
-      fecha_ingreso: null,
-      hodometro: 0,
-      odometro: null,
-      sello: null,
-      litros: null,
-      horometro: null,
-      ventana: "U",
-      idEconomicoTXT: null,
-      idObraTXT: null,
-      idOperadorTXT: null,
-      equipoNom: null,
-      operadorNom: null,
-      obraNom: null
+      area: null,
+      hora_inicio: null,
+      hora_termino: null,
+      supervisorNom: null,
+      obraNom: null,
+      ListadoBitSeg: [],
+      idSupervisorTXT: null,
+      idObraTXT: null
     };
   }
 

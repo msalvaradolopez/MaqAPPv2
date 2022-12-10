@@ -11,6 +11,7 @@ import { CatOperadoresDetComponent } from './cat-operadores-det/cat-operadores-d
 import { CatOperadoresComponent } from './cat-operadores/cat-operadores.component';
 import { ConTableroComponent } from './con-tablero/con-tablero.component';
 import { ConUbicacionesComponent } from './con-ubicaciones/con-ubicaciones.component';
+import { DocBitSegDetEquipoComponent } from './doc-bit-seg-det-equipo/doc-bit-seg-det-equipo.component';
 import { DocBitSegDetComponent } from './doc-bit-seg-det/doc-bit-seg-det.component';
 import { DocBitSegComponent } from './doc-bit-seg/doc-bit-seg.component';
 import { DocUbicacionesDetComponent } from './doc-ubicaciones-det/doc-ubicaciones-det.component';
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: "docUbicacionesDet", component: DocUbicacionesDetComponent},
   {path: "docBitSeg", component: DocBitSegComponent},
   {path: "docBitSegDet", component: DocBitSegDetComponent},
+  {path: "docBitSegDetEquipo", component: DocBitSegDetEquipoComponent},
   {path: "busEquipos", component: BusEquiposComponent},
   {path: "busObras", component: BusObrasComponent},
   {path: "conUbicaciones", component: ConUbicacionesComponent},

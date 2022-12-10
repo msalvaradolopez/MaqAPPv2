@@ -1,15 +1,30 @@
 <br />
 <div class="seccion-titulo">
   <div class="menu-catalogos">
-    <h2 class="colorBlanco">Bit Seguridad : {{ _accionTxt }}</h2>
+    <h2 class="colorBlanco">Seguridad : {{ _accionTxt }}</h2>
     <div style="max-width: 350px; min-width: 100px">
-      <a class="boton-regresar color-verde" (click)="btnRegresar()">
+      <a
+        class="boton-regresar color-verde icono-posicion-tres"
+        (click)="btnRegresar()"
+      >
         <i class="fa-solid fa-house icono-xlg centrar-icono"></i>
         <span class="textoBtn"> &thinsp;Regresar</span>
       </a>
-      <a class="boton-guardar color-verde" (click)="btnGuardar()">
+      <a
+        class="boton-guardar color-verde icono-posicion-dos"
+        (click)="btnGuardar()"
+      >
         <i class="fa-solid fa-floppy-disk icono-xlg centrar-icono"></i>
         <span class="textoBtn"> &thinsp;Guardar</span>
+      </a>
+      <a
+        class="boton-acciones color-verde icono-posicion-uno"
+        (click)="btnAgregar()"
+      >
+        <i class="fa-solid fa-circle-plus icono-xlg icono-plus-circle"></i>
+
+        <i class="fa-solid fa-plus icono-xlg centrar-icono icono-plus"></i>
+        <span class="textoBtn"> &thinsp;Equipo</span>
       </a>
     </div>
   </div>
@@ -18,43 +33,38 @@
 <div class="seccion-principal">
   <div class="capturaBackGround">
     <form class="formsClass" autocomplete="off">
-      <label for="equipo" class="labelInput">Equipo</label>
+      <label for="planta" class="labelInput">Planta</label>
+      <input
+        type="text"
+        id="obra"
+        name="planta"
+        class="inputReadOnlyClass"
+        [(ngModel)]="_Item.idObraTXT"
+        readonly="true"
+        placeholder="click para buscar..."
+      />
+
+      <label for="area" class="labelInput">Area</label>
+      <input
+        type="text"
+        id="comentarios"
+        name="area"
+        class="inputClass"
+        [(ngModel)]="_Item.area"
+      />
+
+      <label for="equipo" class="labelInput">Supervisor</label>
       <input
         type="text"
         id="equipo"
         name="equipo"
         class="inputReadOnlyClass"
-        [(ngModel)]="_Item.idEconomicoTXT"
+        [(ngModel)]="_Item.idSupervisorTXT"
         readonly="true"
         placeholder="click para buscar..."
-        (click)="buscarEquipo()"
       />
 
-      <label for="obra" class="labelInput">Obra</label>
-      <input
-        type="text"
-        id="obra"
-        name="obra"
-        class="inputReadOnlyClass"
-        [(ngModel)]="_Item.idObraTXT"
-        readonly="true"
-        placeholder="click para buscar..."
-        (click)="buscarObra()"
-      />
-
-      <label for="operador" class="labelInput">Operador</label>
-      <input
-        type="text"
-        id="operador"
-        name="operador"
-        class="inputReadOnlyClass"
-        [(ngModel)]="_Item.idOperadorTXT"
-        readonly="true"
-        placeholder="click para buscar..."
-        (click)="buscarOperador()"
-      />
-
-      <label for="Nombre" class="labelInput">Fecha</label>
+      <label for="_fecha" class="labelInput">Fecha</label>
       <input
         type="text"
         class="inputReadOnlyClass"
@@ -65,54 +75,58 @@
         readonly="true"
       />
 
-      <label for="odometro" class="labelInput">Odómetro</label>
+      <label for="_fechaInicio" class="labelInput">Hora inicio</label>
       <input
         type="text"
-        id="comentarios"
-        name="odometro"
-        class="inputClass"
-        [(ngModel)]="_Item.odometro"
+        class="inputReadOnlyClass"
+        [(ngModel)]="_fecha"
+        [value]="_fecha"
+        name="_fechaInicio"
+        id="datepicker"
+        readonly="true"
       />
 
-      <label for="comentarios" class="labelInput">Comentarios</label>
+      <label for="_fechaTermina" class="labelInput">Hora termina</label>
       <input
         type="text"
-        id="comentarios"
-        name="comentarios"
-        class="inputClass"
-        [(ngModel)]="_Item.comentarios"
+        class="inputReadOnlyClass"
+        [(ngModel)]="_fecha"
+        [value]="_fecha"
+        name="_fechaTermina"
+        id="datepicker"
+        readonly="true"
       />
     </form>
   </div>
-  <br />
-  <div class="capturaBackGround">
-    <form class="formsClass" autocomplete="off">
-      <label for="sello" class="labelInput">Sello</label>
-      <input
-        type="text"
-        id="sello"
-        name="sello"
-        class="inputClass"
-        [(ngModel)]="_Item.sello"
-      />
-
-      <label for="litros" class="labelInput">Litros</label>
-      <input
-        type="text"
-        id="litros"
-        name="listros"
-        class="inputClass"
-        [(ngModel)]="_Item.litros"
-      />
-
-      <label for="horometro" class="labelInput">Horómetro</label>
-      <input
-        type="text"
-        id="horometro"
-        name="horometro"
-        class="inputClass"
-        [(ngModel)]="_Item.horometro"
-      />
-    </form>
+  <div class="seccion-principal">
+    <ul class="list-cards">
+      <li
+        *ngFor="let itemEquipo of _Item.ListadoBitSeg"
+        style="margin-top: 5px"
+        class="card-item table-row"
+        (click)="btnEditar(itemEquipo)"
+      >
+        <div class="letra1 borde-abajo" style="width: 100%">
+          <div>{{ itemEquipo.idEconomico }} | {{ itemEquipo.equipoNom }}</div>
+          <div>{{ itemEquipo.idOperador }} | {{ itemEquipo.operadorNom }}</div>
+          <div class="letra2 justifica-items borde-abajo" style="width: 100%">
+            <p>Actividad</p>
+            <p class="letra2 margen-arriba-abajo">{{ itemEquipo.actividad }}</p>
+          </div>
+          <div class="letra2 justifica-items borde-abajo">
+            <p>Punto Exacto</p>
+            <p class="letra2 margen-arriba-abajo">
+              {{ itemEquipo.pto_exacto }}
+            </p>
+          </div>
+          <div class="letra2 justifica-items borde-abajo">
+            <p>Chequeo médico</p>
+            <p class="letra2 margen-arriba-abajo">
+              {{ itemEquipo.chequeo_medico }}
+            </p>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
 </div>
