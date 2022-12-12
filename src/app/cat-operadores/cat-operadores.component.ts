@@ -22,7 +22,7 @@ export class CatOperadoresComponent implements OnInit, OnDestroy {
       this._listado = JSON.parse(sessionStorage.getItem("_listado"));
     else {
       this._loading = true;
-      this._servicios.wsGeneral("operadores/getListFilter", {buscar: "", estatus: "0"})
+      this._servicios.wsGeneral("operadores/getListFilter", {buscar: "", estatus: "0", categoria: "0"})
       .subscribe(resp => this._listado = resp
         , error => {
           this._loading = false;
@@ -72,7 +72,7 @@ export class CatOperadoresComponent implements OnInit, OnDestroy {
 
   listadoFiltrado(buscar: string) {
     this._loading = true;
-    this._servicios.wsGeneral("operadores/getOperadoresFiltro", {buscar: buscar, estatus: "0"})
+    this._servicios.wsGeneral("operadores/getListFilter", {buscar: buscar, estatus: "0", categoria: "0"})
     .subscribe(resp => this._listado = resp
       , error => {
         this._loading = false;

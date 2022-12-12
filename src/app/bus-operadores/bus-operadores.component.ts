@@ -17,7 +17,8 @@ export class BusOperadoresComponent implements OnInit, OnDestroy {
     ventana: "",
     buscarPor: "",
     clave: "",
-    claveTxt: ""
+    claveTxt: "",
+    nombre: ""
   }
 
   _subBuscar: Subscription;
@@ -30,10 +31,11 @@ export class BusOperadoresComponent implements OnInit, OnDestroy {
       this._BusResp = JSON.parse(sessionStorage.getItem("busResp"));
       this._BusResp.clave = "";
       this._BusResp.claveTxt = "";
+      this._BusResp.nombre = "";
     }
     
 
-    this._servicios.wsGeneral("operadores/getListFilter", {buscar: "", estatus: "A"})
+    this._servicios.wsGeneral("operadores/getListFilter", {buscar: "", estatus: "A", categoria: "O"})
     .subscribe(resp => this._listado = resp
       , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar operadores.")
       ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
@@ -45,7 +47,7 @@ export class BusOperadoresComponent implements OnInit, OnDestroy {
   }
 
   listadoFiltrado(buscar: string) {
-    this._servicios.wsGeneral("operadores/getListFilter", {buscar: buscar, estatus: "A"})
+    this._servicios.wsGeneral("operadores/getListFilter", {buscar: buscar, estatus: "A", categoria: "O"})
     .subscribe(resp => this._listado = resp
       , error => this._toastr.error("Error : " + error.error.ExceptionMessage, "Error al consultar operadores.")
       ,() => this._listado = this._listado.map(x => {x.estatus == "A" ? x.estatusTexto = "Activo" : x.estatusTexto = "Baja"; return x;}));
@@ -56,6 +58,7 @@ export class BusOperadoresComponent implements OnInit, OnDestroy {
     this._BusResp.buscarPor = "Operadores";
     this._BusResp.clave = item.idOperador;
     this._BusResp.claveTxt = item.idOperador +" | "+ item.Nombre;
+    this._BusResp.nombre = item.nombre;
     sessionStorage.setItem("busResp", JSON.stringify(this._BusResp));
     this.btnRegresar();
   }

@@ -37,6 +37,7 @@ export interface IBitSegDetail {
     idObraTXT: string;
     idOperadorTXT: string;
     supervisorNom: string;
+    idSupervisorTXT: string;
     equipoNom: string;
     operadorNom: string;
     obraNom: string;

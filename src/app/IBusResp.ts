@@ -3,4 +3,5 @@ export interface IbusResp {
     buscarPor: string;
     clave: string;
     claveTxt: string;
+    nombre: string;
 }

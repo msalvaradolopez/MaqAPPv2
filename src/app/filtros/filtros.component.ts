@@ -35,7 +35,8 @@ export class FiltrosComponent implements OnInit, AfterViewInit {
     ventana: "filtros",
     buscarPor: "",
     clave: "",
-    claveTxt: ""
+    claveTxt: "",
+    nombre: ""
   }
   
   _fecha: string = "";

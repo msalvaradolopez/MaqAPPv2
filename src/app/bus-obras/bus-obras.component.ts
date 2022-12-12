@@ -18,7 +18,8 @@ export class BusObrasComponent implements OnInit, OnDestroy {
     ventana: "",
     buscarPor: "",
     clave: "",
-    claveTxt: ""
+    claveTxt: "",
+    nombre: ""
   }
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService, private _svrUtilierias: srvUtileriasService) { }
@@ -29,6 +30,7 @@ export class BusObrasComponent implements OnInit, OnDestroy {
       this._BusResp = JSON.parse(sessionStorage.getItem("busResp"));
       this._BusResp.clave = "";
       this._BusResp.claveTxt = "";
+      this._BusResp.nombre = "";
     }
     
 
@@ -54,6 +56,7 @@ export class BusObrasComponent implements OnInit, OnDestroy {
     this._BusResp.buscarPor = "Obras";
     this._BusResp.clave = item.idObra;
     this._BusResp.claveTxt = item.idObra +" | "+ item.Nombre;
+    this._BusResp.nombre = item.nombre;
     sessionStorage.setItem("busResp", JSON.stringify(this._BusResp));
     this.btnRegresar();
   }

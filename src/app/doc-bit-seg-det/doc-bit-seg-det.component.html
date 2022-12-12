@@ -42,6 +42,7 @@
         [(ngModel)]="_Item.idObraTXT"
         readonly="true"
         placeholder="click para buscar..."
+        (click)="buscarObra()"
       />
 
       <label for="area" class="labelInput">Area</label>
@@ -62,6 +63,7 @@
         [(ngModel)]="_Item.idSupervisorTXT"
         readonly="true"
         placeholder="click para buscar..."
+        (click)="buscarSupervisor()"
       />
 
       <label for="_fecha" class="labelInput">Fecha</label>
@@ -122,7 +124,151 @@
           <div class="letra2 justifica-items borde-abajo">
             <p>Chequeo médico</p>
             <p class="letra2 margen-arriba-abajo">
-              {{ itemEquipo.chequeo_medico }}
+              {{ valoresRadioButtons(itemEquipo.chequeo_medico) }}
+            </p>
+          </div>
+
+          <div
+            *ngIf="itemEquipo.chequeo_medico != 'X'"
+            class="letra2 borde-abajo"
+          >
+            <p class="letra2 margen-arriba-abajo" style="margin-left: 5px">
+              {{ itemEquipo.chequeo_medico_obs }}
+            </p>
+          </div>
+
+          <div class="letra2 justifica-items borde-abajo">
+            <p>Check list Equipo</p>
+            <p class="letra2 margen-arriba-abajo">
+              {{ valoresRadioButtons(itemEquipo.checklist_maq_equip) }}
+            </p>
+          </div>
+
+          <div
+            *ngIf="itemEquipo.checklist_maq_equip != 'X'"
+            class="letra2 borde-abajo"
+          >
+            <p class="letra2 margen-arriba-abajo" style="margin-left: 5px">
+              {{ itemEquipo.checklist_maq_equip_obs }}
+            </p>
+          </div>
+
+          <div class="letra2 justifica-items borde-abajo">
+            <p>A P R</p>
+            <p class="letra2 margen-arriba-abajo">
+              {{ valoresRadioButtons(itemEquipo.apr) }}
+            </p>
+          </div>
+
+          <div *ngIf="itemEquipo.apr != 'X'" class="letra2 borde-abajo">
+            <p class="letra2 margen-arriba-abajo" style="margin-left: 5px">
+              {{ itemEquipo.apr_obs }}
+            </p>
+          </div>
+
+          <div class="letra2 justifica-items borde-abajo">
+            <p>Permiso de instancia</p>
+            <p class="letra2 margen-arriba-abajo">
+              {{ valoresRadioButtons(itemEquipo.permiso_instancia) }}
+            </p>
+          </div>
+
+          <div
+            *ngIf="itemEquipo.permiso_instancia != 'X'"
+            class="letra2 borde-abajo"
+          >
+            <p class="letra2 margen-arriba-abajo" style="margin-left: 5px">
+              {{ itemEquipo.permiso_instancia_obs }}
+            </p>
+          </div>
+
+          <div class="letra2 justifica-items borde-abajo">
+            <p>DC3</p>
+            <p class="letra2 margen-arriba-abajo">
+              {{ valoresRadioButtons(itemEquipo.dc3) }}
+            </p>
+          </div>
+
+          <div *ngIf="itemEquipo.dc3 != 'X'" class="letra2 borde-abajo">
+            <p class="letra2 margen-arriba-abajo" style="margin-left: 5px">
+              {{ itemEquipo.dc3_obs }}
+            </p>
+          </div>
+
+          <div class="letra2 justifica-items borde-abajo">
+            <p>Extintor</p>
+            <p class="letra2 margen-arriba-abajo">
+              {{ valoresRadioButtons(itemEquipo.extintor) }}
+            </p>
+          </div>
+
+          <div *ngIf="itemEquipo.extintor != 'X'" class="letra2 borde-abajo">
+            <p class="letra2 margen-arriba-abajo" style="margin-left: 5px">
+              {{ itemEquipo.extintor_obs }}
+            </p>
+          </div>
+
+          <div class="letra2 justifica-items borde-abajo">
+            <p>Kit antiderrames</p>
+            <p class="letra2 margen-arriba-abajo">
+              {{ valoresRadioButtons(itemEquipo.kit_antiderrames) }}
+            </p>
+          </div>
+
+          <div
+            *ngIf="itemEquipo.kit_antiderrames != 'X'"
+            class="letra2 borde-abajo"
+          >
+            <p class="letra2 margen-arriba-abajo" style="margin-left: 5px">
+              {{ itemEquipo.kit_antiderrames_obs }}
+            </p>
+          </div>
+
+          <div class="letra2 justifica-items borde-abajo">
+            <p>Platica 5 minutos</p>
+            <p class="letra2 margen-arriba-abajo">
+              {{ valoresRadioButtons(itemEquipo.platica_5min) }}
+            </p>
+          </div>
+
+          <div
+            *ngIf="itemEquipo.platica_5min != 'X'"
+            class="letra2 borde-abajo"
+          >
+            <p class="letra2 margen-arriba-abajo" style="margin-left: 5px">
+              {{ itemEquipo.platica_5min_obs }}
+            </p>
+          </div>
+
+          <div class="letra2 justifica-items borde-abajo">
+            <p>EPP</p>
+            <p class="letra2 margen-arriba-abajo">
+              {{ valoresRadioButtons(itemEquipo.epp) }}
+            </p>
+          </div>
+
+          <div *ngIf="itemEquipo.epp != 'X'" class="letra2 borde-abajo">
+            <p class="letra2 margen-arriba-abajo" style="margin-left: 5px">
+              {{ itemEquipo.epp_obs }}
+            </p>
+          </div>
+
+          <div class="letra2 justifica-items borde-abajo">
+            <p>Otro</p>
+            <p class="letra2 margen-arriba-abajo">
+              {{ valoresRadioButtons(itemEquipo.otro) }}
+            </p>
+          </div>
+
+          <div *ngIf="itemEquipo.otro != 'X'" class="letra2 borde-abajo">
+            <p class="letra2 margen-arriba-abajo" style="margin-left: 5px">
+              {{ itemEquipo.otro_descrip }}
+            </p>
+          </div>
+
+          <div *ngIf="itemEquipo.otro != 'X'" class="letra2 borde-abajo">
+            <p class="letra2 margen-arriba-abajo" style="margin-left: 5px">
+              {{ itemEquipo.otro_obs }}
             </p>
           </div>
         </div>

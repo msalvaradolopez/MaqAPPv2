@@ -19,7 +19,8 @@ export class BusEquiposComponent implements OnInit, OnDestroy {
     ventana: "",
     buscarPor: "",
     clave: "",
-    claveTxt: ""
+    claveTxt: "",
+    nombre: ""
   }
   _subBuscar: Subscription;
 
@@ -31,6 +32,7 @@ export class BusEquiposComponent implements OnInit, OnDestroy {
       this._BusResp = JSON.parse(sessionStorage.getItem("busResp"));
       this._BusResp.clave = "";
       this._BusResp.claveTxt = "";
+      this._BusResp.nombre = "";
     } else
     
     this._loading = true;
@@ -70,6 +72,7 @@ export class BusEquiposComponent implements OnInit, OnDestroy {
     this._BusResp.buscarPor = "Equipos";
     this._BusResp.clave = item.idEconomico;
     this._BusResp.claveTxt = item.idEconomico +" | "+ item.Tipo;
+    this._BusResp.nombre = item.Tipo;
     sessionStorage.setItem("busResp", JSON.stringify(this._BusResp));
     this.btnRegresar();
   }

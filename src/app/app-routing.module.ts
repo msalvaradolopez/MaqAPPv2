@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BusEquiposComponent } from './bus-equipos/bus-equipos.component';
 import { BusObrasComponent } from './bus-obras/bus-obras.component';
 import { BusOperadoresComponent } from './bus-operadores/bus-operadores.component';
+import { BusSupervisoresComponent } from './bus-supervisores/bus-supervisores.component';
 import { CatEquiposDetComponent } from './cat-equipos-det/cat-equipos-det.component';
 import { CatEquiposComponent } from './cat-equipos/cat-equipos.component';
 import { CatObrasDetComponent } from './cat-obras-det/cat-obras-det.component';
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path: "docBitSegDetEquipo", component: DocBitSegDetEquipoComponent},
   {path: "busEquipos", component: BusEquiposComponent},
   {path: "busObras", component: BusObrasComponent},
+  {path: "busSupervisores", component: BusSupervisoresComponent},
   {path: "conUbicaciones", component: ConUbicacionesComponent},
   {path: "conTablero", component: ConTableroComponent},
   {path: "busOperadores", component: BusOperadoresComponent},

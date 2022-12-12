@@ -41,7 +41,8 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDest
     ventana: "docUbicacionesDet",
     buscarPor: "",
     clave: "",
-    claveTxt: ""
+    claveTxt: "",
+    nombre: ""
   }
 
   _accion: string = "E";
