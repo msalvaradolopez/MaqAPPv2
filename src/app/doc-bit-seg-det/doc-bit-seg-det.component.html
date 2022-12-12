@@ -77,26 +77,28 @@
         readonly="true"
       />
 
-      <label for="_fechaInicio" class="labelInput">Hora inicio</label>
+      <label for="horaInicio" class="labelInput">Hora Inicio</label>
       <input
         type="text"
+        id="horaInicio"
+        name="horaInicio"
         class="inputReadOnlyClass"
-        [(ngModel)]="_fecha"
-        [value]="_fecha"
-        name="_fechaInicio"
-        id="datepicker"
+        [(ngModel)]="_Item.horaInicio"
         readonly="true"
+        placeholder="click para elegir hora / minutos..."
+        (click)="busHorasMinutos('Inicio')"
       />
 
-      <label for="_fechaTermina" class="labelInput">Hora termina</label>
+      <label for="horaTermino" class="labelInput">Hora Termino</label>
       <input
         type="text"
+        id="horaTermino"
+        name="horaTermino"
         class="inputReadOnlyClass"
-        [(ngModel)]="_fecha"
-        [value]="_fecha"
-        name="_fechaTermina"
-        id="datepicker"
+        [(ngModel)]="_Item.horaTermino"
         readonly="true"
+        placeholder="click para elegir hora / minutos..."
+        (click)="busHorasMinutos('Termino')"
       />
     </form>
   </div>

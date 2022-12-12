@@ -44,7 +44,11 @@ export class DocBitSegComponent implements OnInit {
   ngOnInit(): void {
 
     this._fecha = this._svrUtilierias.convertDateToString(new Date());
-    this._filtros.idUsuario = sessionStorage.getItem("idUsuario");
+    let categoria: string = sessionStorage.getItem("categoria");
+    if(categoria == "A")
+      this._filtros.idUsuario = "0";
+    else
+      this._filtros.idUsuario = sessionStorage.getItem("idUsuario");
 
     if(sessionStorage.getItem("Filtros")){
       this._filtros = JSON.parse(sessionStorage.getItem("Filtros"));
@@ -155,7 +159,11 @@ export class DocBitSegComponent implements OnInit {
 
     this._filtros.fecha = this._fecha;
     this._filtros.fecha_alta = this._svrUtilierias.convertStringToDate(this._fecha);
-    this._filtros.idUsuario = sessionStorage.getItem("idUsuario");
+    let categoria: string = sessionStorage.getItem("categoria");
+    if(categoria == "A")
+      this._filtros.idUsuario = "0";
+    else
+      this._filtros.idUsuario = sessionStorage.getItem("idUsuario");
   }
 
 

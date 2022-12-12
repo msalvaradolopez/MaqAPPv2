@@ -773,3 +773,64 @@ tr:nth-child(2n) {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+
+/* GENERAR  NUEVO CSS */
+.columns-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 5px;
+}
+
+.columns-1 {
+  display: grid;
+  grid-template-columns: 1fr; 
+  gap: 5px;
+}
+
+.scroll {
+  overflow: auto;
+}
+
+.row-line {
+  display: flex;
+  flex-direction: row;
+}
+
+.row-line-center {
+  justify-content: center;
+}
+
+.container-main {
+  width: 45%;
+  max-height: calc(100vh - 130px); /* 100px is the height of the navbar */
+  min-height: auto;
+  margin: auto;
+}
+
+.card {
+  list-style: none;
+  background: #50597b;
+  padding: 10px 15px 10px 25px;
+  margin: auto;
+  margin-top: 1px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 3px;
+
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 60px;
+  height: auto;
+
+  font-size: x-large;
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.color-white {
+  color: white;
+}

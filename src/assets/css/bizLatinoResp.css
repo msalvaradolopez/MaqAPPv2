@@ -190,6 +190,12 @@
   flex-direction: column;
   width: 100%;
 }
+
+/* GENERAR NUEVO CSS*/
+.container-main {
+  width: 95%;
+}
+
 }
 
 @media only screen and (max-height: 500px){

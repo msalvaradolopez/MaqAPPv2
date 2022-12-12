@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { IUbicacion } from '../iubicacion';
 import { IbusResp } from '../IBusResp';
 import { IBitSegMaster } from '../IBitSegMaster';
+import { IBusHorasMinutos } from '../IBusHorasMinutos';
 declare var $: any;
 
 
@@ -31,6 +32,8 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
     ListadoBitSeg: [],
     idSupervisorTXT: null,
     idObraTXT: null,
+    horaInicio: null,
+    horaTermino: null
   };
 
   _BusResp: IbusResp = {
@@ -41,11 +44,18 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
     nombre: ""
   }
 
+  _busHorasMinutos: IBusHorasMinutos = {
+    ventana: "docBitSegDet",
+    nomCampo: null,
+    horas: "00",
+    minutos: "00"
+  }
+
   _accion: string = "E";
   _accionTxt: string = "";
   _fecha: string = "";
-  _hora_inicio: string;
-  _hora_termino: string;
+  _hora_inicio: string = "00";
+  _hora_termino: string = "00";
 
   constructor(private _servicios: ServiciosService, private _router: Router, private _toastr: ToastrService, private _svrUtilierias: srvUtileriasService) { }
 
@@ -91,6 +101,15 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
 
+    if(sessionStorage.getItem("busHorasMinutos")) {
+      this._busHorasMinutos = JSON.parse(sessionStorage.getItem("busHorasMinutos"));
+      if(this._busHorasMinutos.nomCampo == "Inicio")
+        this._Item.horaInicio = this._busHorasMinutos.horas + ":" + this._busHorasMinutos.minutos;
+
+      if(this._busHorasMinutos.nomCampo == "Termino")
+        this._Item.horaTermino = this._busHorasMinutos.horas + ":" + this._busHorasMinutos.minutos;
+    }
+
     this._accionTxt = this._accion == "E" ? "Editando" : "Nuevo";
 
   }
@@ -119,13 +138,24 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
       this._toastr.error("Area requerida.", "Guardar.");
       return;
     }
+
+    
+    if(this._Item.horaInicio == null || this._Item.horaInicio == "") {
+      this._toastr.error("Ingrese hora inicial a la bitacora", "Guardar bitacora.")
+      return;
+    }
+
+    if(this._Item.horaTermino == null || this._Item.horaTermino == "") {
+      this._toastr.error("Ingrese hora termino a la bitacora", "Guardar bitacora.")
+      return;
+    }
       
     if(this._Item.ListadoBitSeg.length == 0) {
       this._toastr.error("Ingrese equipo(s) a la bitacora", "Guardar bitacora.")
       return;
     }
-    
 
+    
 
     this._fecha = $("#datepicker").val();
     this._Item.fecha = this._svrUtilierias.convertStringToDate(this._fecha);
@@ -148,14 +178,13 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
       item.fecha = this._Item.fecha;
       item.hora_inicio = this._Item.hora_inicio;
       item.hora_termino = this._Item.hora_termino;
+      item.horaInicio = this._Item.horaInicio;
+      item.horaTermino = this._Item.horaTermino;
       return item;
     });
   
 
-    let lAccionRecurso: string = "bitSeg/insList"
-
-    if(this._accion == "E")
-      lAccionRecurso = "bitSeg/updList"
+    let lAccionRecurso: string = "bitSeg/updList";
 
     this._servicios.wsGeneral(lAccionRecurso, this._Item.ListadoBitSeg)
     .subscribe(resp => { }
@@ -244,8 +273,12 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   btnRegresar() {
+    if(this.validaCambiosHeader())
+      this.btnGuardar();
+      
     sessionStorage.removeItem("busResp");
     sessionStorage.removeItem("_listado");
+    sessionStorage.removeItem("busHorasMinutos");
     this._router.navigate(["/docBitSeg"]);
   }
 
@@ -254,7 +287,7 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
   LimpiarFormulario(){
     this._Item = {
       idBitacora: null,
-      docBitacora: null,
+      docBitacora: 0,
       fecha: null,
       idSupervisor: null,
       idObra: null,
@@ -265,7 +298,9 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
       obraNom: null,
       ListadoBitSeg: [],
       idSupervisorTXT: null,
-      idObraTXT: null
+      idObraTXT: null,
+      horaInicio: null,
+      horaTermino: null
     };
   }
 
@@ -280,6 +315,45 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
     return "NO";
 
     return "";
+  }
+
+  validaCambiosHeader() : boolean {
+    this._Item.ListadoBitSeg.forEach(item => {
+      if(item.idObra != this._Item.idObra)
+        return true;
+      
+      if(item.idSupervisor != this._Item.idSupervisor)
+        return true;
+      
+      if(item.area != this._Item.area)
+        return true;
+
+      if(item.fecha != this._Item.fecha)
+        return true;
+
+      if(item.horaInicio != this._Item.horaInicio)
+        return true;
+
+      if(item.horaTermino != this._Item.horaTermino)
+        return true;
+      
+    });
+    return false;
+  }
+
+  busHorasMinutos(nomCampo: string) {
+    this._fecha = $("#datepicker").val();
+    this._Item.fecha = this._svrUtilierias.convertStringToDate(this._fecha);
+    this._hora_inicio = $("#datepicker").val();
+    this._Item.hora_inicio = this._svrUtilierias.convertStringToDate(this._hora_inicio);
+
+    this._hora_termino = $("#datepicker").val();
+    this._Item.hora_termino = this._svrUtilierias.convertStringToDate(this._hora_termino);
+
+    sessionStorage.setItem("Item", JSON.stringify(this._Item));
+    this._busHorasMinutos.nomCampo = nomCampo;
+    sessionStorage.setItem("busHorasMinutos", JSON.stringify(this._busHorasMinutos));
+    this._router.navigate(["/busHorasMinutos"]);
   }
 
   ngAfterViewInit(): void {
@@ -308,6 +382,7 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     // sessionStorage.removeItem("busResp");
+    // sessionStorage.removeItem("busHorasMinutos");
   }
 
 }

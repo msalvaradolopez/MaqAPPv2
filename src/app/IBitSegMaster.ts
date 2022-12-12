@@ -14,4 +14,6 @@ export interface IBitSegMaster {
     ListadoBitSeg: IBitSegDetail[];
     idSupervisorTXT: string;
     idObraTXT: string;
+    horaInicio: string;
+    horaTermino: string;
 }

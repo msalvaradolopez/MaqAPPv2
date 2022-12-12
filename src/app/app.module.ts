@@ -31,6 +31,7 @@ import { DocBitSegComponent } from './doc-bit-seg/doc-bit-seg.component';
 import { DocBitSegDetComponent } from './doc-bit-seg-det/doc-bit-seg-det.component';
 import { DocBitSegDetEquipoComponent } from './doc-bit-seg-det-equipo/doc-bit-seg-det-equipo.component';
 import { BusSupervisoresComponent } from './bus-supervisores/bus-supervisores.component';
+import { BusHorasMinutosComponent } from './bus-horas-minutos/bus-horas-minutos.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { BusSupervisoresComponent } from './bus-supervisores/bus-supervisores.co
     DocBitSegComponent,
     DocBitSegDetComponent,
     DocBitSegDetEquipoComponent,
-    BusSupervisoresComponent
+    BusSupervisoresComponent,
+    BusHorasMinutosComponent
   ],
   imports: [
     BrowserModule,

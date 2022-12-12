@@ -163,6 +163,7 @@ export class DocUbicacionesDetComponent implements OnInit, AfterViewInit, OnDest
 
   btnRegresar() {
     sessionStorage.removeItem("busResp");
+    sessionStorage.removeItem("_listado");
     this._router.navigate(["/docUbicaciones"]);
   }
 

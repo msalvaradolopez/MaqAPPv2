@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BusEquiposComponent } from './bus-equipos/bus-equipos.component';
+import { BusHorasMinutosComponent } from './bus-horas-minutos/bus-horas-minutos.component';
 import { BusObrasComponent } from './bus-obras/bus-obras.component';
 import { BusOperadoresComponent } from './bus-operadores/bus-operadores.component';
 import { BusSupervisoresComponent } from './bus-supervisores/bus-supervisores.component';
@@ -41,6 +42,7 @@ const routes: Routes = [
   {path: "conUbicaciones", component: ConUbicacionesComponent},
   {path: "conTablero", component: ConTableroComponent},
   {path: "busOperadores", component: BusOperadoresComponent},
+  {path: "busHorasMinutos", component: BusHorasMinutosComponent},
   {path: "filtros", component: FiltrosComponent},
   {path: "login", component: LoginComponent}
 ];

@@ -31,6 +31,8 @@ export class DocBitSegDetEquipoComponent implements OnInit {
     ListadoBitSeg: [],
     idSupervisorTXT: null,
     idObraTXT: null,
+    horaInicio: null,
+    horaTermino: null
   };
 
   _ItemDet: IBitSegDetail = {
@@ -75,7 +77,9 @@ export class DocBitSegDetEquipoComponent implements OnInit {
     idSupervisorTXT: null,
     equipoNom: null,
     operadorNom: null,
-    obraNom: null
+    obraNom: null,
+    horaInicio: null,
+    horaTermino: null
   };
 
   _BusResp: IbusResp = {
@@ -103,6 +107,7 @@ export class DocBitSegDetEquipoComponent implements OnInit {
 
     this._Item = JSON.parse(sessionStorage.getItem("Item"));
 
+    this._ItemDet.docBitacora = this._Item.docBitacora;
     this._ItemDet.idObra = this._Item.idObra;
     this._ItemDet.obraNom = this._Item.obraNom;
     this._ItemDet.idSupervisor = this._Item.idSupervisor;
@@ -111,6 +116,8 @@ export class DocBitSegDetEquipoComponent implements OnInit {
     this._ItemDet.fecha = this._Item.fecha;
     this._ItemDet.hora_inicio = this._Item.hora_inicio;
     this._ItemDet.hora_termino = this._Item.hora_termino;
+    this._ItemDet.horaInicio = this._Item.horaInicio;
+    this._ItemDet.horaTermino = this._Item.horaTermino;
 
     if(sessionStorage.getItem("busResp")) {
       this._BusResp = JSON.parse(sessionStorage.getItem("busResp"));
@@ -337,7 +344,9 @@ export class DocBitSegDetEquipoComponent implements OnInit {
       idSupervisorTXT: null,
       equipoNom: null,
       operadorNom: null,
-      obraNom: null
+      obraNom: null,
+      horaInicio: null,
+      horaTermino: null
     };
   }
 

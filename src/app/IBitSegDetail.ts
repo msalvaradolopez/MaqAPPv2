@@ -41,4 +41,6 @@ export interface IBitSegDetail {
     equipoNom: string;
     operadorNom: string;
     obraNom: string;
+    horaInicio: string;
+    horaTermino: string;
 }
