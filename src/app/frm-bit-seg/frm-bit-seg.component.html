@@ -1,7 +1,7 @@
 <br />
 <div class="seccion-titulo">
   <div class="menu-catalogos">
-    <h2 class="colorBlanco">Seguridad : {{ _accionTxt }}</h2>
+    <h2 class="colorBlanco">Formato Bit Seguridad</h2>
     <div style="max-width: 350px; min-width: 100px">
       <a
         class="boton-regresar color-verde icono-posicion-tres"
@@ -11,34 +11,17 @@
         <span class="textoBtn"> &thinsp;Regresar</span>
       </a>
       <a
-        class="boton-regresar color-verde icono-posicion-tres"
-        (click)="btnFormato()"
-      >
-        <i class="fa-solid fa-file icono-xlg centrar-icono"></i>
-
-        <span class="textoBtn"> &thinsp;Formato</span>
-      </a>
-      <a
         class="boton-guardar color-verde icono-posicion-dos"
-        (click)="btnGuardar()"
+        (click)="btnGererarPDF()"
       >
         <i class="fa-solid fa-floppy-disk icono-xlg centrar-icono"></i>
-        <span class="textoBtn"> &thinsp;Guardar</span>
-      </a>
-      <a
-        class="boton-acciones color-verde icono-posicion-uno"
-        (click)="btnAgregar()"
-      >
-        <i class="fa-solid fa-circle-plus icono-xlg icono-plus-circle"></i>
-
-        <i class="fa-solid fa-plus icono-xlg centrar-icono icono-plus"></i>
-        <span class="textoBtn"> &thinsp;Equipo</span>
+        <span class="textoBtn"> &thinsp;PDF</span>
       </a>
     </div>
   </div>
 </div>
 <br />
-<div class="seccion-principal">
+<div #idFormato class="seccion-principal">
   <div class="capturaBackGround">
     <form class="formsClass" autocomplete="off">
       <label for="planta" class="labelInput">Planta</label>
@@ -50,7 +33,6 @@
         [(ngModel)]="_Item.idObraTXT"
         readonly="true"
         placeholder="click para buscar..."
-        (click)="buscarObra()"
       />
 
       <label for="area" class="labelInput">Area</label>
@@ -71,7 +53,6 @@
         [(ngModel)]="_Item.idSupervisorTXT"
         readonly="true"
         placeholder="click para buscar..."
-        (click)="buscarSupervisor()"
       />
 
       <label for="_fecha" class="labelInput">Fecha</label>
@@ -286,4 +267,3 @@
     </ul>
   </div>
 </div>
-<app-loading-circle *ngIf="_loading"></app-loading-circle>

@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServiciosService } from '../servicios.service';
 import { srvUtileriasService } from '../srvUtilerias.service';
@@ -10,15 +10,13 @@ import { IBitSegMaster } from '../IBitSegMaster';
 import { IBusHorasMinutos } from '../IBusHorasMinutos';
 declare var $: any;
 
-
 @Component({
-  selector: 'app-doc-bit-seg-det',
-  templateUrl: './doc-bit-seg-det.component.html',
-  styleUrls: ['./doc-bit-seg-det.component.css']
+  selector: 'app-frm-bit-seg',
+  templateUrl: './frm-bit-seg.component.html',
+  styleUrls: ['./frm-bit-seg.component.css']
 })
-export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
-
-  _loading: boolean = false;
+export class FrmBitSegComponent implements OnInit {
+  @ViewChild('idFormato',{static: true}) _formato: ElementRef;
 
   _Item: IBitSegMaster = {
     idBitacora: null,
@@ -275,16 +273,16 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   btnRegresar() {
-    if(this.validaCambiosHeader())
-      this.btnGuardar();
-      
-    sessionStorage.removeItem("busResp");
-    sessionStorage.removeItem("_listado");
-    sessionStorage.removeItem("busHorasMinutos");
-    this._router.navigate(["/docBitSeg"]);
+    this._router.navigate(["/docBitSegDet"]);
   }
 
-  
+  btnGererarPDF() {
+    const  htmlFormato = this._formato.nativeElement;
+    const htmlBase64 = btoa(htmlFormato);
+    const htmlString = atob(htmlBase64);
+    console.log("Base64", htmlBase64);
+    console.log("String", htmlString);
+  }
 
   LimpiarFormulario(){
     this._Item = {
@@ -356,40 +354,6 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
     this._busHorasMinutos.nomCampo = nomCampo;
     sessionStorage.setItem("busHorasMinutos", JSON.stringify(this._busHorasMinutos));
     this._router.navigate(["/busHorasMinutos"]);
-  }
-
-  btnFormato() {
-    let formatoPDFbase64: string = "";
-    if(this.validaCambiosHeader())
-      this.btnGuardar();
-      
-      this._loading = true;
-      this._servicios.wsGeneral("bitSeg/getPDF", this._Item)
-      .subscribe(resp => { 
-        formatoPDFbase64 = resp;
-        //console.log(formatoPDFbase64); 
-      }
-      , error => {
-        this._loading = false;
-        this._toastr.error("Error : " + error.error.ExceptionMessage, "Generar PDF bitacora.")
-      } 
-      ,() => { 
-        sessionStorage.setItem("Item", JSON.stringify(this._Item));
-        this._loading = false;
-
-        const win = window.open("","_blank");
-        let html = '';
-
-        html += '<html>';
-        html += '<body style="margin:0!important">';
-        html += '<embed width="100%" height="100%" src="data:application/pdf;base64,'+formatoPDFbase64+'" type="application/pdf" />';
-        html += '</body>';
-        html += '</html>';
-
-        setTimeout(() => {
-          win.document.write(html);
-        }, 0);
-      });
   }
 
   ngAfterViewInit(): void {

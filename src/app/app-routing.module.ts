@@ -20,6 +20,7 @@ import { DocBitSegComponent } from './doc-bit-seg/doc-bit-seg.component';
 import { DocUbicacionesDetComponent } from './doc-ubicaciones-det/doc-ubicaciones-det.component';
 import { DocUbicacionesComponent } from './doc-ubicaciones/doc-ubicaciones.component';
 import { FiltrosComponent } from './filtros/filtros.component';
+import { FrmBitSegComponent } from './frm-bit-seg/frm-bit-seg.component';
 import { LoginComponent } from './login/login.component';
 import { MenuGeneralComponent } from './menu-general/menu-general.component';
 
@@ -45,6 +46,7 @@ const routes: Routes = [
   {path: "busOperadores", component: BusOperadoresComponent},
   {path: "busHorasMinutos", component: BusHorasMinutosComponent},
   {path: "conBitSeg", component: ConBitSegComponent},
+  {path: "frmBitSeg", component: FrmBitSegComponent},
   {path: "filtros", component: FiltrosComponent},
   {path: "login", component: LoginComponent}
 ];
