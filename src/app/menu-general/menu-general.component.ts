@@ -21,6 +21,7 @@ export class MenuGeneralComponent implements OnInit {
                     {categoria: "A", icono: "fa-solid fa-user", idMenu: "catOperadores", Nombre: "Catálogo de Operadores", Descripcion: "Permite ingresar y modificar los registros para operadores."},
                     {categoria: "A", icono: "fa-solid fa-gears", idMenu: "catEquipos", Nombre: "Catálogo de Equipo/Maquinaria", Descripcion: "Permite ingresar y modificar los registros de Equipos y Maquinaria."},
                     {categoria: "A", icono: "fa-solid fa-rectangle-list", idMenu: "conUbicaciones", Nombre: "Consulta de ubicaciones", Descripcion: ""},
+                    {categoria: "A", icono: "fa-solid fa-rectangle-list", idMenu: "conBitSeg", Nombre: "Consulta de Bitacora Seguridad", Descripcion: ""},
                     {categoria: "A", icono: "fa-solid fa-plane", idMenu: "conTablero", Nombre: "Tablero de ubicaciones", Descripcion: ""}
                   ]
                   

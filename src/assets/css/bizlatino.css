@@ -226,13 +226,6 @@ tr {
   height: 30px;
 }
 
-tr:hover td {
-  cursor: pointer;
-  transform: scale(1.03);
-  background: linear-gradient(rgb(255, 255, 255), rgba(99, 98, 98, 0.918));
-  color: black;
-}
-
 th {
   color: #d5dde5;
   background-color: black;
@@ -258,9 +251,6 @@ td {
   text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
 }
 
-tr:nth-child(2n) {
-  background: white;
-}
 
 .table-row {
   transition: transform 0.2s;
@@ -833,4 +823,33 @@ tr:nth-child(2n) {
 
 .color-white {
   color: white;
+}
+
+.table-standard {
+  border-radius:3px;
+  border-collapse: collapse;
+  margin: auto;
+  padding:5px;
+  width: 100%;
+  background: transparent;
+  color:#D5DDE5;;
+  White-space: nowrap;
+}
+
+.rectangle-standard {
+  max-width: 95%;
+  min-width: 95%;
+  min-height: calc(100vh - 65px); /* 100px is the height of the navbar */
+  max-height: auto;
+  padding: 5px;
+  background: #50597b;
+  border-radius: 10px;
+  color: white;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  margin: auto;
+}
+
+.vertical-scroll {
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
