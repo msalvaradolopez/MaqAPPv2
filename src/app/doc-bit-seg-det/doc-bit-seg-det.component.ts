@@ -377,6 +377,7 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
         sessionStorage.setItem("Item", JSON.stringify(this._Item));
         this._loading = false;
 
+        /*
         const win = window.open("","_blank");
         let html = '';
 
@@ -389,6 +390,26 @@ export class DocBitSegDetComponent implements OnInit, AfterViewInit, OnDestroy {
         setTimeout(() => {
           win.document.write(html);
         }, 0);
+        */
+
+       // base64 string
+      var base64str = formatoPDFbase64;
+
+      // decode base64 string, remove space for IE compatibility
+      var binary = atob(base64str.replace(/\s/g, ''));
+      var len = binary.length;
+      var buffer = new ArrayBuffer(len);
+      var view = new Uint8Array(buffer);
+      for (var i = 0; i < len; i++) {
+          view[i] = binary.charCodeAt(i);
+      }
+
+      // create the blob object with content-type "application/pdf"               
+      var blob = new Blob( [view], { type: "application/pdf" });
+      var url = URL.createObjectURL(blob);
+
+      window.open(url,"_blank");
+
       });
   }
 
